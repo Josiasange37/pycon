@@ -1,0 +1,109 @@
+/*
+ * The two themes. Dark is the cave by torchlight; light is the same wall in daylight: pale
+ * limestone, dark ink, and an ochre deep enough to read on it. The splash and the Zen line
+ * keep their own darkness in both: the torch needs the dark to tell its story.
+ */
+:root {
+  color-scheme: dark;
+  --ground: #0b0c0b;
+  --ground-2: #141615;
+  --surface: #161716;
+  --surface-hi: #1c1d1b;
+  --ink: #ecebe6;
+  --ink-soft: rgb(236 235 230 / 0.74);
+  --ink-hover: #ffffff;
+  --on-ink: #141210;
+  --line: rgb(255 255 255 / 0.06);
+  --line-accent: rgb(224 169 109 / 0.3);
+  --ochre: #e0a96d;
+  --ochre-deep: #d98a3c;
+  --ochre-hover: #ecbb84;
+  --terracotta: #b5532f;
+  --py-blue: #7fb2e5;
+  --ubuntu: #e95420;
+  --django: #44b78b;
+  --django-hover: #5fcaa0;
+  --on-django: #0b2219;
+  --plate: #ecebe6;
+  --on-plate: #141210;
+  --oval-ground: #2a1a10;
+  /* the colour laid over the rock photograph, and how much more of it light needs */
+  --scrim: 11 12 11;
+  --scrim-lift: 0;
+  --hero-glow: rgb(56 85 90 / 0.12);
+  --float-shadow: rgb(0 0 0 / 0.45);
+  --rock: url('/splash/art/wall.jpg');
+  --gutter: clamp(16px, 4vw, 56px);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ground: #f3ede3;
+  --ground-2: #e9e0d1;
+  --surface: #fbf8f2;
+  --surface-hi: #ffffff;
+  --ink: #1d1a16;
+  --ink-soft: rgb(29 26 22 / 0.72);
+  --ink-hover: #000000;
+  --on-ink: #f6f1e8;
+  --line: rgb(29 26 22 / 0.1);
+  --line-accent: rgb(160 82 24 / 0.4);
+  --ochre: #a3521a;
+  --ochre-deep: #b8621f;
+  --ochre-hover: #8a4212;
+  --py-blue: #2c639c;
+  --ubuntu: #c7431a;
+  --django: #1d7a53;
+  --django-hover: #176445;
+  --on-django: #ffffff;
+  --plate: #ffffff;
+  --on-plate: #1d1a16;
+  --oval-ground: #e6d3bd;
+  --scrim: 243 237 227;
+  --scrim-lift: 0.08;
+  --hero-glow: rgb(255 252 245 / 0.35);
+  --float-shadow: rgb(60 40 20 / 0.22);
+  --rock: url('/splash/art/wall-light.jpg');
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: none;
+}
+
+.ground {
+  position: fixed;
+  inset: 0;
+  background: #0b0c0b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* on pale stone the logo's white chalk needs a breath of shade to hold its edge */
+:root[data-theme='light'] .hero__logo img,
+:root[data-theme='light'] .pillar__oval[data-fit='fabric'] img {
+  filter: drop-shadow(0 0 1px rgb(60 40 20 / 0.45));
+}

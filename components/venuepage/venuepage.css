@@ -1,0 +1,234 @@
+/* ——— the venue page ——— */
+
+.venue-where__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.venue-card {
+  margin-top: 36px;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  font-style: normal;
+}
+
+.venue-card h3 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 700;
+  color: var(--ochre);
+}
+
+.venue-card p {
+  margin: 12px 0 24px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.venue-text {
+  margin: 28px 0 0;
+  max-width: 56ch;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.venue-features {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.venue-features li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 17px;
+}
+
+.venue-features li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ochre-deep);
+}
+
+/* the logo on its piece of the wall */
+.venue-figure {
+  margin: 0;
+}
+
+.wallpic {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  background: var(--ground-2) var(--rock) center / cover;
+}
+
+.wallpic__stage {
+  position: absolute;
+  aspect-ratio: 1920 / 1080;
+  opacity: 0.8;
+}
+
+.wallpic .wall {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  -webkit-mask-image: url('/splash/worn.png');
+  -webkit-mask-size: 380px;
+  mask-image: url('/splash/worn.png');
+  mask-size: 380px;
+}
+
+.wallpic__logo {
+  position: absolute;
+  height: auto;
+}
+
+.venue-figure figcaption {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* ——— plan your trip ——— */
+
+.trip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  max-width: 1100px;
+  margin: clamp(48px, 7vh, 72px) auto 0;
+}
+
+.trip article {
+  padding: clamp(28px, 3vw, 40px);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.trip h3 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 700;
+}
+
+.trip p {
+  margin: 16px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.trip .trip__aside {
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+
+/* ——— explore Yaoundé ——— */
+
+.sites {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  max-width: 1200px;
+  margin: clamp(48px, 7vh, 72px) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 28px;
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+/* one mark from the wall, on its stone */
+.site__art {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  background: var(--ground-2) var(--rock) center / cover;
+}
+
+.site__art .expect__glyph {
+  width: 45%;
+  height: 70%;
+  transition: scale 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site:hover .site__art .expect__glyph {
+  scale: 1.06;
+}
+
+.site h3 {
+  margin: 24px 8px 0;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ochre);
+}
+
+.site p {
+  flex: 1;
+  margin: 12px 8px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.site a {
+  margin: 20px 8px 0;
+  padding: 6px 0;
+  color: var(--ochre);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site a:hover {
+  text-decoration: underline;
+}
+
+.site a:focus-visible,
+.venue-card a:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .venue-where__grid,
+  .trip,
+  .sites {
+    grid-template-columns: 1fr;
+  }
+
+  .sites {
+    max-width: 520px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site__art .expect__glyph {
+    transition: none;
+  }
+}

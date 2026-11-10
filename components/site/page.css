@@ -1,0 +1,55 @@
+/* ——— the top of an inner page: menu and title on the cave wall ——— */
+
+.page-top {
+  position: relative;
+  background:
+    linear-gradient(to bottom, rgb(var(--scrim) / calc(0.55 + var(--scrim-lift))), rgb(var(--scrim) / calc(0.78 + var(--scrim-lift))) 70%, var(--ground)),
+    var(--ground-2) var(--rock) center / cover;
+  color: var(--ink);
+}
+
+.page-top a:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.page-top__title {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(48px, 9vh, 104px) var(--gutter, 16px) clamp(64px, 11vh, 120px);
+  text-align: center;
+}
+
+.page-top__title h1 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: clamp(42px, 6vw, 88px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.page-top__title .sec-head__mark {
+  margin-top: 24px;
+}
+
+.page-top__title p {
+  margin: 24px auto 0;
+  max-width: 52ch;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  text-wrap: balance;
+}
+
+/* the current page in the menu */
+.hero__nav a[aria-current='page'] {
+  color: var(--ochre);
+}
+
+/* inner pages are plain documents: a page body that holds sections */
+.page {
+  min-height: 100svh;
+  background: var(--ground);
+}

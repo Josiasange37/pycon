@@ -1,0 +1,11 @@
+# dependencies & build output
+node_modules
+.next
+next-env.d.ts
+.taste-skill
+tsconfig.tsbuildinfo
+
+# local tooling
+.agents/
+.claude/
+skills-lock.json

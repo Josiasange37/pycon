@@ -1,0 +1,338 @@
+.hero {
+  /* where the logo sits; the wall's empty heart is moved under it */
+  --lx: 72%;
+  --ly: 52%;
+  /* the wall's width: the banner's 16:9 stage, covering the hero */
+  --sw: max(100vw, 177.78svh);
+
+  position: relative;
+  min-height: max(100svh, 640px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  /* a neutral scrim keeps the words on calm stone; the rock stays lit around the logo */
+  background:
+    linear-gradient(to right, rgb(var(--scrim) / calc(0.72 + var(--scrim-lift))) 0%, rgb(var(--scrim) / calc(0.5 + var(--scrim-lift))) 38%, rgb(var(--scrim) / 0) 62%),
+    radial-gradient(ellipse 60% 90% at var(--lx) var(--ly), var(--hero-glow) 0%, rgb(var(--scrim) / calc(0.2 + var(--scrim-lift))) 60%, rgb(var(--scrim) / calc(0.7 + var(--scrim-lift))) 100%),
+    var(--ground) var(--rock) center / cover;
+  isolation: isolate;
+}
+
+/* the wall, retouched: quieter overall, and quieter still behind the words */
+.hero__wall {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  --fade-x: linear-gradient(to right, rgb(0 0 0 / 0.08) 0%, rgb(0 0 0 / 0.14) 36%, #000 60%);
+  --fade-y: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-image: var(--fade-x), var(--fade-y);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-x), var(--fade-y);
+  mask-composite: intersect;
+}
+
+.hero__stage {
+  position: absolute;
+  width: var(--sw);
+  aspect-ratio: 1920 / 1080;
+  left: calc(var(--lx) - var(--sw) * 0.4995);
+  /* the logo's centre in the banner is (0.4997, 0.4722) of its artboard */
+  top: calc(var(--ly) - var(--sw) * 0.5625 * 0.4722);
+  opacity: 0.6;
+  filter: saturate(0.78) brightness(0.92);
+}
+
+.hero .wall,
+.hero .snakes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero .wall {
+  -webkit-mask-image: url('/splash/worn.png');
+  -webkit-mask-size: 380px;
+  mask-image: url('/splash/worn.png');
+  mask-size: 380px;
+}
+
+/* ——— the season's news, in one quiet strip above everything ——— */
+
+.hero__status {
+  margin: 0;
+  padding: 10px clamp(16px, 4vw, 56px);
+  background: var(--ground-2);
+  color: var(--ink);
+  font-size: 15px;
+  text-align: center;
+}
+
+.hero__status a {
+  margin-left: 6px;
+  color: var(--ochre);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero__status a span {
+  display: inline-block;
+  transition: transform 160ms ease;
+}
+
+.hero__status a:hover span {
+  transform: translateX(3px);
+}
+
+/* ——— navigation: a wordmark, a few links, one action ——— */
+
+.hero__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 24px clamp(16px, 4vw, 56px);
+}
+
+.hero__mark {
+  margin-right: auto;
+  white-space: nowrap;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.hero__nav ul {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero__nav li a {
+  color: var(--ink-soft);
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.hero__nav li a:hover {
+  color: var(--ink);
+}
+
+/* daylight or torchlight: a quiet round button beside the action */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 -8px 0 -12px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.theme-toggle:hover {
+  background: var(--line);
+}
+
+.theme-toggle:active {
+  scale: 0.96;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
+}
+
+/* ——— the words and the logo ——— */
+
+.hero__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  padding: 0 clamp(16px, 4vw, 56px) clamp(48px, 8vh, 96px);
+}
+
+.hero__copy {
+  max-width: 700px;
+}
+
+/* Ojuju carries the welcome; the rest stays in the text face */
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: clamp(46px, 6.4vw, 112px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.hero__name,
+.hero__nowrap {
+  white-space: nowrap;
+}
+
+.hero__name {
+  display: block;
+}
+
+.hero__line {
+  margin: 24px 0 0;
+  max-width: 30ch;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.35;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.hero__when {
+  margin: 16px 0 0;
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ochre);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 40px;
+}
+
+.hero__button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.hero__button:hover {
+  background: var(--ink-hover);
+}
+
+.hero__button:active {
+  transform: scale(0.97);
+}
+
+.hero__button--small {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+.hero__link {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero__link span {
+  display: inline-block;
+  transition: transform 160ms ease;
+}
+
+.hero__link:hover span {
+  transform: translateX(4px);
+}
+
+.hero__replay {
+  margin-top: 28px;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.hero__replay:hover {
+  color: var(--ink);
+}
+
+.hero a:focus-visible,
+.hero button:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* the logo sits in the wall's empty heart, at the size the banner gives it there */
+.hero__logo {
+  position: absolute;
+  left: var(--lx);
+  top: var(--ly);
+  width: calc(var(--sw) * 391 / 1920);
+  aspect-ratio: 782 / 820;
+  translate: -50% -50%;
+  perspective: 900px;
+}
+
+.hero__logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ——— phones and narrow screens: the logo above, the words below ——— */
+
+@media (max-width: 820px) {
+  .hero {
+    --lx: 50%;
+    --ly: 31%;
+    --sw: max(150vw, 100svh);
+  }
+
+  /* the same report button waits in the hero, a thumb away */
+  .hero__nav ul,
+  .hero__nav .hero__button {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: min(46px, 11.2vw);
+  }
+
+  .hero__wall {
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgb(0 0 0 / 0.2) 70%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgb(0 0 0 / 0.2) 70%);
+  }
+
+  .hero__body {
+    grid-template-columns: 1fr;
+    align-items: end;
+    padding-top: calc(var(--sw) * 0.27);
+  }
+
+  .hero__logo {
+    width: calc(var(--sw) * 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__button,
+  .hero__link span {
+    transition: none;
+  }
+}

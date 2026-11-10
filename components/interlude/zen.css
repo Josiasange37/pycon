@@ -1,0 +1,91 @@
+/* the interlude sits on the same dark the splash ends in */
+.zen {
+  --ink: #ecebe6;
+  --ink-soft: rgb(236 235 230 / 0.6);
+  --py-blue: #7fb2e5;
+  --py-yellow: #ffd43b;
+
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: #0b0c0b;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.zen__figure {
+  margin: 0;
+  width: fit-content;
+  max-width: min(100%, 1040px);
+}
+
+.zen__prompt {
+  margin: 0 0 28px;
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--ink);
+}
+
+.zen__chevrons {
+  color: var(--py-yellow);
+}
+
+.zen__kw {
+  color: var(--py-blue);
+}
+
+.zen__caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -0.2em;
+  background: var(--ink);
+  animation: zen-blink 1s steps(1) infinite;
+}
+
+.zen__caret[data-done='false'] {
+  animation: none;
+}
+
+@keyframes zen-blink {
+  50% { opacity: 0; }
+}
+
+.zen__line {
+  margin: 0;
+}
+
+/* each word rises from just under its own line */
+.zen__word {
+  display: inline-block;
+}
+
+.zen__word > span {
+  display: inline-block;
+}
+
+.zen__line p {
+  margin: 0;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 500;
+  font-size: clamp(32px, 4.2vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.zen__cite {
+  margin-top: 24px;
+  font-size: 16px;
+  color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zen__caret {
+    animation: none;
+  }
+}
