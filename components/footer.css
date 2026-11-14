@@ -1,0 +1,110 @@
+.foot {
+  padding: clamp(72px, 10vw, 128px) 0 32px;
+}
+
+.foot__top {
+  display: grid;
+  gap: 56px;
+}
+
+@media (min-width: 1000px) {
+  .foot__top {
+    grid-template-columns: 4fr 8fr;
+  }
+}
+
+.foot__brand {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+.foot__name {
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.foot__when {
+  font-size: 13px;
+  color: var(--on-deep-2);
+}
+
+.foot__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 24px;
+}
+
+@media (min-width: 760px) {
+  .foot__cols {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.foot__cols h2 {
+  margin-bottom: 14px;
+  color: var(--on-deep-2);
+}
+
+.foot__cols li + li {
+  margin-top: 8px;
+}
+
+.foot__cols a {
+  text-decoration: none;
+  font-size: 15px;
+  color: var(--on-deep);
+  transition: color 0.2s;
+}
+
+.foot__cols a:hover {
+  color: var(--taxi);
+}
+
+.foot__past {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  margin-top: 72px;
+  padding-block: 22px;
+  border-block: 1px solid var(--rule-on-deep);
+}
+
+.foot__past .eyebrow {
+  color: var(--on-deep-2);
+  margin-right: 8px;
+}
+
+.foot__edition {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.foot__edition .mono {
+  color: var(--taxi);
+}
+
+.foot__edition:hover span:nth-child(2) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.foot__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 32px;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--on-deep-2);
+}
+
+.foot__base a {
+  color: inherit;
+}
