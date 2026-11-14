@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { SPEAKERS, TOPICS, type Topic } from '../content/speakers2026';
 
 const complete = (s: string) => s && !s.trim().endsWith('…');
+const SORTED = [...SPEAKERS].sort((a, b) => a.name.localeCompare(b.name));
 
 /** The 2026 speakers as a typographic wall, filterable by topic. */
 export default function SpeakerWall() {
@@ -13,7 +14,7 @@ export default function SpeakerWall() {
     SPEAKERS.forEach((s) => s.topics.forEach((t) => c.set(t, (c.get(t) ?? 0) + 1)));
     return c;
   }, []);
-  const shown = topic === 'All' ? SPEAKERS : SPEAKERS.filter((s) => s.topics.includes(topic));
+  const shown = topic === 'All' ? SORTED : SORTED.filter((s) => s.topics.includes(topic));
 
   return (
     <div className="wall">

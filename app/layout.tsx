@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Mono, Newsreader, Schibsted_Grotesk } from 'next/font/google';
+import './globals.css';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MotionProvider from '../components/MotionProvider';
 import { SITE } from '../lib/site';
-import './globals.css';
 
 const sans = Schibsted_Grotesk({ subsets: ['latin'], variable: '--f-sans', display: 'swap' });
 const serif = Newsreader({ subsets: ['latin'], style: ['normal', 'italic'], variable: '--f-serif', display: 'swap' });

@@ -46,7 +46,8 @@ export default function MotionProvider() {
       const lines = gsap.utils.toArray<HTMLElement>('[data-hero-line]');
       const hero = gsap.utils.toArray<HTMLElement>('[data-hero]');
       const tl = gsap.timeline({ defaults: { ease } });
-      if (lines.length) tl.fromTo(lines, { yPercent: 105 }, { yPercent: 0, duration: 1.1, stagger: 0.09 }, 0.05);
+      // y: 0 on both ends — GSAP would otherwise read the CSS start offset as a pixel shift and keep it
+      if (lines.length) tl.fromTo(lines, { yPercent: 105, y: 0 }, { yPercent: 0, y: 0, duration: 1.1, stagger: 0.09 }, 0.05);
       if (hero.length) tl.fromTo(hero, { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.07 }, 0.25);
 
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {

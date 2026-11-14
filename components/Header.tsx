@@ -55,7 +55,7 @@ export default function Header() {
         <div className="wrap status__in">
           <span className="status__dot" aria-hidden="true" />
           <span>
-            PyCon Cameroon 2026 in Yaoundé is a wrap.{' '}
+            <span className="status__long">PyCon Cameroon </span>2026 in Yaoundé is a wrap.{' '}
             <a href={LINKS.report2026} target="_blank" rel="noreferrer">
               Read the report
             </a>

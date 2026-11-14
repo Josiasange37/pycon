@@ -151,7 +151,7 @@ export default function ProgrammePage() {
         <div data-reveal>
           <p className="eyebrow">2026 in numbers</p>
           <h2 className="h2" id="mix-title">
-            37 sessions, three languages of delivery
+            37 sessions, in two languages
           </h2>
         </div>
         <div className="bars" data-reveal>
