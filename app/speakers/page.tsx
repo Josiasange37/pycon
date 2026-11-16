@@ -88,18 +88,20 @@ export default function SpeakersPage() {
         </div>
       </section>
 
-      <section className="section wrap" aria-labelledby="all-title">
-        <Head
-          label="Everyone else"
-          id="all-title"
-          title="The 2026 speakers"
-          aside={
-            <a className="link" href="https://cm.pycon.org/2026/en/speakers" target="_blank" rel="noreferrer">
-              Profiles on the 2026 site <Arrow dir="out" />
-            </a>
-          }
-        />
-        <SpeakerWall />
+      <section className="section sp-keynotes sp-all-speakers" aria-labelledby="all-title">
+        <div className="wrap">
+          <Head
+            label="Everyone else"
+            id="all-title"
+            title="The 2026 speakers"
+            aside={
+              <a className="link" href="https://cm.pycon.org/2026/en/speakers" target="_blank" rel="noreferrer">
+                Profiles on the 2026 site <Arrow dir="out" />
+              </a>
+            }
+          />
+          <SpeakerWall />
+        </div>
       </section>
     </>
   );

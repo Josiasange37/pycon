@@ -33,7 +33,6 @@ export const LINKS = {
   reportPdfFr: 'https://cm.pycon.org/reports/pycon-cameroon-2026-report-fr.pdf',
   agenda2026: 'https://cm.pycon.org/2026/en/agenda',
   codeOfConduct: 'https://cm.pycon.org/2026/en/code-of-conduct',
-  prospectus2026: 'https://ly.reckot.com/sponsor-pyconcm26',
   evisa: 'https://www.evisacam.cm',
   psf: 'https://www.python.org/psf-landing/',
   mail: (subject: string) => `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}`,

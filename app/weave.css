@@ -950,6 +950,8 @@
 }
 
 .kp__frame {
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 4 / 5;
   border: 9px solid #fff0ce;
   border-radius: 2px;

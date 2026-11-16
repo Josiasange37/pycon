@@ -1,217 +1,261 @@
 import type { Metadata } from 'next';
-import Mark, { Arrow } from '../../components/Mark';
-import { Head } from '../../components/ui';
-import { Weave } from '../../components/Weave';
-import { CITY_FACTS, DAY_TRIPS, GETTING_THERE, HOTELS, RAINFALL, SIGHTS } from '../../content/douala';
-import { LINKS, SITE } from '../../lib/site';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Arrow } from '../../components/Mark';
+import { Out, Title, Weave } from '../../components/Weave';
+import { EDITION_2026 } from '../../content/edition2026';
+import { SIGHTS } from '../../content/douala';
+import { LINKS, SITE, datesLabel } from '../../lib/site';
 import '../pages.css';
+import './venue.css';
+
+const SIGHT_PHOTOS = {
+  'La Nouvelle Liberté': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Nouvelle_Libert%C3%A9_01.JPG/960px-Nouvelle_Libert%C3%A9_01.JPG',
+    alt: 'La Nouvelle Liberté sculpture at the Deïdo roundabout in Douala',
+    author: 'Alessandro Aceri',
+    source: 'https://commons.wikimedia.org/wiki/File:Nouvelle_Libert%C3%A9_01.JPG',
+  },
+  'La Pagode': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Pagode_Douala.JPG/960px-Pagode_Douala.JPG',
+    alt: 'La Pagode, the historic Bell palace in Bonanjo, Douala',
+    author: 'Guillaume WA',
+    source: 'https://commons.wikimedia.org/wiki/File:Pagode_Douala.JPG',
+  },
+  'Cathédrale Saints-Pierre-et-Paul': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Cathedrale_St_Pierre_et_St_Paul.JPG/960px-Cathedrale_St_Pierre_et_St_Paul.JPG',
+    alt: 'Saint Peter and Saint Paul Cathedral in Douala',
+    author: 'Guillaume WA',
+    source: 'https://commons.wikimedia.org/wiki/File:Cathedrale_St_Pierre_et_St_Paul.JPG',
+  },
+  'The Wouri waterfront': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/PONT_SUR_LE_WOURI.jpg/960px-PONT_SUR_LE_WOURI.jpg',
+    alt: 'The Wouri Bridge crossing the river in Douala',
+    author: 'Happyraph',
+    source: 'https://commons.wikimedia.org/wiki/File:PONT_SUR_LE_WOURI.jpg',
+  },
+} as const;
+const LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/3.0/';
+const FEATURED_SIGHTS = SIGHTS.filter((sight) => sight.name in SIGHT_PHOTOS);
+const MORE_SIGHTS = SIGHTS.filter((sight) => !(sight.name in SIGHT_PHOTOS));
 
 export const metadata: Metadata = {
-  title: 'Douala',
-  description: 'The venue, getting to Douala, getting around, the weather and what to see: a city guide for PyCon Cameroon 2027.',
+  title: `Venue · ${SITE.city}`,
+  description: `The PyCon Cameroon ${SITE.year} venue in ${SITE.city} will be announced soon. Find arrival guidance and ideas for exploring the host city.`,
 };
 
 export default function VenuePage() {
-  const max = Math.max(...RAINFALL.map((r) => r.mm));
-  const total = Math.round(RAINFALL.reduce((n, r) => n + r.mm, 0));
-
   return (
-    <>
-      <section className="deep city-intro" aria-labelledby="city-title">
-        <Weave className="city-intro__weave" accent />
-        <div className="wrap city-intro__in">
-          <div className="city-intro__text">
-            <p className="eyebrow" data-hero>
-              Host city · {SITE.year}
+    <div className="venue-page">
+      <section className="v-hero f-river" aria-labelledby="venue-page-title">
+        <Weave accent className="wv-corner wv-corner--tr" />
+        <div className="wrap v-hero__in">
+          <div className="v-hero__copy">
+            <p className="wv-stk wv-stk--sun v-hero__stamp">PyCon Cameroon · {SITE.year}</p>
+            <Title id="venue-page-title" as="h1" lead="Meet us in" main={`${SITE.city}.`} className="v-hero__title" />
+            <p className="v-hero__lede">
+              Cameroon’s Python community comes together in {SITE.city} for talks, hands-on workshops and the people
+              building what comes next.
             </p>
-            <h1 className="display city-intro__title" id="city-title">
-              <span className="line-mask">
-                <span data-hero-line>Douala</span>
-              </span>
-            </h1>
-            <p className="lede" data-hero>
-              Cameroon’s largest city and its port, on the Wouri estuary. Loud, humid, generous and always moving.
-            </p>
+            <ul className="v-hero__facts" aria-label="Conference details">
+              <li>{datesLabel()}</li>
+              <li>{SITE.region}, Cameroon</li>
+            </ul>
+            <Link className="wv-btn wv-btn--sun v-hero__map" href="/#updates">
+              Get venue updates <Out />
+            </Link>
           </div>
-          <div className="city-intro__mark" data-hero>
-            <Mark size={420} title="La Nouvelle Liberté, Deïdo roundabout" />
-            <p className="mono">La Nouvelle Liberté · Deïdo · 1996</p>
-          </div>
+          <figure className="v-hero__city-art">
+            <Image
+              className="v-hero__statue"
+              src="/hero/statue.webp"
+              alt="Blue-toned image of La Nouvelle Liberté holding a globe above the city"
+              width={632}
+              height={1514}
+              priority
+              sizes="(min-width: 960px) 22vw, 52vw"
+            />
+            <figcaption>
+              <span>La Nouvelle Liberté</span>
+              <span className="mono">DEÏDO · DOUALA</span>
+            </figcaption>
+            <span className="wv-stk wv-stk--paper v-hero__city-tag">Host city</span>
+          </figure>
         </div>
       </section>
 
-      <section className="section city-story" aria-labelledby="city-story-title">
-        <div className="wrap city-story__in">
-          <div className="city-story__mark" data-reveal>
-            <Mark size={300} title="La Nouvelle Liberté, the landmark at Deïdo" />
-            <p className="mono">Deïdo · Douala</p>
-          </div>
-          <div className="city-story__copy" data-reveal>
-            <p className="eyebrow">The city behind the name</p>
-            <h2 className="h2" id="city-story-title">Why Douala?</h2>
-            <div className="prose">
-              <p>
-                In the 1470s, Portuguese sailors reached the Wouri estuary and called it Rio dos Camarões—the river of
-                shrimp. The name travelled from this port to the whole country. Today Douala is Cameroon’s largest city,
-                its economic capital and home to a fast-growing technology community.
-              </p>
-              <p>
-                Even Python’s time-zone database carries the city in its name: <code>ZoneInfo(&quot;Africa/Douala&quot;)</code>.
-              </p>
+      <section className="section v-location f-paper" aria-labelledby="v-location-title">
+        <div className="wrap">
+          <header className="v-section-head" data-reveal>
+            <p className="eyebrow">The place we’ll meet</p>
+            <Title id="v-location-title" lead="Conference" main="location." />
+          </header>
+
+          <div className="v-location__grid">
+            <div className="v-location__copy" data-reveal>
+              <div className="v-address">
+                <span className="v-address__eyebrow mono">PyCon Cameroon {SITE.year}</span>
+                {SITE.venue ? (
+                  <>
+                    <h3>{SITE.venue.name}</h3>
+                    <address>{SITE.venue.address}</address>
+                    <a className="wv-btn wv-btn--ink" href={SITE.venue.mapsUrl} target="_blank" rel="noreferrer">
+                      Open in Google Maps <Out />
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <h3>Venue to be announced</h3>
+                    <p className="v-address__copy">
+                      PyCon Cameroon {SITE.year} is coming to {SITE.city}. We’ll publish the venue name, street address
+                      and map as soon as they’re confirmed.
+                    </p>
+                    <Link className="wv-btn wv-btn--ink" href="/#updates">
+                      Get announcement updates <Out />
+                    </Link>
+                  </>
+                )}
+              </div>
+
+              <div className="v-location__details">
+                <p>
+                  {SITE.venue
+                    ? 'Use the details above to plan your visit. We’ll add any further access and on-site information as it is confirmed.'
+                    : 'When the venue is confirmed, this page will include directions, access information and the facilities available to attendees.'}
+                </p>
+                <ul>
+                  <li><span aria-hidden="true">01</span>Exact address and map</li>
+                  <li><span aria-hidden="true">02</span>Arrival and transport guidance</li>
+                  <li><span aria-hidden="true">03</span>Accessibility and on-site facilities</li>
+                </ul>
+              </div>
             </div>
-            <dl className="city-story__facts">
-              {CITY_FACTS.map((fact) => (
-                <div key={fact.label}>
-                  <dt>{fact.value}</dt>
-                  <dd>{fact.label}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </section>
 
-      <section className="section wrap split" aria-labelledby="venue-title">
-        <div data-reveal>
-          <p className="eyebrow">The venue</p>
-          <h2 className="h2" id="venue-title">
-            {SITE.venue ? SITE.venue.name : 'To be announced'}
-          </h2>
-        </div>
-        <div className="prose" data-reveal>
-          {SITE.venue ? (
-            <p>
-              {SITE.venue.address} ·{' '}
-              <a className="link" href={SITE.venue.mapsUrl} target="_blank" rel="noreferrer">
-                Open in Google Maps <Arrow dir="out" />
-              </a>
-            </p>
-          ) : (
-            <>
-              <p className="lede" style={{ marginBottom: 16 }}>
-                The venue is announced with the dates.
-              </p>
+            <aside className="v-location__note" data-reveal>
+              <Weave accent />
+              <span className="mono">{SITE.year} · DOUALA</span>
+              <strong>{SITE.venue ? `See you at ${SITE.venue.name}.` : 'We’re choosing a place for the whole community.'}</strong>
               <p>
-                In 2026 the conference used one main hall and smaller rooms for parallel talks and workshops, with lunch on
-                site. Expect the same shape in Douala.
+                {SITE.venue
+                  ? 'Find the venue address, map and visitor details in the location panel.'
+                  : 'Venue details will be published here once confirmed by the organizers.'}
               </p>
-            </>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="section v-trip f-night" id="trip" aria-labelledby="v-trip-title">
+        <Weave className="wv-corner wv-corner--tl" />
+        <div className="wrap">
+          <header className="v-section-head v-section-head--center" data-reveal>
+            <p className="eyebrow">Visitor guide · {SITE.year}</p>
+            <Title id="v-trip-title" lead="Plan your" main="trip." />
+          </header>
+
+          <div className="v-trip__grid" data-stagger>
+            <article className="v-trip-card v-trip-card--stay">
+              <span className="v-trip-card__number mono">01 / STAY</span>
+              <h3>Accommodation</h3>
+              <p>
+                We’ll share recommended hotels near the conference venue and any attendee rates after the location is
+                confirmed.
+              </p>
+              <p className="v-trip-card__aside">
+                Douala has options across a range of budgets. Check back here for the 2027 partner list and booking
+                details.
+              </p>
+            </article>
+
+            <article className="v-trip-card v-trip-card--arrival">
+              <span className="v-trip-card__number mono">02 / ARRIVAL</span>
+              <h3>Getting there</h3>
+              <ul className="v-arrivals">
+                <li>
+                  <strong>By air</strong>
+                  <span>Douala International Airport (DLA) serves the city and international arrivals.</span>
+                </li>
+                <li>
+                  <strong>By road</strong>
+                  <span>Intercity coaches connect Douala with Yaoundé and other major cities.</span>
+                </li>
+                <li>
+                  <strong>In town</strong>
+                  <span>Local taxis and ride-hailing services are common ways to get around.</span>
+                </li>
+              </ul>
+              <p className="v-trip-card__aside">We’ll add venue-specific routes and arrival tips when the location is announced.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section v-explore f-sun" aria-labelledby="v-explore-title">
+        <Weave accent className="wv-corner wv-corner--tr" />
+        <div className="wrap">
+          <header className="v-section-head v-explore__head" data-reveal>
+            <div>
+              <p className="eyebrow">Make time for the city</p>
+              <Title id="v-explore-title" lead="Explore" main="Douala." />
+            </div>
+            <p className="v-explore__intro">
+              Cameroon’s port city is full of art, markets and stories along the Wouri. Here are a few places to start.
+            </p>
+          </header>
+
+          <div className="v-sight-grid" data-stagger>
+            {FEATURED_SIGHTS.map((sight, index) => {
+              const photo = SIGHT_PHOTOS[sight.name as keyof typeof SIGHT_PHOTOS];
+              return (
+                <article className="v-sight-card" key={sight.name}>
+                  <figure className="v-sight-card__photo">
+                    <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1100px) 25vw, (min-width: 680px) 50vw, 100vw" unoptimized />
+                    <figcaption className="wv-stk wv-stk--paper">{sight.area}</figcaption>
+                  </figure>
+                  <div className="v-sight-card__copy">
+                    <span className="v-sight-card__number mono">{String(index + 1).padStart(2, '0')}</span>
+                    <h3>{sight.name}</h3>
+                    <p>{sight.body}</p>
+                    <a className="v-sight-card__map" href={sight.maps} target="_blank" rel="noreferrer">
+                      Map <Arrow dir="out" />
+                    </a>
+                    <p className="v-sight-card__credit">
+                      Photo: <a href={photo.source} target="_blank" rel="noreferrer">{photo.author} / Wikimedia Commons</a>
+                      {' · '}
+                      <a href={LICENSE_URL} target="_blank" rel="noreferrer">CC BY-SA 3.0</a>
+                      {' · cropped'}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {MORE_SIGHTS.length > 0 && (
+            <ul className="v-sight-more" aria-label="More places to explore">
+              {MORE_SIGHTS.map((sight) => (
+                <li key={sight.name}>
+                  <span>{sight.name}</span>
+                  <a href={sight.maps} target="_blank" rel="noreferrer" aria-label={`Find ${sight.name} on Google Maps`}>
+                    Map <Arrow dir="out" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           )}
-        </div>
-      </section>
 
-      <section className="section there" aria-labelledby="there-title">
-        <div className="wrap">
-          <Head label="Getting there" id="there-title" title="Arriving and moving around" />
-          <div className="cards there__grid" data-stagger>
-            {GETTING_THERE.map((g, i) => (
-              <article key={g.title}>
-                <p className="mono there__n">{String(i + 1).padStart(2, '0')}</p>
-                <h3 className="h3">{g.title}</h3>
-                <p className="prose">{g.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section wrap split" aria-labelledby="rain-title">
-        <div data-reveal>
-          <p className="eyebrow">Weather</p>
-          <h2 className="h2" id="rain-title">
-            Pack an umbrella
-          </h2>
-          <div className="prose" style={{ marginTop: 20 }}>
-            <p>
-              Douala gets about {total.toLocaleString('en')} mm of rain a year, most of it from June to October. Daytime
-              highs stay between 28 and 33 °C all year. December to February are the driest
-              months.
-            </p>
-          </div>
-        </div>
-        <figure className="rain" data-reveal>
-          <div className="rain__bars" role="img" aria-label={`Average monthly rainfall in Douala, from ${RAINFALL[11].mm} mm in December to ${max} mm in August`}>
-            {RAINFALL.map((r) => (
-              <div key={r.m} className="rain__col">
-                <span className="rain__val mono">{Math.round(r.mm)}</span>
-                <span className="rain__bar" style={{ height: `${(r.mm / max) * 100}%` }} data-wet={r.mm > 400 || undefined} />
-                <span className="rain__m mono">{r.m}</span>
-              </div>
-            ))}
-          </div>
-          <figcaption className="muted">Average rainfall per month, mm. 1991–2020 normals.</figcaption>
-        </figure>
-      </section>
-
-      <section className="section explore" aria-labelledby="explore-title">
-        <div className="wrap">
-          <Head label="Explore Douala" id="explore-title" title="Six places worth the taxi ride" />
-          <ol className="sights" data-stagger>
-            {SIGHTS.map((s, i) => (
-              <li key={s.name}>
-                <span className="mono sights__n">{String(i + 1).padStart(2, '0')}</span>
-                <div className="sights__text">
-                  <h3 className="h3">{s.name}</h3>
-                  <p className="mono sights__area">{s.area}</p>
-                  <p className="prose">{s.body}</p>
-                </div>
-                <a className="link sights__map" href={s.maps} target="_blank" rel="noreferrer">
-                  Map <Arrow dir="out" />
-                </a>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="section wrap split" aria-labelledby="trips-title">
-        <div data-reveal>
-          <p className="eyebrow">Stay a few days</p>
-          <h2 className="h2" id="trips-title">
-            Day trips from Douala
-          </h2>
-        </div>
-        <ul className="trips" data-stagger>
-          {DAY_TRIPS.map((t) => (
-            <li key={t.name}>
-              <div className="trips__head">
-                <h3 className="h3">{t.name}</h3>
-                <span className="mono muted">{t.distance}</span>
-              </div>
-              <p className="prose">{t.body}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="section stay" aria-labelledby="stay-title">
-        <div className="wrap split">
-          <div data-reveal>
-            <p className="eyebrow">Where to stay</p>
-            <h2 className="h2" id="stay-title">
-              Hotels near the centre
-            </h2>
-            <p className="prose" style={{ marginTop: 20 }}>
-              Not official partners: a starting point while we confirm the venue. Recommended hotels and any group rates are
-              announced with it.
-            </p>
-          </div>
-          <ul className="hotels" data-stagger>
-            {HOTELS.map((h) => (
-              <li key={h.name}>
-                <span className="hotels__name">{h.name}</span>
-                <span className="mono muted">{h.area}</span>
-                <span className="muted">{h.note}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="wrap" style={{ marginTop: 56 }}>
-          <a className="link" href={LINKS.mail('Accommodation in Douala, PyCon Cameroon 2027')}>
-            Questions about the trip? Write to us <Arrow />
+          <a className="wv-btn wv-btn--ink v-explore__cta" href="https://www.destinationdouala.com/" target="_blank" rel="noreferrer">
+            Discover more of Douala <Out />
           </a>
+
+          <div className="v-explore__archive">
+            <p>Last year, PyCon Cameroon brought the community together in {EDITION_2026.city}.</p>
+            <a className="link" href={LINKS.report2026} target="_blank" rel="noreferrer">
+              Read the 2026 event report <Out />
+            </a>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

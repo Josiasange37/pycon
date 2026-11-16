@@ -127,15 +127,6 @@ export const PARTNERS_2026 = [
   { name: 'Reckot', url: 'https://reckot.com/' },
 ];
 
-/** The 2026 packages, shown as a reference until the 2027 prospectus is out. */
-export const PACKAGES_2026 = [
-  { tier: 'Diamond', usd: '7,000', xaf: '1,000,000', includes: ['Premium booth', 'Keynote slot', 'Two talks', '10 tickets', 'Dedicated sponsor page'] },
-  { tier: 'Gold', usd: '5,000', xaf: '500,000', includes: ['Booth', 'One talk', '5 tickets'] },
-  { tier: 'Silver', usd: '3,000', xaf: '375,000', includes: ['One talk', '3 tickets'] },
-  { tier: 'Bronze', usd: '1,500', xaf: '100,000', includes: ['One talk', '1 ticket', 'Logo on site and stage'] },
-  { tier: 'Community', usd: '500', xaf: '50,000', includes: ['1 ticket', 'Logo on site'] },
-];
-
 // Portraits and titles are from the official PyCon Cameroon 2026 About page.
 export const TEAM = [
   { name: 'Steve Yonkeu', role: 'Lead Python Cameroon', image: '/about/team-2026/steve-yonkeu.webp', linkedin: 'https://www.linkedin.com/in/yokwejuste' },

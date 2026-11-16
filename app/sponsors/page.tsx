@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Arrow } from '../../components/Mark';
 import { Figure, Head } from '../../components/ui';
-import { Weave } from '../../components/Weave';
-import { PACKAGES_2026, PHOTOS, SPONSORS_2026, STATS_2026 } from '../../content/edition2026';
+import { Title as WeaveTitle, Weave } from '../../components/Weave';
+import { PHOTOS, SPONSORS_2026, STATS_2026 } from '../../content/edition2026';
 import { LINKS, SITE } from '../../lib/site';
 import '../pages.css';
 
@@ -39,10 +39,7 @@ export default function SponsorsPage() {
             <p className="lede">Tickets stay cheap enough for students because sponsors pay for what tickets don’t.</p>
             <div className="actions">
               <a className="btn sponsor-cover__btn" href={LINKS.mail('Sponsoring PyCon Cameroon 2027')}>
-                Talk to the team <Arrow />
-              </a>
-              <a className="link sponsor-cover__link" href={LINKS.prospectus2026} target="_blank" rel="noreferrer">
-                2026 prospectus <Arrow dir="out" />
+                Discuss sponsorship <Arrow />
               </a>
             </div>
           </div>
@@ -72,41 +69,6 @@ export default function SponsorsPage() {
                 </li>
               ))}
             </ol>
-          </div>
-        </div>
-      </section>
-
-      <section className="section packages-sec" aria-labelledby="pk-title">
-        <div className="wrap">
-          <Head
-            label="Packages"
-            id="pk-title"
-            title="2026 packages, for reference"
-            aside={<p className="muted" style={{ maxWidth: '36ch' }}>2027 packages and prices are confirmed with the new prospectus. Custom packages are welcome.</p>}
-          />
-          <div className="pk" role="table" aria-label="2026 sponsorship packages">
-            <div className="pk__row pk__row--head" role="row">
-              <span role="columnheader">Tier</span>
-              <span role="columnheader">Local, XAF</span>
-              <span role="columnheader">International, USD</span>
-              <span role="columnheader">Includes</span>
-            </div>
-            {PACKAGES_2026.map((p) => (
-              <div className="pk__row" role="row" key={p.tier} data-reveal>
-                <span role="cell" className="pk__tier">
-                  {p.tier}
-                </span>
-                <span role="cell" className="mono pk__price">
-                  {p.xaf}
-                </span>
-                <span role="cell" className="mono pk__price">
-                  {p.usd}
-                </span>
-                <span role="cell" className="pk__inc">
-                  {p.includes.join(' · ')}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -142,6 +104,31 @@ export default function SponsorsPage() {
                 </ul>
               </section>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="finale sponsor-final-cta f-river" aria-labelledby="sponsor-final-title">
+        <div className="wrap finale__in sponsor-final-cta__in">
+          <div className="sponsor-final-cta__heading" data-reveal>
+            <Weave className="sponsor-final-cta__weave" accent />
+            <WeaveTitle
+              id="sponsor-final-title"
+              lead="Shape the future"
+              main="of Python in Cameroon."
+              className="finale__title sponsor-final-cta__title"
+            />
+          </div>
+          <div className="finale__side">
+            <p className="finale__text sponsor-final-cta__text" data-reveal>
+              Bring your organisation into the room with the developers, founders and students building with Python. Tell
+              the organisers what you want to achieve and explore a partnership that helps more students take part.
+            </p>
+            <div className="finale__actions" data-reveal>
+              <a className="wv-btn wv-btn--sun sponsor-final-cta__button" href={LINKS.mail('Sponsoring PyCon Cameroon 2027')}>
+                Let’s build it together <Arrow />
+              </a>
+            </div>
           </div>
         </div>
       </section>

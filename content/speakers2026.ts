@@ -21,6 +21,41 @@ export type Topic = (typeof TOPICS)[number];
 
 export type Speaker = { name: string; role: string; talk: string; topics: Topic[] };
 
+/** Profile photos from the official PyCon Cameroon 2026 speaker page. */
+export const SPEAKER_PHOTOS_2026: Record<string, string> = {
+  'Adrien Sani': '/speakers/Adrien_Sani.webp',
+  'Ariane Djeupang J': '/speakers/Ariane_Djeupang_J.webp',
+  'Ayuk Princelen Tanyi': '/speakers/Ayuk_Princelen_Tanyi.webp',
+  'Chifen Sama': '/speakers/Chifen_Sama.webp',
+  'Claude Ndanda': '/speakers/Claude_Ndanda.webp',
+  'Daniele Procida': '/speakers/Daniele_Procida.webp',
+  'Emambou Ulrich': '/speakers/Emambou_Ulrich.webp',
+  'Edmond Makolle': '/speakers/Edmond_Makole.webp',
+  'Hypolit Zeuchieu': '/speakers/Hypolit_Zeuchieu.webp',
+  'Jean Marc Wogue': '/speakers/Jean_Marc_Wogue.webp',
+  'Jerry Davis Ndjana Mengue': '/speakers/Jerry_Davis_Ndjana_Mengue.webp',
+  'Johnpaul Hampo': '/speakers/Johnpaul_Hampo.webp',
+  'Leslye Nkwa': '/speakers/Leslye_Nkwa.webp',
+  'Linuce Demanou': '/speakers/Linuce_Demanou.webp',
+  'Lobga Julius': '/speakers/Lobga_Julius.webp',
+  'Marcela Djoukouo Talotsing': '/speakers/Marcela_Djoukouo_Talotsing.webp',
+  'Marc Daha': '/speakers/Marc_Daha.webp',
+  'Marielle Daha': '/speakers/Marielle_Daha.webp',
+  'Muluh Azinwi Success Ndahi’li': '/speakers/Muluh_Azinwi_Success_Ndahili.webp',
+  'Mvenyi Donald': '/speakers/Mvenyi_Donald.webp',
+  'Ndongmo Christian': '/speakers/Ndongmo_Christian.webp',
+  'Parkson Tano Daniel': '/speakers/Parkson_Tano_Daniel.webp',
+  'Pedro Leão da Cruz': '/speakers/Pedro_Leao_da_Cruz.webp',
+  'Patrick Nounga': '/speakers/Patrick_Nounga.webp',
+  'Samuel Tiokeng': '/speakers/Samuel_Tiokeng.webp',
+  'Sema Kumbela Fombutu': '/speakers/Sema_Kumbela_Fombutu.webp',
+  'Steve Yonkeu': '/speakers/Steve_Yonkeu.webp',
+  'Tayo Tate Desmond Corentin': '/speakers/Tayo_Tate_Desmond_Corentin.webp',
+  'Brandon Kamga': '/speakers/Brandon_Kamga.webp',
+  'Yannik Kadjie': '/speakers/Yannik_Kadjie.webp',
+  'Yunwen Eric': '/speakers/Yunwen_Eric.webp',
+};
+
 export const SPEAKERS: Speaker[] = [
   {
     name: 'Adrien Sani',

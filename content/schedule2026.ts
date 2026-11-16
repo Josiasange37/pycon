@@ -1,10 +1,9 @@
 /*
  * The conference programme, day by day. Durations are worked out from the times, never
- * typed in. Days 2 and 3 only hold their keynotes so far: `complete: false` tells the page
- * to say the rest of that day is still to be published.
+ * typed in. Parallel sessions share a slot; the day tabs use the dates below.
  */
 
-export type Kind = 'keynote' | 'talk' | 'workshop';
+export type Kind = 'keynote' | 'talk' | 'workshop' | 'panel' | 'lightning';
 export type Room = 'Ndolè' | 'Koki' | 'Eru';
 
 export type Session = {
@@ -13,7 +12,8 @@ export type Session = {
   start?: string;
   end?: string;
   speaker?: string;
-  room: Room;
+  speakers?: string[];
+  room?: Room;
   topic?: string;
   lang: string;
 };
@@ -22,7 +22,7 @@ export type Slot =
   | { type: 'break'; start: string; end?: string; label: string }
   | { type: 'sessions'; start?: string; sessions: Session[] };
 
-export type Day = { id: string; label: string; date: string; complete: boolean; slots: Slot[] };
+export type Day = { id: string; label: string; date: string; subtitle?: string; complete: boolean; slots: Slot[] };
 
 export const DAYS: Day[] = [
   {
@@ -97,28 +97,139 @@ export const DAYS: Day[] = [
     id: 'day-2',
     label: 'Day 2',
     date: 'Friday, September 18, 2026',
-    // only the keynote is known; its time is not confirmed
-    complete: false,
+    subtitle: 'UbuCon Cameroon Day',
+    complete: true,
     slots: [
+      { type: 'break', start: '08:30', end: '09:00', label: 'Registration & Welcome Coffee' },
       {
         type: 'sessions',
-        sessions: [{ kind: 'keynote', title: 'Building a SaaS in Africa to the World', speaker: 'Adonis Simo', room: 'Ndolè', lang: 'FR' }],
+        start: '09:00',
+        sessions: [{
+          kind: 'keynote',
+          title: 'UbuCon Cameroon Opening',
+          start: '09:00',
+          end: '09:15',
+          topic: 'Welcome, Ubuntu ecosystem update',
+          lang: 'EN / FR',
+        }],
       },
+      {
+        type: 'sessions',
+        start: '09:20',
+        sessions: [{ kind: 'keynote', title: 'Building a SaaS in Africa to the World', start: '09:20', end: '10:05', speaker: 'Adonis Simo', room: 'Ndolè', lang: 'FR' }],
+      },
+      {
+        type: 'sessions',
+        start: '10:10',
+        sessions: [{ kind: 'workshop', title: "Built by Us: A Cameroonian's Roadmap to Open Source", start: '10:10', end: '11:15', speaker: 'Muluh Azinwi Success Ndahili', room: 'Ndolè', lang: 'EN' }],
+      },
+      {
+        type: 'sessions',
+        start: '11:20',
+        sessions: [{ kind: 'workshop', title: 'Django + Valkey: Caching, Sessions & Real-Time the Open-Source Way', start: '11:20', end: '12:30', speakers: ['Edmond Makolle', 'Steve Yonkeu'], room: 'Ndolè', lang: 'EN / FR' }],
+      },
+      { type: 'break', start: '12:30', end: '13:40', label: 'Lunch break' },
+      {
+        type: 'sessions',
+        start: '13:40',
+        sessions: [{ kind: 'talk', title: 'Career Success & The Next 10 Years', start: '13:40', end: '14:15', speaker: 'Daniele Procida', room: 'Ndolè', lang: 'EN' }],
+      },
+      {
+        type: 'sessions',
+        start: '14:20',
+        sessions: [{ kind: 'workshop', title: 'Jobs and Early-Career Success', start: '14:20', end: '14:55', speaker: 'Daniele Procida', room: 'Ndolè', lang: 'EN' }],
+      },
+      {
+        type: 'sessions',
+        start: '15:00',
+        sessions: [{ kind: 'workshop', title: 'Beyond the Spreadsheet: Stand Out by Mastering Google Workspace AI', start: '15:00', end: '16:00', speaker: 'Pedro Leão da Cruz', room: 'Ndolè', lang: 'EN' }],
+      },
+      { type: 'break', start: '16:00', end: '16:20', label: 'UbuCon social & community games, networking' },
+      {
+        type: 'sessions',
+        start: '16:20',
+        sessions: [{ kind: 'workshop', title: 'Authentification 2FA : TOTP avec Django', start: '16:20', end: '17:15', speaker: 'Jean Marc Wogue', room: 'Ndolè', lang: 'FR' }],
+      },
+      {
+        type: 'sessions',
+        start: '17:20',
+        sessions: [{ kind: 'workshop', title: 'Open Documentation Academy', start: '17:20', end: '18:30', speaker: 'Ariane Djeupang J.', room: 'Ndolè', lang: 'FR / EN' }],
+      },
+      { type: 'break', start: '18:30', label: 'End of Day 2' },
     ],
   },
   {
     id: 'day-3',
     label: 'Day 3',
     date: 'Saturday, September 19, 2026',
-    // only the keynote is known; its time is not confirmed
-    complete: false,
+    complete: true,
     slots: [
       {
         type: 'sessions',
+        start: '09:00',
         sessions: [
-          { kind: 'keynote', title: 'AI Can Code, But It Can’t Think Like You (Yet): The Human in the Loop', speaker: 'Veliswa Boya', room: 'Ndolè', lang: 'EN' },
+          { kind: 'keynote', title: "AI Can Code, But It Can't Think Like You (Yet): The Human in the Loop", start: '09:00', end: '09:45', speaker: 'Veliswa Boya', room: 'Ndolè', lang: 'EN' },
         ],
       },
+      { type: 'break', start: '09:45', end: '10:05', label: 'Coffee break' },
+      {
+        type: 'sessions',
+        start: '10:05',
+        sessions: [
+          { kind: 'talk', title: 'Python in the Browser: No Install, No Barrier', start: '10:05', end: '10:30', speaker: 'Hypolit Zeuchieu', room: 'Koki', topic: 'Python / Security', lang: 'FR / EN' },
+          { kind: 'talk', title: 'Thinking Like a Data Scientist: IBM Methodology', start: '10:05', end: '10:30', speaker: 'Tayo Tate Desmond', room: 'Eru', topic: 'AI / Data Science', lang: 'EN' },
+          { kind: 'talk', title: 'L’illusion du développeur augmenté : quand l’IA facilite le code mais exige plus d’expertise', start: '10:05', end: '10:30', speaker: 'Brandon Kamga', room: 'Ndolè', topic: 'Web / Community', lang: 'FR' },
+        ],
+      },
+      {
+        type: 'sessions',
+        start: '10:35',
+        sessions: [
+          { kind: 'talk', title: 'Speed Up Your Python Program With Concurrency', start: '10:35', end: '11:00', speaker: 'Yannik Kadjie', room: 'Koki', topic: 'Python / Security', lang: 'FR' },
+          { kind: 'talk', title: 'Zero-Touch Dashboards: Django + Metabase per-user governance', start: '10:35', end: '11:00', speaker: 'Ariane Djeupang J.', room: 'Eru', topic: 'AI / Data Science', lang: 'EN / FR' },
+          { kind: 'talk', title: 'Architecture à budget zéro : cloud design decisions', start: '10:35', end: '11:00', speaker: 'Jerry Davis Ndjana Mengue', room: 'Ndolè', topic: 'Web / Community', lang: 'FR / EN' },
+        ],
+      },
+      {
+        type: 'sessions',
+        start: '11:05',
+        sessions: [
+          { kind: 'talk', title: 'Creative Coding with Matplotlib: Turning Data into Art', start: '11:05', end: '11:30', speaker: 'Marielle Daha', room: 'Koki', topic: 'Python / Security', lang: 'EN' },
+          { kind: 'talk', title: "AI Is Not a Tool: It's a Workflow (Claude, Codex, Figma)", start: '11:05', end: '11:30', speaker: 'Emambou Ulrich', room: 'Eru', topic: 'AI / Data Science', lang: 'EN' },
+          { kind: 'talk', title: 'Stay in Django, Go Reactive (Django Unicorn)', start: '11:05', end: '11:30', speaker: 'Adonis Simo', room: 'Ndolè', topic: 'Web / Community', lang: 'FR / EN' },
+        ],
+      },
+      { type: 'break', start: '11:30', end: '12:40', label: 'Lunch break' },
+      {
+        type: 'sessions',
+        start: '12:40',
+        sessions: [{ kind: 'panel', title: 'Tech Jobs & AI: Surviving Automation, Excelling at Creating Value', start: '12:40', end: '13:25', speakers: ['Daniele Procida', 'Veliswa Boya', 'Leslye Nkwa', 'Marc Daha'], room: 'Ndolè', lang: 'EN / FR' }],
+      },
+      {
+        type: 'sessions',
+        start: '13:30',
+        sessions: [
+          { kind: 'talk', title: "Hacking with Python: Cameroon's Digital Security", start: '13:30', end: '13:55', speaker: 'Mvenyi Donald', room: 'Koki', topic: 'Python / Security', lang: 'EN' },
+          { kind: 'talk', title: 'L’importance de la cohérence des données : 03 bonnes pratiques', start: '13:30', end: '13:55', speaker: 'Leslye Nkwa', room: 'Eru', topic: 'AI / Data Science', lang: 'FR' },
+          { kind: 'talk', title: 'AI-Powered Smart Agriculture: Greenhouse & Poultry Systems', start: '13:30', end: '13:55', speaker: 'Ayuk Princelen Tanyi', room: 'Ndolè', topic: 'IoT & Hardware', lang: 'EN' },
+        ],
+      },
+      {
+        type: 'sessions',
+        start: '14:00',
+        sessions: [
+          { kind: 'talk', title: 'You Don’t Need an App: Solving Real Problems With a Dumb WhatsApp Bot', start: '14:00', end: '14:25', speaker: 'Chifen Sama', room: 'Ndolè', lang: 'EN' },
+          { kind: 'talk', title: 'Maximizing the Use of Open Source', start: '14:00', end: '14:25', speaker: 'Samuel Tiokeng', room: 'Ndolè', lang: 'EN' },
+        ],
+      },
+      { type: 'break', start: '14:25', end: '14:45', label: 'Coffee break' },
+      {
+        type: 'sessions',
+        start: '14:45',
+        sessions: [{ kind: 'lightning', title: 'Lightning talks — open floor (5-min slots, all attendees welcome)', start: '14:45', end: '15:15', room: 'Ndolè', lang: 'EN / FR' }],
+      },
+      { type: 'break', start: '15:15', end: '16:10', label: 'Closing ceremony + community games — awards, photos, networking' },
+      { type: 'break', start: '16:10', label: 'End of Day 3 — see you next year!' },
     ],
   },
 ];
