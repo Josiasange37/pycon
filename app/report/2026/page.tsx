@@ -86,15 +86,14 @@ export default function Report2026Page() {
 
       <section className="section wrap report-community" aria-labelledby="report-community-title">
         <div className="report-community__photo">
-          <Figure photo={PHOTOS.team} ratio="4 / 3" sizes="(min-width: 900px) 48vw, 90vw" top />
+          <Figure photo={PHOTOS.attendees} ratio="4 / 3" sizes="(min-width: 900px) 48vw, 90vw" top />
         </div>
         <div className="report-community__copy">
           <p className="eyebrow">Made possible together</p>
-          <h2 className="h2" id="report-community-title">The community made the room.</h2>
+          <h2 className="h2" id="report-community-title">More than 500 came to take part.</h2>
           <p className="prose">
-            Organisers, volunteers, speakers, partner communities and sponsors brought the 2026 edition to life. The
-            event welcomed more than 500 people, with speakers from six countries and a programme shaped around practical
-            learning and shared experience.
+            The 2026 edition welcomed attendees from across Cameroon and beyond, with speakers from six countries.
+            Organisers, volunteers, community partners and sponsors helped make the programme and access possible.
           </p>
           <div className="actions">
             <Link className="btn btn--line" href="/sponsors#thank-you">

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
-import { Figure, Head, PageIntro } from '../../components/ui';
-import { PARTNERS_2026, PHOTOS, TEAM } from '../../content/edition2026';
+import { Head, PageIntro } from '../../components/ui';
+import { PARTNERS_2026, TEAM } from '../../content/edition2026';
 import { LINKS, SITE } from '../../lib/site';
 import '../pages.css';
 
@@ -33,10 +33,6 @@ export default function AboutPage() {
           </p>
         }
       />
-
-      <section className="wrap about-photo" data-reveal>
-        <Figure photo={PHOTOS.team} ratio="16 / 9" top parallax sizes="100vw" />
-      </section>
 
       <section className="section wrap split" aria-labelledby="group-title">
         <div data-reveal>

@@ -34,7 +34,7 @@ const p = (file: string, alt: string, caption?: string): Photo => ({ src: `/2026
 export const PHOTOS = {
   closing: p('day3-01', 'Hundreds of attendees cheering at the front of the hall at the end of PyCon Cameroon 2026', 'Closing session, day 3, Yaoundé'),
   hall: p('day1-01', 'A packed hall of attendees raising their arms in front of the conference backdrop', 'Day 1, the main hall'),
-  team: p('cover', 'Organisers and volunteers of PyCon Cameroon 2026 posing in front of the sponsor wall', 'Organisers and volunteers'),
+  attendees: p('cover', 'PyCon Cameroon 2026 attendees grouped in front of the conference backdrop', 'Attendees · PyCon Cameroon 2026'),
   keynote: p('day1-02', 'Sarah Abderemane giving the opening keynote with a microphone beside the projection screen', 'Opening keynote'),
   panel: p('day3-03', 'Five panellists seated on stage during the panel on tech jobs and AI', 'Panel on tech jobs and AI'),
   workshops: p('day2-02', 'A wide hall of attendees working on laptops at round tables', 'Workshop hall, day 2'),
@@ -43,7 +43,7 @@ export const PHOTOS = {
   friends: p('day2-07', 'Three attendees in conference T-shirts hugging and smiling', 'Between sessions'),
   graffiti: p('day3-05', 'A live graffiti canvas reading PyCon Cameroon held up on stage', 'Live graffiti, day 3'),
   lunch: p('day1-05', 'A smiling attendee holding a plate of food at lunch', 'Lunch together'),
-  lineup: p('day3-07', 'Speakers, organisers and volunteers lined up on stage at the closing ceremony', 'Closing ceremony'),
+  lineup: p('day3-07', 'People gathered on stage during the PyCon Cameroon 2026 closing ceremony', 'Closing ceremony · day 3'),
   sponsorsSlide: p('day1-09', 'The host thanking sponsors in front of a projected slide of sponsor logos', 'Thanking the sponsors'),
   notes: p('day1-08', 'Two attendees taking handwritten notes during a talk', 'Taking notes'),
   sarah: p('day1-02', 'Sarah Abderemane on stage'),
