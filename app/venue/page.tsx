@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
@@ -6,6 +5,7 @@ import { Out, Title, Weave } from '../../components/Weave';
 import { EDITION_2026 } from '../../content/edition2026';
 import { SIGHTS } from '../../content/douala';
 import { LINKS, SITE, datesLabel } from '../../lib/site';
+import { pageMetadata } from '../../lib/seo';
 import '../pages.css';
 import './venue.css';
 
@@ -39,10 +39,11 @@ const LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/3.0/';
 const FEATURED_SIGHTS = SIGHTS.filter((sight) => sight.name in SIGHT_PHOTOS);
 const MORE_SIGHTS = SIGHTS.filter((sight) => !(sight.name in SIGHT_PHOTOS));
 
-export const metadata: Metadata = {
-  title: `Venue · ${SITE.city}`,
-  description: `The PyCon Cameroon ${SITE.year} venue in ${SITE.city} will be announced soon. Find arrival guidance and ideas for exploring the host city.`,
-};
+export const metadata = pageMetadata({
+  title: `Venue and Travel in ${SITE.city}`,
+  description: `Plan for PyCon Cameroon ${SITE.year} in ${SITE.city}: venue updates, arrival guidance and ideas for exploring the host city.`,
+  path: '/venue',
+});
 
 export default function VenuePage() {
   return (

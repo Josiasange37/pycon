@@ -10,7 +10,7 @@ export const SITE = {
   region: 'Littoral Region',
   country: 'Cameroon',
   url: 'https://cm.pycon.org/2027',
-  /** null until confirmed: the site then shows "to be announced" */
+  /** Null until confirmed. When set, start/end should be ISO 8601 date or date-time values. */
   dates: null as null | { start: string; end: string; label: string },
   venue: null as null | { name: string; address: string; mapsUrl: string },
   languages: 'English and French',
@@ -42,6 +42,7 @@ export const SOCIAL = [
   { label: 'WhatsApp community', short: 'WhatsApp', href: 'https://chat.whatsapp.com/Ckc80ophGEH0NJFmZAzDMr' },
   { label: 'Discord server', short: 'Discord', href: 'https://discord.gg/mC5zzqGmQ5' },
   { label: 'LinkedIn', short: 'LinkedIn', href: 'https://linkedin.com/company/PythonCameroon' },
+  { label: 'YouTube', short: 'YouTube', href: 'https://www.youtube.com/@PythonCameroon' },
   { label: 'X (Twitter)', short: 'X', href: 'https://x.com/PythonCameroon' },
   { label: 'GitHub', short: 'GitHub', href: 'https://github.com/PythonCameroon' },
 ];
@@ -53,6 +54,7 @@ export const NAV = [
   { label: 'Sponsors', href: '/sponsors' },
   { label: 'Attend', href: '/attend' },
   { label: 'Venue', href: '/venue' },
+  { label: 'UbuCon', href: '/ubucon' },
 ];
 
 export const datesLabel = () => SITE.dates?.label ?? `${SITE.year} · dates to be announced`;

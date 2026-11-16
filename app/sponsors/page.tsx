@@ -1,16 +1,17 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Arrow } from '../../components/Mark';
 import { Figure, Head } from '../../components/ui';
 import { Title as WeaveTitle, Weave } from '../../components/Weave';
 import { PHOTOS, SPONSORS_2026, STATS_2026 } from '../../content/edition2026';
 import { LINKS, SITE } from '../../lib/site';
+import { pageMetadata } from '../../lib/seo';
 import '../pages.css';
 
-export const metadata: Metadata = {
-  title: 'Sponsors',
-  description: 'Sponsor PyCon Cameroon 2027 in Douala, and thank you to the companies and communities who made 2026 possible.',
-};
+export const metadata = pageMetadata({
+  title: 'Sponsorship',
+  description: 'Sponsor PyCon Cameroon 2027 in Douala and see how sponsorship supports lower ticket costs, financial aid, community access and the 2026 partners.',
+  path: '/sponsors',
+});
 
 const WHY = [
   { title: 'Reach the people who write Python here', body: 'Students, working developers, data teams and founders from across Cameroon, in one place for several days.' },

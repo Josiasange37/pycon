@@ -1,12 +1,14 @@
-import type { Metadata } from 'next';
 import ProgrammeSchedule from '../../components/ProgrammeSchedule';
 import { EDITION_2026 } from '../../content/edition2026';
+import { pageMetadata } from '../../lib/seo';
 import './agenda.css';
 
-export const metadata: Metadata = {
-  title: 'Programme',
-  description: `PyCon Cameroon 2026 programme in ${EDITION_2026.city}, ${EDITION_2026.dates}.`,
-};
+export const metadata = pageMetadata({
+  title: `PyCon Cameroon 2026 Programme | ${EDITION_2026.city}`,
+  description: `Review the PyCon Cameroon 2026 programme in ${EDITION_2026.city}, including Python talks, workshops and community sessions from ${EDITION_2026.dates}.`,
+  path: '/agenda',
+  absoluteTitle: true,
+});
 
 export default function ProgrammePage() {
   return (

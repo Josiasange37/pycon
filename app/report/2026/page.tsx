@@ -1,15 +1,17 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Arrow } from '../../../components/Mark';
 import { Figure, Head, PageIntro } from '../../../components/ui';
 import { EDITION_2026, FORMATS_2026, KEYNOTES_2026, LANGUAGES_2026, PHOTOS, SPONSORS_2026, STATS_2026 } from '../../../content/edition2026';
 import { LINKS } from '../../../lib/site';
+import { pageMetadata } from '../../../lib/seo';
 import '../../pages.css';
 
-export const metadata: Metadata = {
-  title: '2026 edition report',
-  description: 'The people, programme and moments behind PyCon Cameroon 2026 in Yaoundé.',
-};
+export const metadata = pageMetadata({
+  title: 'PyCon Cameroon 2026 Report | Yaoundé',
+  description: 'Read the PyCon Cameroon 2026 event report: three days of Python talks, workshops and community in Yaoundé from 17–19 September.',
+  path: '/report/2026',
+  absoluteTitle: true,
+});
 
 export default function Report2026Page() {
   const maxFormat = Math.max(...FORMATS_2026.map((item) => item.value));

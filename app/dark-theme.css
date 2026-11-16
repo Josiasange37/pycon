@@ -1,0 +1,324 @@
+/* Site-wide dark surfaces. Keep the Wouri blue and sun accents; move paper areas to night navy. */
+:root[data-theme='dark'] .f-paper {
+  --field-rule: rgb(244 237 218 / 0.14);
+  --field-rule-strong: rgb(244 237 218 / 0.3);
+  --field-copy: #c2ccd9;
+  --field-ink: #f4edda;
+  --field-accent: #a9c8e1;
+  --field-highlight: #f3c857;
+  --field-tone: #a9c8e1;
+  --field-paper: #1b2949;
+  background: #10182f;
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .f-river {
+  --field-rule: rgb(244 237 218 / 0.16);
+  --field-rule-strong: rgb(244 237 218 / 0.34);
+  --field-copy: #c7d3df;
+  --field-ink: #f4edda;
+  --field-accent: #f3c857;
+  --field-highlight: #f3c857;
+  --field-tone: #f3c857;
+  --field-paper: #1b2949;
+  background: linear-gradient(145deg, #1b3556, #172742 70%, #13223d);
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .f-night {
+  --field-rule: rgb(244 237 218 / 0.14);
+  --field-rule-strong: rgb(244 237 218 / 0.3);
+  --field-copy: #bac6d6;
+  --field-ink: #f4edda;
+  --field-accent: #f3c857;
+  --field-highlight: #f3c857;
+  --field-tone: #f3c857;
+  --field-paper: #1b2949;
+  background: #080e20;
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .f-sun {
+  --field-rule: rgb(244 237 218 / 0.17);
+  --field-rule-strong: rgb(244 237 218 / 0.32);
+  --field-copy: #d2c8aa;
+  --field-ink: #f4edda;
+  --field-accent: #a9c8e1;
+  --field-highlight: #f3c857;
+  --field-tone: #f3c857;
+  --field-paper: #1b2949;
+  background: #30291b;
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .f-paper ::selection,
+:root[data-theme='dark'] .f-sun ::selection {
+  background: #f3c857;
+  color: #122e39;
+}
+
+:root[data-theme='dark'] .hx {
+  --hx-ground: #294565;
+  --hx-cream: #f4edda;
+  --hx-paper: #f4edda;
+  --hx-sun: #f3c857;
+  --hx-ink: #122e39;
+  --hx-navy: #19264c;
+  --hx-mist: #d0d9e2;
+  --hx-line: #9ab1c4;
+}
+
+:root[data-theme='dark'] .f-paper :focus-visible,
+:root[data-theme='dark'] .f-sun :focus-visible {
+  outline-color: #f3c857;
+}
+
+/* Inner-page openings use the same palette as the home page fields. */
+:root[data-theme='dark'] .intro--paper {
+  --intro-ground: #10182f;
+  --intro-ink: #f4edda;
+  --intro-highlight: #a9c8e1;
+  --intro-copy: #c2ccd9;
+}
+
+:root[data-theme='dark'] .intro--river {
+  --intro-ground: #1b3556;
+  --intro-ink: #f4edda;
+  --intro-highlight: #f3c857;
+  --intro-copy: #c7d3df;
+}
+
+:root[data-theme='dark'] .intro--night {
+  --intro-ground: #080e20;
+  --intro-ink: #f4edda;
+  --intro-highlight: #f3c857;
+  --intro-copy: #bac6d6;
+}
+
+:root[data-theme='dark'] .intro--sun {
+  --intro-ground: #30291b;
+  --intro-ink: #f4edda;
+  --intro-highlight: #f3c857;
+  --intro-copy: #d2c8aa;
+}
+
+/* Homepage uses a dedicated sponsor paper token outside the field utilities. */
+:root[data-theme='dark'] .sponsors {
+  --sponsors-paper: #10182f;
+}
+
+:root[data-theme='dark'] .sponsors__tier {
+  border-top-color: rgb(244 237 218 / 0.16);
+}
+
+:root[data-theme='dark'] .sponsors__tier:not(.sponsors__tier--featured) .sponsors__tier-meta::before {
+  background: rgb(244 237 218 / 0.16);
+}
+
+:root[data-theme='dark'] .sponsors__tier-name,
+:root[data-theme='dark'] .sponsors__tier--featured .sponsors__tier-name {
+  color: #aab6c8;
+}
+
+:root[data-theme='dark'] .douala__code {
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .douala__facts dt {
+  color: #a9c8e1;
+}
+
+:root[data-theme='dark'] main#main .finale.f-sun {
+  background: #30291b;
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] main#main .finale.f-sun .finale__title,
+:root[data-theme='dark'] main#main .finale.f-sun .finale__title .wv-title__lead,
+:root[data-theme='dark'] main#main .finale.f-sun .finale__social a {
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] main#main .finale.f-sun .finale__title .wv-title__main {
+  color: #f3c857;
+}
+
+:root[data-theme='dark'] main#main .finale.f-sun .finale__social a {
+  border-bottom-color: rgb(244 237 218 / 0.3);
+}
+
+/* Speakers, sponsorship, visitor guide and archive sections. */
+:root[data-theme='dark'] .sp-all-speakers,
+:root[data-theme='dark'] .agenda-dates,
+:root[data-theme='dark'] .sponsor-directory-sec,
+:root[data-theme='dark'] .city-story,
+:root[data-theme='dark'] .principles-sec,
+:root[data-theme='dark'] .there,
+:root[data-theme='dark'] .stay {
+  background: #10182f;
+  color: #f4edda;
+  --ink: #f4edda;
+  --ink-2: #c2ccd9;
+  --ink-3: #9ba9bb;
+  --rule: rgb(244 237 218 / 0.14);
+  --rule-strong: rgb(244 237 218 / 0.28);
+  --river: #a9c8e1;
+}
+
+:root[data-theme='dark'] .principles li {
+  background: #17233e;
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .principles li:nth-child(3n + 2) {
+  background: #1b2949;
+}
+
+:root[data-theme='dark'] .guide__index {
+  background: #1b2949;
+  color: #f4edda;
+  box-shadow: 0 18px 34px -28px rgb(0 0 0 / 0.8);
+}
+
+:root[data-theme='dark'] .guide__index .eyebrow {
+  color: #a9c8e1;
+}
+
+:root[data-theme='dark'] .sponsor-cover,
+:root[data-theme='dark'] .sp-cfp-cta {
+  background: #30291b;
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .sponsor-cover .h1,
+:root[data-theme='dark'] .sponsor-cover .eyebrow,
+:root[data-theme='dark'] .sponsor-cover .h1 .line-mask:last-child,
+:root[data-theme='dark'] .sp-cfp-cta__title,
+:root[data-theme='dark'] .sp-cfp-cta__body {
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .sponsor-cover__weave {
+  color: #f3c857;
+}
+
+:root[data-theme='dark'] .sponsor-cover__foot {
+  border-color: rgb(244 237 218 / 0.24);
+}
+
+:root[data-theme='dark'] .sp-cfp-cta__eyebrow {
+  color: #f3c857;
+}
+
+:root[data-theme='dark'] .sponsor-directory__meta .h3,
+:root[data-theme='dark'] .sponsor-directory__logo {
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .sponsor-directory__logo {
+  border-color: rgb(244 237 218 / 0.14);
+  background: #17233e;
+}
+
+:root[data-theme='dark'] .sponsor-directory__logo:hover {
+  border-color: rgb(243 200 87 / 0.45);
+  background: #1b2949;
+}
+
+:root[data-theme='dark'] .wall-card__print--0,
+:root[data-theme='dark'] .wall-card__print--2 {
+  --print-bg: #1b2949;
+}
+
+:root[data-theme='dark'] .wall-card__print--1 {
+  --print-bg: #40351d;
+}
+
+:root[data-theme='dark'] .wall-card__weave {
+  background: #f3c857;
+  color: #122e39;
+}
+
+:root[data-theme='dark'] .head__weave {
+  color: #a9c8e1;
+}
+
+/* Venue guide cards keep their layout while changing to layered navy surfaces. */
+:root[data-theme='dark'] .v-address {
+  border-color: rgb(244 237 218 / 0.15);
+  background: #1b2949;
+  box-shadow: 8px 8px 0 rgb(0 0 0 / 0.22);
+}
+
+:root[data-theme='dark'] .v-address h3,
+:root[data-theme='dark'] .v-trip-card h3,
+:root[data-theme='dark'] .v-arrivals strong,
+:root[data-theme='dark'] .v-sight-card h3 {
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .v-trip-card,
+:root[data-theme='dark'] .v-sight-card {
+  border-color: rgb(244 237 218 / 0.15);
+  background: #17233e;
+  box-shadow: 8px 8px 0 rgb(0 0 0 / 0.22);
+  color: #f4edda;
+}
+
+:root[data-theme='dark'] .v-trip-card--arrival {
+  background: #1b2949;
+}
+
+:root[data-theme='dark'] .v-trip-card > p,
+:root[data-theme='dark'] .v-arrivals li,
+:root[data-theme='dark'] .v-sight-card__copy > p:not(.v-sight-card__credit) {
+  color: #c2ccd9;
+}
+
+:root[data-theme='dark'] .v-trip-card__aside,
+:root[data-theme='dark'] .v-arrivals,
+:root[data-theme='dark'] .v-arrivals li {
+  border-color: rgb(244 237 218 / 0.15);
+}
+
+:root[data-theme='dark'] .v-trip-card__number,
+:root[data-theme='dark'] .v-sight-card__number,
+:root[data-theme='dark'] .v-sight-card__map {
+  color: #a9c8e1;
+}
+
+:root[data-theme='dark'] .v-sight-card__credit {
+  color: #aab6c8;
+}
+
+:root[data-theme='dark'] .v-sight-card__credit a {
+  text-decoration-color: rgb(244 237 218 / 0.35);
+}
+
+/* Agenda's full-screen detail sheet has a paper-colored reading pane in light mode. */
+:root[data-theme='dark'] .program-detail {
+  --brand-paper: #10182f;
+  --brand-night: #f4edda;
+  --brand-river: #a9c8e1;
+}
+
+:root[data-theme='dark'] .program-detail__topbar {
+  border-bottom-color: rgb(244 237 218 / 0.14);
+  background: rgb(16 24 47 / 0.94);
+}
+
+:root[data-theme='dark'] .program-detail__close {
+  border-color: rgb(244 237 218 / 0.3);
+}
+
+:root[data-theme='dark'] .program-detail__facts dl,
+:root[data-theme='dark'] .program-detail__facts dl > div {
+  border-color: rgb(244 237 218 / 0.17);
+}
+
+/* Keep controls and native widgets aligned with the selected theme. */
+:root[data-theme='dark'] input,
+:root[data-theme='dark'] select,
+:root[data-theme='dark'] textarea {
+  color-scheme: dark;
+}

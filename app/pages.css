@@ -2100,50 +2100,6 @@
   }
 }
 
-.not-found {
-  min-height: 70vh;
-  padding-block: clamp(72px, 10vw, 140px);
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--brand-river);
-  color: var(--brand-cream);
-}
-
-.not-found__in {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  justify-items: start;
-  align-content: center;
-  gap: 24px;
-}
-
-.not-found .h1 {
-  max-width: 11ch;
-  color: var(--brand-cream);
-  font-family: var(--font-inter);
-  font-weight: 900;
-  letter-spacing: -0.075em;
-  text-shadow: 0 0.065em 0.04em rgb(0 0 0 / 0.28);
-}
-
-.not-found .lede {
-  color: #d2dde2;
-}
-
-.not-found .eyebrow {
-  color: var(--brand-sun);
-}
-
-.not-found__weave {
-  position: absolute;
-  top: 0;
-  right: var(--gutter);
-  width: clamp(120px, 16vw, 220px);
-  color: var(--brand-cream);
-}
-
 @media (max-width: 720px) {
   .intro {
     padding-block: 76px 88px;

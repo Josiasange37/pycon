@@ -287,3 +287,24 @@
     font-size: 9px;
   }
 }
+
+:global(:root[data-theme='dark']) .hero {
+  --field-ink: #f4edda;
+  --field-copy: #d2c8aa;
+}
+
+:global(:root[data-theme='dark']) .titleScript {
+  color: #f3c857;
+}
+
+:global(:root[data-theme='dark']) .secondary {
+  border-bottom-color: rgb(244 237 218 / 0.42);
+}
+
+:global(:root[data-theme='dark']) .caption {
+  border-top-color: rgb(244 237 218 / 0.3);
+}
+
+:global(:root[data-theme='dark']) .caption span:last-child {
+  color: #d2c8aa;
+}

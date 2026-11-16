@@ -1,16 +1,17 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
 import SpeakerWall from '../../components/SpeakerWall';
 import { Figure, Head, PageIntro } from '../../components/ui';
 import { KEYNOTES_2026 } from '../../content/edition2026';
 import { LINKS, STATUS } from '../../lib/site';
+import { pageMetadata } from '../../lib/seo';
 import '../pages.css';
 
-export const metadata: Metadata = {
-  title: 'Speakers',
-  description: 'Speak at PyCon Cameroon 2027 in Douala. The call for proposals opens soon; meet the people who spoke in 2026.',
-};
+export const metadata = pageMetadata({
+  title: 'Speakers & Call for Proposals',
+  description: 'Explore the PyCon Cameroon 2027 call for proposals in Douala, submission status, talk formats, languages, and speakers from the 2026 conference.',
+  path: '/speakers',
+});
 
 export default function SpeakersPage() {
   return (

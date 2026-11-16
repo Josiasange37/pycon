@@ -1,14 +1,26 @@
-import type { Metadata } from 'next';
+/*
+THESIS: The Attend page is an editorial travel dossier, not a generic FAQ.
+OWN-WORLD: Inherit Woven in Douala: warm paper, navy, Wouri blue, taxi yellow, Inter display, and credited Douala photography.
+STORY: Local and international attendees see current conference status, find travel guidance, and reach official sources.
+FIRST VIEWPORT: A deep-navy cover pairs “Coming to Douala” with a credited portrait and four live status facts; a ruled index leads into wide editorial chapters and historical ticket prices.
+FORM: Travel dossier, selected by the user in surface round c61e80db; code-led.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+*/
+
+import Image from 'next/image';
 import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
-import { PageIntro } from '../../components/ui';
+import { Weave } from '../../components/Weave';
 import { LINKS, SITE, STATUS } from '../../lib/site';
+import { pageMetadata } from '../../lib/seo';
 import '../pages.css';
+import './attend.css';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Attend',
-  description: 'Tickets, financial aid, visas, health and money: what you need to know to attend PyCon Cameroon 2027 in Douala.',
-};
+  description: 'Plan your visit to PyCon Cameroon 2027 in Douala with ticket and financial aid updates, visa guidance, health information and travel advice.',
+  path: '/attend',
+});
 
 const INDEX = [
   { id: 'tickets', label: 'Tickets' },
@@ -32,165 +44,208 @@ const FAQ = [
   { q: 'Is the venue accessible?', a: 'The venue is not chosen yet. Accessibility is one of the things we check; tell us what you need and we will answer before you book.' },
 ];
 
+const ticketStatus = STATUS.tickets === 'on-sale' ? 'On sale' : STATUS.tickets === 'sold-out' ? 'Sold out' : 'Not on sale yet';
+const aidStatus = STATUS.financialAid === 'open' ? 'Applications open' : STATUS.financialAid === 'closed' ? 'Applications closed' : 'Not open yet';
+
 export default function AttendPage() {
   return (
     <>
-      <PageIntro
-        variant="night"
-        label="Attend"
-        title={'Coming to\nDouala'}
-        lede={<p>Everything you need to plan the trip. What is not decided yet says so, and is updated here first.</p>}
-      >
-        <dl className="facts">
-          <div>
-            <dt>Tickets</dt>
-            <dd>{STATUS.tickets === 'on-sale' ? 'On sale' : 'Not on sale yet'}</dd>
+      <section className="attend-cover deep" aria-labelledby="attend-title">
+        <Weave className="attend-cover__weave" accent />
+        <div className="wrap attend-cover__in">
+          <div className="attend-cover__intro">
+            <h1 className="attend-cover__title" id="attend-title">
+              Coming to <span>Douala.</span>
+            </h1>
+            <p className="attend-cover__lede">
+              Everything you need to plan the trip. What is not decided yet says so, and is updated here first.
+            </p>
+            <p className="attend-cover__edition mono">PyCon Cameroon · {SITE.year}</p>
           </div>
-          <div>
-            <dt>Financial aid</dt>
-            <dd>{STATUS.financialAid === 'open' ? 'Applications open' : 'Not open yet'}</dd>
-          </div>
-          <div>
-            <dt>Airport</dt>
-            <dd>Douala International (DLA)</dd>
-          </div>
-          <div>
-            <dt>Currency</dt>
-            <dd>CFA franc (XAF)</dd>
-          </div>
-        </dl>
-      </PageIntro>
 
-      <div className="wrap guide">
-        <nav className="guide__index" aria-label="On this page">
-          <p className="eyebrow">On this page</p>
-          <ol>
-            {INDEX.map((i, n) => (
-              <li key={i.id}>
-                <a href={`#${i.id}`}>
-                  <span className="mono">{String(n + 1).padStart(2, '0')}</span> {i.label}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-
-        <div className="guide__body">
-          <section id="tickets" aria-labelledby="t-title" className="guide__sec guide__sec--tickets">
-            <h2 className="h2" id="t-title">
-              Tickets
-            </h2>
-            <p className="lede">Not on sale yet. Prices are announced with the dates.</p>
-            <div className="prose">
-              <p>
-                In 2026, tickets came in three steps, and every ticket included all talks and workshops, coffee, lunch and
-                conference swag. Prices were in CFA francs:
-              </p>
+          <figure className="attend-cover__photo">
+            <div className="attend-cover__frame">
+              <Image
+                src="/venue/nouvelle-liberte.webp"
+                alt="La Nouvelle Liberté sculpture at the Deïdo roundabout in Douala"
+                fill
+                priority
+                sizes="(min-width: 960px) 38vw, 100vw"
+              />
             </div>
-            <ul className="rates" data-stagger>
-              {RATES_2026.map((r) => (
-                <li key={r.name}>
-                  <span className="muted">{r.name}</span>
-                  <span className="rates__price">
-                    {r.price} <small>XAF</small>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <Link className="btn btn--taxi" href="/#updates">
+            <figcaption>
+              <span>La Nouvelle Liberté · Deïdo</span>
+              <span>
+                Photo: <a href="https://commons.wikimedia.org/wiki/File:Nouvelle_Libert%C3%A9_01.JPG" target="_blank" rel="noreferrer">Alessandro Aceri</a>
+                {' · '}
+                <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noreferrer">CC BY-SA 3.0</a>
+              </span>
+            </figcaption>
+          </figure>
+
+          <dl className="attend-cover__facts" aria-label={`${SITE.year} conference planning status`}>
+            <div>
+              <dt>Dates</dt>
+              <dd>{SITE.dates?.label ?? 'To be announced'}</dd>
+            </div>
+            <div>
+              <dt>Venue</dt>
+              <dd>{SITE.venue?.name ?? 'Being confirmed'}</dd>
+            </div>
+            <div>
+              <dt>Tickets</dt>
+              <dd>{ticketStatus}</dd>
+            </div>
+            <div>
+              <dt>Financial aid</dt>
+              <dd>{aidStatus}</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <nav className="attend-index wrap" aria-label="On this page">
+        <p className="attend-index__title">In this guide</p>
+        <ol>
+          {INDEX.map((item) => (
+            <li key={item.id}>
+              <a href={`#${item.id}`}>
+                <span>{item.label}</span>
+                <Arrow />
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <div className="wrap attend-guide">
+        <section id="tickets" aria-labelledby="tickets-title" className="attend-chapter">
+          <div className="attend-chapter__heading">
+            <h2 className="attend-chapter__title" id="tickets-title">Tickets</h2>
+            <p className="attend-chapter__note">{SITE.year} · {ticketStatus}</p>
+          </div>
+          <div className="attend-chapter__body">
+            <p className="attend-chapter__lead">Prices are announced with the dates.</p>
+            <p>
+              In 2026, every ticket included all talks and workshops, coffee, lunch and conference swag. Those prices in
+              CFA francs are kept here as a reference for the previous edition.
+            </p>
+            <table className="attend-rates">
+              <caption>PyCon Cameroon 2026 · Yaoundé · XAF</caption>
+              <thead>
+                <tr><th scope="col">Ticket</th><th scope="col">Price</th></tr>
+              </thead>
+              <tbody>
+                {RATES_2026.map((rate) => (
+                  <tr key={rate.name}>
+                    <th scope="row">{rate.name}</th>
+                    <td>{rate.price} <span>XAF</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <Link className="btn btn--taxi attend-chapter__action" href="/#updates">
               Tell me when tickets open <Arrow />
             </Link>
-          </section>
+          </div>
+        </section>
 
-          <section id="financial-aid" aria-labelledby="fa-title" className="guide__sec">
-            <h2 className="h2" id="fa-title">
-              Financial aid
-            </h2>
-            <div className="prose">
-              <p>
-                Money should not be the reason you miss PyCon Cameroon. In 2026, part of the budget paid for free tickets,
-                hotel nights and travel to Yaoundé for speakers and grant recipients from other cities.
-              </p>
-              <p>For 2027, how to apply is announced with ticket sales.</p>
-            </div>
-          </section>
+        <section id="financial-aid" aria-labelledby="aid-title" className="attend-chapter">
+          <div className="attend-chapter__heading">
+            <h2 className="attend-chapter__title" id="aid-title">Financial aid</h2>
+            <p className="attend-chapter__note">{SITE.year} · {aidStatus}</p>
+          </div>
+          <div className="attend-chapter__body">
+            <p className="attend-chapter__lead">Money should not be the reason you miss PyCon Cameroon.</p>
+            <p>
+              In 2026, part of the budget paid for free tickets, hotel nights and travel to Yaoundé for speakers and grant
+              recipients from other cities.
+            </p>
+            <p>For 2027, how to apply is announced with ticket sales.</p>
+          </div>
+        </section>
 
-          <section id="visas" aria-labelledby="v-title" className="guide__sec">
-            <h2 className="h2" id="v-title">
-              Visas and invitation letters
-            </h2>
-            <div className="prose">
-              <p>
-                Most visitors need a visa, applied for online at the official portal{' '}
-                <a href={LINKS.evisa} target="_blank" rel="noreferrer">
-                  evisacam.cm
-                </a>
-                . Apply at least ten days before you travel, and beware of look-alike sites: the official one ends in .cm.
-              </p>
-              <p>
-                Citizens of the CEMAC countries (Central African Republic, Chad, Congo, Equatorial Guinea and Gabon) and of
-                Mali and Nigeria do not need one for short visits.
-              </p>
-              <p>We send invitation letters to registered attendees and speakers. Ask early: embassies can be slow.</p>
-            </div>
-            <a className="link" href={LINKS.mail('Invitation letter, PyCon Cameroon 2027')}>
+        <section id="visas" aria-labelledby="visas-title" className="attend-chapter">
+          <div className="attend-chapter__heading">
+            <h2 className="attend-chapter__title" id="visas-title">Visas and invitation letters</h2>
+            <p className="attend-chapter__note">Before you travel</p>
+          </div>
+          <div className="attend-chapter__body">
+            <p>
+              Visa requirements vary by nationality and passport type. Check your current requirements on the official
+              Cameroon eVisa portal before booking. Apply early and follow the processing guidance shown there; avoid
+              look-alike sites by checking the address ends in <strong>.cm</strong>.
+            </p>
+            <p>
+              Citizens of CEMAC countries (Central African Republic, Chad, Congo, Equatorial Guinea and Gabon), Mali and
+              Nigeria do not need a visa for short visits. Check the current rule for your passport before you travel.
+            </p>
+            <p>We send invitation letters to registered attendees and speakers. Ask early: embassies can be slow.</p>
+            <a className="attend-text-link" href={LINKS.evisa} target="_blank" rel="noreferrer">
+              Open the official eVisa portal <Arrow dir="out" />
+            </a>
+            <a className="attend-text-link" href={LINKS.mail('Invitation letter, PyCon Cameroon 2027')}>
               Request an invitation letter <Arrow />
             </a>
-          </section>
+          </div>
+        </section>
 
-          <section id="health" aria-labelledby="h-title" className="guide__sec">
-            <h2 className="h2" id="h-title">
-              Health
-            </h2>
-            <div className="prose">
-              <p>
-                <strong>Yellow fever:</strong> a vaccination certificate is required to enter Cameroon, and is checked at
-                the airport. Carry the original.
-              </p>
-              <p>
-                <strong>Malaria</strong> is present all year in Douala. See a doctor about prevention before you travel,
-                and bring repellent.
-              </p>
-              <p>Drink bottled or filtered water. Douala is hot and humid; carry water during the day.</p>
-            </div>
-          </section>
+        <section id="health" aria-labelledby="health-title" className="attend-chapter">
+          <div className="attend-chapter__heading">
+            <h2 className="attend-chapter__title" id="health-title">Health</h2>
+            <p className="attend-chapter__note">Before you travel</p>
+          </div>
+          <div className="attend-chapter__body attend-chapter__body--health">
+            <p><strong>Yellow fever:</strong> Cameroon requires a vaccination certificate for travellers aged one year and older. Keep the original with your travel documents.</p>
+            <p><strong>Malaria:</strong> risk is present throughout the year. Ask a clinician about prevention before you travel, and bring repellent.</p>
+            <p>Drink bottled or filtered water. Douala is hot and humid; carry water during the day.</p>
+            <a className="attend-text-link" href="https://www.who.int/travel-advice" target="_blank" rel="noreferrer">
+              Check WHO travel advice <Arrow dir="out" />
+            </a>
+          </div>
+        </section>
 
-          <section id="money" aria-labelledby="m-title" className="guide__sec">
-            <h2 className="h2" id="m-title">
-              Money and phones
-            </h2>
-            <div className="prose">
-              <p>
-                The currency is the Central African CFA franc (XAF). Cash is still king in taxis and markets; cards work in
-                larger hotels and shops. ATMs are common in Akwa and Bonanjo.
-              </p>
-              <p>
-                Mobile money (MTN MoMo, Orange Money) is how most people pay each other. A local SIM card is cheap and needs
-                your passport to register.
-              </p>
-            </div>
-          </section>
+        <section id="money" aria-labelledby="money-title" className="attend-chapter">
+          <div className="attend-chapter__heading">
+            <h2 className="attend-chapter__title" id="money-title">Money and phones</h2>
+            <p className="attend-chapter__note">In Douala</p>
+          </div>
+          <div className="attend-chapter__body">
+            <p>
+              The currency is the Central African CFA franc (XAF). Cash is still king in taxis and markets; cards work in
+              larger hotels and shops. ATMs are common in Akwa and Bonanjo.
+            </p>
+            <p>
+              Mobile money (MTN MoMo, Orange Money) is how most people pay each other. A local SIM card is cheap and needs
+              your passport to register.
+            </p>
+            <dl className="attend-local-facts">
+              <div><dt>Airport</dt><dd>Douala International · DLA</dd></div>
+              <div><dt>Currency</dt><dd>CFA franc · XAF</dd></div>
+            </dl>
+          </div>
+        </section>
 
-          <section id="faq" aria-labelledby="q-title" className="guide__sec">
-            <h2 className="h2" id="q-title">
-              Questions
-            </h2>
-            <div className="faq">
-              {FAQ.map((f) => (
-                <details key={f.q}>
+        <section id="faq" aria-labelledby="faq-title" className="attend-chapter attend-chapter--faq">
+          <div className="attend-chapter__heading">
+            <h2 className="attend-chapter__title" id="faq-title">Questions</h2>
+            <p className="attend-chapter__note">A few useful answers</p>
+          </div>
+          <div className="attend-chapter__body">
+            <div className="attend-faq">
+              {FAQ.map((item) => (
+                <details key={item.q}>
                   <summary>
-                    {f.q}
-                    <span aria-hidden="true" className="faq__icon" />
+                    {item.q}
+                    <span className="attend-faq__icon" aria-hidden="true" />
                   </summary>
-                  <p className="prose">{f.a}</p>
+                  <p>{item.a}</p>
                 </details>
               ))}
             </div>
-            <p className="muted" style={{ marginTop: 24 }}>
-              Anything else: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-            </p>
-          </section>
-        </div>
+            <p className="attend-contact">Anything else? <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+          </div>
+        </section>
       </div>
     </>
   );

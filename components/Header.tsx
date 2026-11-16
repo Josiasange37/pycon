@@ -12,6 +12,7 @@ import './header.css';
 const NAV_KEY = {
   '/about': 'about',
   '/agenda': 'programme',
+  '/ubucon': 'ubucon',
   '/speakers': 'speakers',
   '/sponsors': 'sponsors',
   '/attend': 'attend',
@@ -87,7 +88,12 @@ export default function Header() {
             <ul>
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>
+                  <Link
+                    href={n.href}
+                    aria-current={isCurrent(n.href) ? 'page' : undefined}
+                    className={n.href === '/ubucon' ? 'nav__ubucon' : undefined}
+                  >
+                    {n.href === '/ubucon' && <Image src="/partners/ubucon-cameroon.webp" alt="" width={18} height={18} />}
                     {label(n.href, n.label)}
                   </Link>
                 </li>
@@ -125,7 +131,12 @@ export default function Header() {
               </li>
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>
+                  <Link
+                    href={n.href}
+                    aria-current={isCurrent(n.href) ? 'page' : undefined}
+                    className={n.href === '/ubucon' ? 'menu__ubucon' : undefined}
+                  >
+                    {n.href === '/ubucon' && <Image src="/partners/ubucon-cameroon.webp" alt="" width={30} height={30} />}
                     {label(n.href, n.label)}
                   </Link>
                 </li>

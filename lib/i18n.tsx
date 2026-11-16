@@ -10,7 +10,7 @@ export type Lang = 'en' | 'fr';
 
 export const DICT = {
   en: {
-    nav: { about: 'About', programme: 'Programme', speakers: 'Speakers', sponsors: 'Sponsors', attend: 'Attend', venue: 'Venue' },
+    nav: { about: 'About', programme: 'Programme', ubucon: 'UbuCon', speakers: 'Speakers', sponsors: 'Sponsors', attend: 'Attend', venue: 'Venue' },
     home: 'Home',
     getUpdates: 'Get updates',
     openMenu: 'Open menu',
@@ -55,7 +55,7 @@ export const DICT = {
     },
   },
   fr: {
-    nav: { about: 'À propos', programme: 'Programme', speakers: 'Intervenants', sponsors: 'Sponsors', attend: 'Participer', venue: 'Lieu' },
+    nav: { about: 'À propos', programme: 'Programme', ubucon: 'UbuCon', speakers: 'Intervenants', sponsors: 'Sponsors', attend: 'Participer', venue: 'Lieu' },
     home: 'Accueil',
     getUpdates: 'Rester informé',
     openMenu: 'Ouvrir le menu',

@@ -1,0 +1,96 @@
+.akana-profile {
+  display: grid;
+  justify-items: center;
+  gap: clamp(18px, 2.5vw, 28px);
+  max-width: 480px;
+}
+
+.akana-profile__portrait {
+  display: block;
+  width: clamp(210px, 22vw, 270px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--intro-ink) 38%, transparent);
+  border-radius: 50%;
+  background: #07090c;
+  box-shadow: 0 16px 48px rgb(0 0 0 / 24%);
+}
+
+.akana-profile__links {
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  padding: 8px 18px;
+  border: 1px solid color-mix(in srgb, var(--intro-ink) 24%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--intro-ink) 5%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.akana-profile__link {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--intro-ink) 20%, transparent);
+  color: var(--intro-ink);
+  font-size: 0.94rem;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.akana-profile__link:first-child {
+  border-top: 1px solid color-mix(in srgb, var(--intro-ink) 20%, transparent);
+}
+
+.akana-profile__link:hover,
+.akana-profile__link:focus-visible {
+  color: var(--taxi);
+}
+
+.akana-profile__link--primary {
+  margin-bottom: 5px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--taxi);
+  color: var(--on-taxi);
+}
+
+.akana-profile__link--primary:hover,
+.akana-profile__link--primary:focus-visible {
+  background: var(--taxi-hover);
+  color: var(--on-taxi);
+}
+
+.akana-profile__link:focus-visible {
+  outline: 2px solid var(--taxi);
+  outline-offset: 3px;
+}
+
+.akana-profile__link svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 480px) {
+  .akana-profile {
+    gap: 16px;
+  }
+
+  .akana-profile__portrait {
+    width: min(64vw, 240px);
+  }
+
+  .akana-profile__links {
+    padding: 6px 14px;
+  }
+
+  .akana-profile__link {
+    min-height: 42px;
+    font-size: 0.88rem;
+  }
+}
