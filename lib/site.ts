@@ -52,6 +52,7 @@ export const NAV = [
   { label: 'Speakers', href: '/speakers' },
   { label: 'Sponsors', href: '/sponsors' },
   { label: 'Attend', href: '/attend' },
+  { label: 'Venue', href: '/venue' },
 ];
 
 export const datesLabel = () => SITE.dates?.label ?? `${SITE.year} · dates to be announced`;

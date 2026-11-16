@@ -562,14 +562,27 @@
   margin-top: clamp(52px, 6.4vw, 88px);
 }
 
-.partnerList::before {
+.partnerList::before,
+.partnerList::after {
   position: absolute;
+  z-index: 0;
+  content: '';
+}
+
+.partnerList::before {
   top: 0;
   bottom: 0;
   left: 50%;
   width: 1px;
   background: rgb(25 38 76 / 0.17);
-  content: '';
+}
+
+.partnerList::after {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: rgb(25 38 76 / 0.3);
 }
 
 .partnerList li {
@@ -577,36 +590,32 @@
   border-top: 1px solid rgb(25 38 76 / 0.3);
 }
 
-.partnerList li:last-child {
-  grid-column: 1 / -1;
-  border-bottom: 1px solid rgb(25 38 76 / 0.3);
-}
-
-.partnerList li:last-child::after {
-  position: absolute;
-  right: 0;
-  bottom: -4px;
-  left: 0;
-  height: 7px;
-  background: var(--about-cream);
-  content: '';
-}
-
 .partnerList li a {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 22px;
+  grid-template-columns: 28px 58px minmax(0, 1fr) 16px;
   align-items: center;
-  gap: 14px;
-  min-height: 78px;
+  gap: 12px;
+  min-height: 94px;
   color: var(--about-navy);
   text-decoration: none;
-  transition: color 180ms var(--ease), padding 180ms var(--ease);
+  transition: color 180ms var(--ease), transform 180ms var(--ease);
+}
+
+.partnerLogo {
+  display: block;
+  width: 58px;
+  height: 58px;
+  padding: 5px;
+  border: 1px solid rgb(25 38 76 / 0.14);
+  border-radius: 9px;
+  background: #fffdf8;
+  object-fit: contain;
 }
 
 .partnerList li a:hover {
-  padding-inline: 7px;
+  transform: translateX(4px);
   color: var(--about-river);
 }
 
@@ -619,7 +628,7 @@
 
 .partnerName {
   font-family: var(--font-inter);
-  font-size: clamp(17px, 1.8vw, 24px);
+  font-size: clamp(16px, 1.65vw, 22px);
   font-variation-settings: 'opsz' 32;
   font-weight: 750;
   letter-spacing: -0.025em;
@@ -642,7 +651,7 @@
 
 .conduct {
   padding-block: clamp(88px, 10vw, 144px);
-  background: var(--about-navy);
+  background: var(--about-river);
   color: var(--about-cream);
 }
 
@@ -896,17 +905,16 @@
     display: none;
   }
 
-  .partnerList li:last-child {
-    grid-column: auto;
-    border-bottom: 0;
-  }
-
-  .partnerList li:last-child::after {
-    display: none;
-  }
-
   .partnerList li a {
-    min-height: 68px;
+    grid-template-columns: 24px 52px minmax(0, 1fr) 14px;
+    gap: 9px;
+    min-height: 82px;
+  }
+
+  .partnerLogo {
+    width: 52px;
+    height: 52px;
+    padding: 4px;
   }
 
   .partnerNote {

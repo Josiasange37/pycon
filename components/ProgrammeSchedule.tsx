@@ -26,7 +26,7 @@ const SPEAKER_PHOTOS: Record<string, string> = {
   'Patrick Nounga': '/speakers/Patrick_Nounga.webp',
   'Sema Kumbela Fombutu': '/speakers/Sema_Kumbela_Fombutu.webp',
   'Muluh Azinwi Success Ndahili': '/speakers/Muluh_Azinwi_Success_Ndahili.webp',
-  'Edmond Makolle': '/speakers/Edmond_Makolle.webp',
+  'Edmond Makolle': '/speakers/Edmond_Makole.webp',
   'Steve Yonkeu': '/speakers/Steve_Yonkeu.webp',
   'Daniele Procida': '/speakers/Daniele_Procida.webp',
   'Pedro Leão da Cruz': '/speakers/Pedro_Leao_da_Cruz.webp',
@@ -314,6 +314,9 @@ export default function ProgrammeSchedule() {
                             <span aria-level={3} className="program__session-title" role="heading">{session.title}</span>
                             <span className={`program__kind program__kind--${session.kind}`}>{session.kind}</span>
                           </span>
+                          {session.description && (
+                            <span className="program__session-description">{session.description}</span>
+                          )}
                           {session.start && session.end && (
                             <span className="program__session-time">
                               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -372,7 +375,6 @@ export default function ProgrammeSchedule() {
               </svg>
               <div className="program-detail__visual-topline">
                 <p className="program-detail__brand">PyCon Cameroon <span>·</span> 2026</p>
-                <span className="program-detail__edition-mark">CM</span>
               </div>
 
               {featuredSpeaker ? (
@@ -400,7 +402,12 @@ export default function ProgrammeSchedule() {
                         <div className="program-detail__lineup-person" key={speaker}>
                           <span className="program-detail__lineup-number">0{index + 2}</span>
                           <SpeakerAvatar name={speaker} />
-                          <span>{speaker}</span>
+                          <span className="program-detail__lineup-copy">
+                            <span className="program-detail__lineup-name">{speaker}</span>
+                            {speakerProfile(speaker)?.role && (
+                              <span className="program-detail__lineup-role">{speakerProfile(speaker)?.role}</span>
+                            )}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -446,6 +453,9 @@ export default function ProgrammeSchedule() {
                     {selectedProgram.session.kind}
                   </span>
                   <h2 id="program-detail-title">{selectedProgram.session.title}</h2>
+                  {selectedProgram.session.description && (
+                    <p className="program-detail__description">{selectedProgram.session.description}</p>
+                  )}
                   {selectedProgram.session.topic && (
                     <p className="program-detail__focus"><span>Talk focus</span>{selectedProgram.session.topic}</p>
                   )}

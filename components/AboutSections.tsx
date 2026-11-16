@@ -25,6 +25,25 @@ const COMMUNITY_FACTS = [
 
 const TOP_FORMATS = FORMATS_2026.slice(0, 3);
 
+const PARTNER_LOGOS: Record<string, string> = {
+  'Django Cameroon': '/partners/django-cameroon.webp',
+  'Angular Cameroon': '/partners/angular-cameroon.webp',
+  'AWS User Group Douala': '/partners/aws-user-group-douala.webp',
+  'GDG Yaoundé': '/partners/gdg-yaounde.webp',
+  'Microsoft User Group Cameroon': '/partners/microsoft-user-group-cameroon.webp',
+  Onyani: '/partners/onyani.webp',
+  Reckot: '/partners/reckot.webp',
+};
+
+const COMMUNITY_PARTNERS = [
+  { name: 'UbuCon Cameroon', href: '#ubucon-note', logo: '/partners/ubucon-cameroon.webp' },
+  ...PARTNERS_2026.map((partner) => ({
+    name: partner.name,
+    href: partner.url,
+    logo: PARTNER_LOGOS[partner.name],
+  })),
+];
+
 export default function AboutSections() {
   return (
     <div className={styles.page}>
@@ -210,7 +229,7 @@ export default function AboutSections() {
         </div>
       </section>
 
-      <section className={`${styles.partners} f-paper`} aria-labelledby="partners-title">
+      <section id="partners" className={`${styles.partners} f-paper`} aria-labelledby="partners-title">
         <div className="wrap">
           <header className={styles.partnersHeading} data-reveal>
             <h2 className={styles.sectionTitle} id="partners-title">
@@ -223,11 +242,18 @@ export default function AboutSections() {
             </p>
           </header>
 
+          <p className={styles.partnerWallLabel}><span>Community partners</span></p>
+
           <ul className={styles.partnerList} data-stagger>
-            {PARTNERS_2026.map((partner, index) => (
+            {COMMUNITY_PARTNERS.map((partner, index) => (
               <li key={partner.name}>
-                <a href={partner.url} target="_blank" rel="noreferrer">
+                <a
+                  href={partner.href}
+                  target={partner.href.startsWith('http') ? '_blank' : undefined}
+                  rel={partner.href.startsWith('http') ? 'noreferrer' : undefined}
+                >
                   <span className={styles.partnerNumber}>{String(index + 1).padStart(2, '0')}</span>
+                  <Image className={styles.partnerLogo} src={partner.logo} alt="" width={56} height={56} />
                   <span className={styles.partnerName}>{partner.name}</span>
                   <Out />
                 </a>
@@ -235,14 +261,14 @@ export default function AboutSections() {
             ))}
           </ul>
 
-          <p className={styles.partnerNote}>
+          <p className={styles.partnerNote} id="ubucon-note">
             In 2026, the conference also welcomed a dedicated Ubuntu and open-source track
             with UbuCon Cameroon.
           </p>
         </div>
       </section>
 
-      <section id="code-of-conduct" className={`${styles.conduct} f-night`} aria-labelledby="coc-title">
+      <section id="code-of-conduct" className={`${styles.conduct} f-river`} aria-labelledby="coc-title">
         <div className={`wrap ${styles.conductInner}`}>
           <header className={styles.conductHeading} data-reveal>
             <h2 className={styles.sectionTitle} id="coc-title">

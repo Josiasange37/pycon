@@ -15,6 +15,7 @@ const NAV_KEY = {
   '/speakers': 'speakers',
   '/sponsors': 'sponsors',
   '/attend': 'attend',
+  '/venue': 'venue',
 } as const;
 
 export default function Header() {
