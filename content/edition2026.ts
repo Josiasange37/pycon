@@ -136,12 +136,14 @@ export const PACKAGES_2026 = [
   { tier: 'Community', usd: '500', xaf: '50,000', includes: ['1 ticket', 'Logo on site'] },
 ];
 
+// Portraits and titles are from the official PyCon Cameroon 2026 About page.
 export const TEAM = [
-  { name: 'Steve Yonkeu', role: 'Lead, Python Cameroon · Conference chair' },
-  { name: 'Edmond Makolle', role: 'Co-lead · Mentorship and learning' },
-  { name: 'Abuambou Evodia', role: 'Project coordinator' },
-  { name: 'Djoko Christian', role: 'Open source coordinator' },
-  { name: 'Ange Demanou', role: 'Social media' },
-  { name: 'Essi Junior', role: 'UI/UX and graphic design' },
-  { name: 'Emy Njong', role: 'Organiser' },
+  { name: 'Steve Yonkeu', role: 'Lead Python Cameroon', image: '/about/team-2026/steve-yonkeu.webp', linkedin: 'https://www.linkedin.com/in/yokwejuste' },
+  { name: 'Edmond Makolle', role: 'Co-lead · Mentorship and learning', image: '/about/team-2026/edmond-makolle.webp', linkedin: 'https://www.linkedin.com/in/edmondmakolle' },
+  { name: 'Ange Demanou', role: 'Social media manager', image: '/about/team-2026/ange-demanou.webp', linkedin: 'https://www.linkedin.com/in/ange-demanou-367466340' },
+  { name: 'Djoko Christian', role: 'Open source coordinator', image: '/about/team-2026/djoko-christian.webp', linkedin: 'https://www.linkedin.com/in/djoko-christian' },
+  { name: 'Abuambou Evodia', role: 'Project coordinator', image: '/about/team-2026/abuambou-evodia.webp', linkedin: 'https://www.linkedin.com/in/abuambou-evodia-ruth-6b1b51270' },
+  { name: 'Essi Junior', role: 'UI/UX and graphic designer', image: '/about/team-2026/essi-junior.webp', linkedin: 'https://www.linkedin.com/in/essijunior/' },
+  { name: 'Patrick Muluh', role: 'Lead of Canonical User Group Cameroon', image: '/about/team-2026/patrick-muluh.webp', linkedin: 'https://www.linkedin.com/in/imajin14' },
+  { name: 'Emy Njong', role: 'Organizer', image: '/about/team-2026/emy-njong.webp', linkedin: 'https://www.linkedin.com/in/njong-emy' },
 ];

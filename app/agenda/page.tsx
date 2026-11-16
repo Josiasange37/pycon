@@ -1,192 +1,310 @@
 import type { Metadata } from 'next';
-import { Arrow } from '../../components/Mark';
-import { Head, KeyDates, PageIntro } from '../../components/ui';
-import { FORMATS_2026, LANGUAGES_2026 } from '../../content/edition2026';
-import { DAYS, duration } from '../../content/schedule2026';
-import { LINKS, SITE } from '../../lib/site';
-import '../pages.css';
+import Image from 'next/image';
+import ProgrammeArchive from '../../components/ProgrammeArchive';
+import { KeyDates } from '../../components/ui';
+import { Out, Title, Weave } from '../../components/Weave';
+import { EDITION_2026, FORMATS_2026, LANGUAGES_2026, STATS_2026 } from '../../content/edition2026';
+import { LINKS, SITE, SOCIAL, STATUS } from '../../lib/site';
+import './agenda.css';
 
 export const metadata: Metadata = {
   title: 'Programme',
-  description: 'The PyCon Cameroon 2027 programme is published after the call for proposals. See how the 2026 days ran in Yaoundé.',
+  description:
+    'The PyCon Cameroon 2027 programme for Douala is being prepared. See exactly how a day runs and explore the full 2026 timetable.',
 };
 
-const toMin = (t: string) => {
-  const [h, m] = t.split(':').map(Number);
-  return h * 60 + m;
-};
-
-// how a 2026 day was spent, from the Day 1 timetable
-const STRIP = [
-  { from: '08:30', to: '09:00', label: 'Registration', kind: 'break' },
-  { from: '09:00', to: '10:00', label: 'Opening & keynote', kind: 'keynote' },
-  { from: '10:00', to: '11:10', label: 'Coffee', kind: 'break' },
-  { from: '11:10', to: '12:25', label: 'Talks, 3 rooms', kind: 'talk' },
+const DAY_ONE = [
+  { from: '08:30', to: '09:00', label: 'Welcome', kind: 'break' },
+  { from: '09:00', to: '10:00', label: 'Opening + keynote', kind: 'keynote' },
+  { from: '10:00', to: '11:10', label: 'Coffee break', kind: 'break' },
+  { from: '11:10', to: '12:25', label: 'Talks · 3 rooms', kind: 'talk' },
   { from: '12:25', to: '13:35', label: 'Lunch', kind: 'break' },
   { from: '13:35', to: '14:50', label: 'Talks', kind: 'talk' },
-  { from: '14:50', to: '15:50', label: 'Coffee', kind: 'break' },
-  { from: '15:50', to: '16:55', label: 'Workshop', kind: 'workshop' },
-  { from: '16:55', to: '17:15', label: 'Social', kind: 'break' },
+  { from: '14:50', to: '15:50', label: 'Coffee break', kind: 'break' },
+  { from: '15:50', to: '17:15', label: 'Workshop + community', kind: 'workshop' },
 ];
-const START = toMin('08:30');
-const SPAN = toMin('17:15') - START;
-const BREAKS = STRIP.filter((s) => s.kind === 'break').reduce((n, s) => n + toMin(s.to) - toMin(s.from), 0);
+
+const FORMATS_MAX = Math.max(...FORMATS_2026.map((item) => item.value));
+const LANGUAGES_MAX = Math.max(...LANGUAGES_2026.map((item) => item.value));
 
 export default function ProgrammePage() {
-  const day1 = DAYS[0];
-  const maxF = Math.max(...FORMATS_2026.map((f) => f.value));
-  const maxL = Math.max(...LANGUAGES_2026.map((f) => f.value));
-
   return (
     <>
-      <PageIntro
-        variant="night"
-        label="Programme"
-        title={'Not published\nyet'}
-        lede={<p>The 2027 timetable goes up here once the call for proposals has closed and talks are chosen. This is how the 2026 days ran.</p>}
-      >
-        <dl className="facts">
-          <div>
-            <dt>Status</dt>
-            <dd>
-              <span className="tag tag--soon">Not announced</span>
-            </dd>
+      {/* Hero — the homepage's Wouri field, in its own composition. */}
+      <section className="program-hero f-river" aria-labelledby="programme-title">
+        <Weave className="wv-corner wv-corner--tr" />
+        <div className="wrap program-hero__in">
+          <div className="program-hero__text">
+            <p className="program-hero__eyebrow" data-hero>
+              PyCon Cameroon · Douala
+            </p>
+            <h1 className="program-hero__title" id="programme-title">
+              <span className="line-mask">
+                <span className="program-hero__line" data-hero-line>
+                  Programme
+                </span>
+              </span>
+              <span className="line-mask">
+                <span className="program-hero__line program-hero__line--sun" data-hero-line>
+                  2027.
+                </span>
+              </span>
+            </h1>
+            <div className="program-hero__lede" data-hero>
+              <p>
+                The 2027 dates and session list are still to come — they will be announced on this page
+                first. Until then: exactly how a PyCon Cameroon day runs, hour by hour, from the
+                published 2026 timetable.
+              </p>
+            </div>
+            <div className="program-hero__actions" data-hero>
+              <a className="wv-btn wv-btn--sun" href="#archive-2026">
+                The 2026 archive <Out />
+              </a>
+              <a className="wv-btn wv-btn--line" href="#day-shape">
+                How a day runs <Out />
+              </a>
+            </div>
+            <dl className="program-hero__facts" data-hero>
+              <div>
+                <dt>City</dt>
+                <dd>
+                  {SITE.city}, {SITE.country}
+                </dd>
+              </div>
+              <div>
+                <dt>Dates</dt>
+                <dd>{SITE.dates?.label ?? 'To be announced'}</dd>
+              </div>
+              <div>
+                <dt>Venue</dt>
+                <dd>{SITE.venue?.name ?? 'To be announced'}</dd>
+              </div>
+            </dl>
           </div>
-          <div>
-            <dt>Days</dt>
-            <dd>To be announced</dd>
+          <div className="program-hero__stage" data-hero>
+            <figure className="program-hero__figure">
+              <Image
+                className="program-hero__statue"
+                src="/hero/statue-woven.webp"
+                alt=""
+                width={632}
+                height={1514}
+                priority
+                sizes="(max-width: 980px) 52vw, 400px"
+              />
+              <span className="wv-stk wv-stk--sun program-hero__stk program-hero__stk--status">
+                {STATUS.schedule === 'published' ? 'Programme published' : 'Programme in preparation'}
+              </span>
+              <span className="wv-stk wv-stk--paper program-hero__stk program-hero__stk--place">
+                Douala · 2027
+              </span>
+            </figure>
           </div>
-          <div>
-            <dt>Languages</dt>
-            <dd>English, French, both</dd>
-          </div>
-          <div>
-            <dt>Time zone</dt>
-            <dd className="mono">{SITE.timezone} · UTC+1</dd>
-          </div>
-        </dl>
-      </PageIntro>
-
-      <section className="section agenda-dates" aria-labelledby="agenda-dates-title">
-        <div className="wrap">
-          <Head label="2027 · Key dates" id="agenda-dates-title" title="What happens when" />
-          <KeyDates />
         </div>
       </section>
 
-      <section className="section wrap" aria-labelledby="shape-title">
-        <Head label="The shape of a day" id="shape-title" title="08:30 to 17:15, in 2026" />
-        <div className="strip" data-reveal>
-          {STRIP.map((s) => (
-            <div
-              key={s.from}
-              className={`strip__block strip__block--${s.kind}`}
-              style={{ flexGrow: toMin(s.to) - toMin(s.from), flexBasis: 0 }}
-              title={`${s.from}–${s.to} ${s.label}`}
-            >
-              <span className="mono">{s.from}</span>
-              <span className="strip__label">{s.label}</span>
+      {/* The rhythm of one real day, from the 2026 archive. */}
+      <section className="program-shape f-paper" id="day-shape" aria-labelledby="shape-title">
+        <Weave className="wv-corner wv-corner--tr" />
+        <div className="wrap">
+          <header className="split-head">
+            <div className="split-head__side">
+              <p className="split-head__text" data-reveal>
+                Thursday 17 September 2026 in Yaoundé — one real day from the published timetable. The
+                strip reads left to right: 8 h 45 min from welcome coffee to community hour, with real
+                breaks in between to meet people.
+              </p>
+              <ul className="program__legend" data-reveal>
+                <li>
+                  <span className="program__legend-dot program__legend-dot--keynote" />
+                  Keynote
+                </li>
+                <li>
+                  <span className="program__legend-dot program__legend-dot--talk" />
+                  Talks
+                </li>
+                <li>
+                  <span className="program__legend-dot program__legend-dot--workshop" />
+                  Workshop
+                </li>
+                <li>
+                  <span className="program__legend-dot program__legend-dot--break" />
+                  Break
+                </li>
+              </ul>
             </div>
-          ))}
+            <Title className="split-head__title" id="shape-title" lead="How a day" main="runs." />
+          </header>
+          <div className="program__flow">
+            {DAY_ONE.map((item) => (
+              <div
+                className={`program__flow-stop program__flow-stop--${item.kind}`}
+                key={item.from}
+                style={{ flexGrow: timeInMinutes(item.to) - timeInMinutes(item.from), flexBasis: 0 }}
+                title={`${item.from}–${item.to} · ${item.label}`}
+              >
+                <span className="program__flow-time">{item.from}</span>
+                <span className="program__flow-label">{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="program__flow-caption">
+            <span className="mono">08:30</span>
+            <p>8 h 45 min together, including time to meet between sessions.</p>
+            <span className="mono">17:15</span>
+          </div>
         </div>
-        <ul className="strip__legend mono">
-          <li data-kind="keynote">Keynote</li>
-          <li data-kind="talk">Talks</li>
-          <li data-kind="workshop">Workshop</li>
-          <li data-kind="break">Breaks</li>
-        </ul>
-        <p className="muted strip__note">
-          {(SPAN / 60).toFixed(1)} hours, {(BREAKS / 60).toFixed(1)} of them in breaks. That is on purpose: most people come for each other.
+      </section>
+
+      {/* The road to Douala, in the night field. */}
+      <section className="program-dates f-night" aria-labelledby="dates-title">
+        <div className="wrap program-dates__in">
+          <header className="program-dates__head">
+            <Title id="dates-title" lead="What happens" main="when." />
+            <p className="program-dates__note" data-reveal>
+              The road to Douala, step by step. Every confirmed date lands on this page first.
+            </p>
+            <Weave accent className="program-dates__weave" />
+          </header>
+          <KeyDates />
+        </div>
+        <p className="program-dates__foot wrap" data-reveal>
+          The call for proposals, ticket sales and the 2027 timetable will be announced here when
+          confirmed.
         </p>
       </section>
 
-      <section className="section timetable-sec" aria-labelledby="tt-title">
+      {/* The 2026 archive, hour by hour. */}
+      <section className="program-archive f-river" id="archive-2026" aria-labelledby="archive-title">
+        <Weave className="wv-corner wv-corner--tr" />
         <div className="wrap">
-          <Head
-            label="2026 · Day 1"
-            id="tt-title"
-            title={day1.date.replace(', 2026', '')}
-            aside={
-              <a className="link" href={LINKS.agenda2026} target="_blank" rel="noreferrer">
-                Full 2026 agenda <Arrow dir="out" />
+          <header className="split-head">
+            <div className="split-head__side">
+              <p className="split-head__text" data-reveal>
+                {EDITION_2026.city} · {EDITION_2026.dates} — the last edition. Day 1 has its full
+                timetable; the other days list their confirmed keynote.
+              </p>
+              <a
+                className="wv-btn wv-btn--line program__source-link"
+                href={LINKS.agenda2026}
+                target="_blank"
+                rel="noreferrer"
+                data-reveal
+              >
+                Open the full 2026 agenda <Out />
               </a>
-            }
-          />
-          <div className="tt" role="table" aria-label="Day 1 timetable, 2026">
-            <div className="tt__row tt__row--head" role="row">
-              <span role="columnheader">Time</span>
-              <span role="columnheader">Session</span>
-              <span role="columnheader">Room</span>
-              <span role="columnheader">Lang</span>
             </div>
-            {day1.slots.map((slot, i) =>
-              slot.type === 'break' ? (
-                <div className="tt__row tt__row--break" role="row" key={i}>
-                  <span role="cell" className="mono">
-                    {slot.start}
-                    {slot.end ? `–${slot.end}` : ''}
-                  </span>
-                  <span role="cell">{slot.label}</span>
-                  <span role="cell" />
-                  <span role="cell" />
-                </div>
-              ) : (
-                slot.sessions.map((s, j) => (
-                  <div className={`tt__row tt__row--${s.kind}`} role="row" key={`${i}-${j}`}>
-                    <span role="cell" className="mono tt__time">
-                      {j === 0 ? `${s.start ?? ''}–${s.end ?? ''}` : ''}
-                      {j === 0 && <small>{duration(s.start, s.end)}</small>}
-                    </span>
-                    <span role="cell" className="tt__session">
-                      <span className="tt__kind mono">{s.kind}</span>
-                      <strong>{s.title}</strong>
-                      {s.speaker && <span className="muted">{s.speaker}</span>}
-                    </span>
-                    <span role="cell" className="tt__room">{s.room}</span>
-                    <span role="cell">
-                      <span className="tag">{s.lang}</span>
-                    </span>
-                  </div>
-                ))
-              ),
-            )}
-          </div>
-          <p className="muted tt__note">Rooms in 2026 were named after Cameroonian dishes: Ndolè, Koki and Eru. Ndolè is a Sawa dish, from Douala.</p>
+            <Title className="split-head__title" id="archive-title" lead="The 2026" main="archive." />
+          </header>
+          <ProgrammeArchive />
+          <p className="program__archive-note" data-reveal>
+            Days 2 and 3 show the keynote recorded in the archive; the available archive does not list
+            its time or the rest of those days’ schedules.
+          </p>
         </div>
       </section>
 
-      <section className="section wrap split" aria-labelledby="mix-title">
-        <div data-reveal>
-          <p className="eyebrow">2026 in numbers</p>
-          <h2 className="h2" id="mix-title">
-            37 sessions, in two languages
-          </h2>
+      {/* What 2026 was, in numbers. */}
+      <section className="program-recap f-paper" aria-labelledby="recap-title">
+        <Weave className="wv-corner wv-corner--tr" />
+        <div className="wrap">
+          <header className="split-head">
+            <div className="split-head__side">
+              <p className="split-head__text" data-reveal>
+                What the 2026 edition actually was — the numbers behind the programme, from the
+                post-event report.
+              </p>
+            </div>
+            <Title className="split-head__title" id="recap-title" lead="2026 in" main="numbers." />
+          </header>
+          <div className="program__recap-grid">
+            <dl
+              className="program__stats"
+              aria-label="PyCon Cameroon 2026 attendance and programme statistics"
+              data-stagger
+            >
+              {STATS_2026.map((stat) => (
+                <div className="program__stat" key={stat.label}>
+                  <dt>{stat.value}</dt>
+                  <dd>{stat.label}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="program__breakdown">
+              <div className="program__breakdown-group">
+                <h3>Sessions by format</h3>
+                {FORMATS_2026.map((item) => (
+                  <div className="program__bar-row" key={item.label}>
+                    <span>{item.label}</span>
+                    <span className="program__bar-track" aria-hidden="true">
+                      <span
+                        className="program__bar-fill"
+                        style={{ width: `${(item.value / FORMATS_MAX) * 100}%` }}
+                      />
+                    </span>
+                    <span className="program__bar-value">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="program__breakdown-group">
+                <h3>Session languages</h3>
+                {LANGUAGES_2026.map((item) => (
+                  <div className="program__bar-row" key={item.label}>
+                    <span>{item.label}</span>
+                    <span className="program__bar-track" aria-hidden="true">
+                      <span
+                        className="program__bar-fill program__bar-fill--sun"
+                        style={{ width: `${(item.value / LANGUAGES_MAX) * 100}%` }}
+                      />
+                    </span>
+                    <span className="program__bar-value">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+              <a className="wv-btn wv-btn--line program__report-link" href="/report/2026">
+                Read the 2026 report <Out />
+              </a>
+            </div>
+          </div>
+          <p className="program__source-note">Session and attendance figures are from the PyCon Cameroon 2026 report.</p>
         </div>
-        <div className="bars" data-reveal>
-          <p className="eyebrow">Formats</p>
-          {FORMATS_2026.map((f) => (
-            <div className="bar-row" key={f.label}>
-              <span>{f.label}</span>
-              <span className="bar-row__track">
-                <span className="bar-row__fill" style={{ width: `${(f.value / maxF) * 100}%` }} />
-              </span>
-              <span className="mono">{f.value}</span>
+      </section>
+
+      {/* The sun field closes the page, like the hero's last paper label. */}
+      <section className="program-finale f-sun" aria-labelledby="finale-title">
+        <div className="wrap program-finale__in">
+          <Title className="program-finale__title" id="finale-title" lead="See you in" main="Douala." />
+          <div className="program-finale__side">
+            <p className="program-finale__text" data-reveal>
+              The 2027 programme will be announced on this page first. Want a nudge when it lands?
+              Write to us, or say hello in the community.
+            </p>
+            <div className="program-finale__actions" data-reveal>
+              <a className="wv-btn wv-btn--ink" href={LINKS.mail('Programme for PyCon Cameroon 2027')}>
+                Ask about the programme <Out />
+              </a>
+              <a className="wv-btn wv-btn--line" href={SOCIAL[0].href}>
+                WhatsApp community <Out />
+              </a>
             </div>
-          ))}
-          <p className="eyebrow" style={{ marginTop: 32 }}>
-            Language
-          </p>
-          {LANGUAGES_2026.map((f) => (
-            <div className="bar-row" key={f.label}>
-              <span>{f.label}</span>
-              <span className="bar-row__track">
-                <span className="bar-row__fill bar-row__fill--alt" style={{ width: `${(f.value / maxL) * 100}%` }} />
-              </span>
-              <span className="mono">{f.value}</span>
-            </div>
-          ))}
+            <ul className="program-finale__social" data-reveal>
+              {SOCIAL.map((item) => (
+                <li key={item.short}>
+                  <a href={item.href} target="_blank" rel="noreferrer">
+                    {item.short}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
     </>
   );
+}
+
+function timeInMinutes(time: string) {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
 }
