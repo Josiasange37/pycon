@@ -59,18 +59,25 @@ const initials = (name: string) =>
 const normaliseName = (name: string) =>
   name.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
 
-const speakerProfiles = new Map<string, string>(
+type SpeakerProfile = { role?: string; topics?: readonly string[] };
+
+const speakerProfiles = new Map<string, SpeakerProfile>(
   [
-    ...SPEAKERS.map((speaker) => [speaker.name, speaker.role] as const),
-    ...KEYNOTES_2026.map((speaker) => [speaker.name, speaker.role] as const),
+    ...SPEAKERS.map((speaker) => [speaker.name, { role: speaker.role, topics: speaker.topics }] as const),
+    ...KEYNOTES_2026.map((speaker) => [speaker.name, { role: speaker.role }] as const),
   ].map(([name, role]) => [normaliseName(name), role] as const),
 );
 
-function speakerRole(name: string) {
+function speakerProfile(name: string) {
   const normalized = normaliseName(name);
   const exact = speakerProfiles.get(normalized);
   const prefixMatch = exact ?? [...speakerProfiles].find(([profileName]) => profileName.startsWith(normalized))?.[1];
-  return prefixMatch && !/(?:…|\.\.\.)$/.test(prefixMatch.trim()) ? prefixMatch : undefined;
+  if (!prefixMatch) return undefined;
+
+  return {
+    role: prefixMatch.role && !/(?:…|\.\.\.)$/.test(prefixMatch.role.trim()) ? prefixMatch.role : undefined,
+    topics: prefixMatch.topics,
+  };
 }
 
 const shortDate = (date: string) => {
@@ -127,6 +134,16 @@ function SpeakerAvatar({ name, large = false }: { name: string; large?: boolean 
   return <span className={`program__speaker-avatar program__speaker-avatar--initials${sizeClass}`} aria-hidden="true">{initials(name)}</span>;
 }
 
+function SpeakerPortrait({ name }: { name: string }) {
+  const photo = SPEAKER_PHOTOS[name];
+
+  if (photo) {
+    return <Image className="program-detail__portrait-image" src={photo} alt="" width={640} height={800} sizes="(min-width: 900px) 38vw, 100vw" />;
+  }
+
+  return <span className="program-detail__portrait-image program-detail__portrait-image--initials" aria-hidden="true">{initials(name)}</span>;
+}
+
 function HallIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -150,11 +167,12 @@ export default function ProgrammeSchedule() {
     if (openTimerRef.current) clearTimeout(openTimerRef.current);
     openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setOpeningKey(key);
+    const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 150;
     openTimerRef.current = setTimeout(() => {
       setSelectedProgram({ day: sessionDay, session });
       setOpeningKey(null);
       openTimerRef.current = null;
-    }, 150);
+    }, delay);
   }
 
   function closeSession() {
@@ -188,7 +206,7 @@ export default function ProgrammeSchedule() {
     function handleDialogKey(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         event.preventDefault();
-        closeSession();
+        setSelectedProgram(null);
       } else if (event.key === 'Tab') {
         event.preventDefault();
         closeButtonRef.current?.focus();
@@ -206,6 +224,8 @@ export default function ProgrammeSchedule() {
   const selectedSpeakers = selectedProgram
     ? selectedProgram.session.speakers ?? (selectedProgram.session.speaker ? [selectedProgram.session.speaker] : [])
     : [];
+  const featuredSpeaker = selectedSpeakers[0];
+  const featuredProfile = featuredSpeaker ? speakerProfile(featuredSpeaker) : undefined;
 
   return (
     <div className="program__agenda-ui">
@@ -291,7 +311,7 @@ export default function ProgrammeSchedule() {
                           type="button"
                         >
                           <span className="program__session-topline">
-                            <span className="program__session-title">{session.title}</span>
+                            <span aria-level={3} className="program__session-title" role="heading">{session.title}</span>
                             <span className={`program__kind program__kind--${session.kind}`}>{session.kind}</span>
                           </span>
                           {session.start && session.end && (
@@ -338,36 +358,99 @@ export default function ProgrammeSchedule() {
             className="program-detail"
             role="dialog"
           >
-            <div className="program-detail__topbar">
-              <p className="program-detail__brand">PyCon Cameroon <span>·</span> Programme</p>
-              <button
-                aria-label="Close programme details"
-                className="program-detail__close"
-                onClick={closeSession}
-                ref={closeButtonRef}
-                type="button"
-              >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                </svg>
-                <span>Close</span>
-              </button>
-            </div>
+            <section
+              aria-label={selectedSpeakers.length > 0 ? 'Speaker profile' : 'Session artwork'}
+              className="program-detail__visual"
+            >
+              <svg className="program-detail__weave" viewBox="0 0 600 760" fill="none" aria-hidden="true">
+                <path d="M-70 176C91 53 206 74 292 174s154 118 274 26 155-131 224-76" />
+                <path d="M-82 350c132 121 244 127 350 11s177-117 276-18 171 116 271 7" />
+                <path d="M-70 541c124-126 243-139 357-26s175 136 283 29 174-125 264-29" />
+                <circle cx="274" cy="157" r="6" />
+                <circle cx="298" cy="341" r="6" />
+                <circle cx="282" cy="527" r="6" />
+              </svg>
+              <div className="program-detail__visual-topline">
+                <p className="program-detail__brand">PyCon Cameroon <span>·</span> 2026</p>
+                <span className="program-detail__edition-mark">CM</span>
+              </div>
 
-            <div className="program-detail__content">
-              <header className="program-detail__intro">
-                <p className="program-detail__eyebrow">
-                  {selectedProgram.day.subtitle ?? selectedProgram.day.label}
-                  <span aria-hidden="true">·</span>
-                  {selectedProgram.day.date}
-                </p>
-                <span className={`program__kind program__kind--${selectedProgram.session.kind}`}>
-                  {selectedProgram.session.kind}
-                </span>
-                <h2 id="program-detail-title">{selectedProgram.session.title}</h2>
-              </header>
+              {featuredSpeaker ? (
+                <>
+                  <div className="program-detail__portrait-frame">
+                    <SpeakerPortrait name={featuredSpeaker} />
+                    <span className="program-detail__portrait-index">01 / {String(selectedSpeakers.length).padStart(2, '0')}</span>
+                  </div>
+                  <div className="program-detail__featured-person">
+                    <p className="program-detail__side-label">
+                      {selectedSpeakers.length > 1 ? 'Featured speaker' : 'Speaker'}
+                    </p>
+                    <h3>{featuredSpeaker}</h3>
+                    {featuredProfile?.role && <p className="program-detail__role">{featuredProfile.role}</p>}
+                    {featuredProfile?.topics && featuredProfile.topics.length > 0 && (
+                      <ul className="program-detail__topics" aria-label={`${featuredSpeaker} topics`}>
+                        {featuredProfile.topics.map((topic) => <li key={topic}>{topic}</li>)}
+                      </ul>
+                    )}
+                  </div>
+                  {selectedSpeakers.length > 1 && (
+                    <div className="program-detail__lineup">
+                      <p className="program-detail__side-label">Also on stage</p>
+                      {selectedSpeakers.slice(1).map((speaker, index) => (
+                        <div className="program-detail__lineup-person" key={speaker}>
+                          <span className="program-detail__lineup-number">0{index + 2}</span>
+                          <SpeakerAvatar name={speaker} />
+                          <span>{speaker}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="program-detail__session-art">
+                  <span className="program-detail__session-art-mark" aria-hidden="true">Py</span>
+                  <p className="program-detail__side-label">Session format</p>
+                  <h3>{selectedProgram.session.kind}</h3>
+                  {selectedProgram.session.topic && <p>{selectedProgram.session.topic}</p>}
+                </div>
+              )}
 
-              <div className="program-detail__grid">
+              <p className="program-detail__visual-foot">Woven together in Cameroon</p>
+            </section>
+
+            <section className="program-detail__main">
+              <div className="program-detail__topbar">
+                <p className="program-detail__main-brand">Programme <span>·</span> {selectedProgram.day.label}</p>
+                <button
+                  aria-label="Close programme details"
+                  className="program-detail__close"
+                  onClick={closeSession}
+                  ref={closeButtonRef}
+                  type="button"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </svg>
+                  <span>Close</span>
+                </button>
+              </div>
+
+              <div className="program-detail__content">
+                <header className="program-detail__intro">
+                  <p className="program-detail__eyebrow">
+                    {selectedProgram.day.subtitle ?? 'PyCon Cameroon'}
+                    <span aria-hidden="true">·</span>
+                    {selectedProgram.day.date}
+                  </p>
+                  <span className={`program__kind program__kind--${selectedProgram.session.kind}`}>
+                    {selectedProgram.session.kind}
+                  </span>
+                  <h2 id="program-detail-title">{selectedProgram.session.title}</h2>
+                  {selectedProgram.session.topic && (
+                    <p className="program-detail__focus"><span>Talk focus</span>{selectedProgram.session.topic}</p>
+                  )}
+                </header>
+
                 <section className="program-detail__facts" aria-labelledby="program-detail-facts-title">
                   <h3 id="program-detail-facts-title">Session details</h3>
                   <dl>
@@ -393,45 +476,10 @@ export default function ProgrammeSchedule() {
                       <dt>Language</dt>
                       <dd>{selectedProgram.session.lang}</dd>
                     </div>
-                    {selectedProgram.session.topic && (
-                      <div>
-                        <dt>Topic</dt>
-                        <dd>{selectedProgram.session.topic}</dd>
-                      </div>
-                    )}
                   </dl>
                 </section>
-
-                <section className="program-detail__speakers" aria-labelledby="program-detail-speakers-title">
-                  <p className="program-detail__eyebrow">
-                    {selectedSpeakers.length > 0 ? 'Speaker information' : 'Session information'}
-                  </p>
-                  <h3 id="program-detail-speakers-title">
-                    {selectedSpeakers.length > 1 ? 'On stage' : selectedSpeakers.length === 1 ? 'Speaker' : 'Session focus'}
-                  </h3>
-                  {selectedSpeakers.length > 0 ? (
-                    <div className="program-detail__people">
-                      {selectedSpeakers.map((speaker) => {
-                        const role = speakerRole(speaker);
-                        return (
-                          <article className="program-detail__person" key={speaker}>
-                            <SpeakerAvatar name={speaker} large />
-                            <div>
-                              <h4>{speaker}</h4>
-                              {role && <p>{role}</p>}
-                            </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="program-detail__no-speaker">
-                      {selectedProgram.session.topic ?? 'No individual speaker is listed for this session.'}
-                    </p>
-                  )}
-                </section>
               </div>
-            </div>
+            </section>
           </aside>
         </div>,
         document.body,

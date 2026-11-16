@@ -11,25 +11,25 @@ import './venue.css';
 
 const SIGHT_PHOTOS = {
   'La Nouvelle Liberté': {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Nouvelle_Libert%C3%A9_01.JPG/960px-Nouvelle_Libert%C3%A9_01.JPG',
+    src: '/venue/nouvelle-liberte.webp',
     alt: 'La Nouvelle Liberté sculpture at the Deïdo roundabout in Douala',
     author: 'Alessandro Aceri',
     source: 'https://commons.wikimedia.org/wiki/File:Nouvelle_Libert%C3%A9_01.JPG',
   },
   'La Pagode': {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Pagode_Douala.JPG/960px-Pagode_Douala.JPG',
+    src: '/venue/pagode-douala.webp',
     alt: 'La Pagode, the historic Bell palace in Bonanjo, Douala',
     author: 'Guillaume WA',
     source: 'https://commons.wikimedia.org/wiki/File:Pagode_Douala.JPG',
   },
   'Cathédrale Saints-Pierre-et-Paul': {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Cathedrale_St_Pierre_et_St_Paul.JPG/960px-Cathedrale_St_Pierre_et_St_Paul.JPG',
+    src: '/venue/cathedrale-douala.webp',
     alt: 'Saint Peter and Saint Paul Cathedral in Douala',
     author: 'Guillaume WA',
     source: 'https://commons.wikimedia.org/wiki/File:Cathedrale_St_Pierre_et_St_Paul.JPG',
   },
   'The Wouri waterfront': {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/PONT_SUR_LE_WOURI.jpg/960px-PONT_SUR_LE_WOURI.jpg',
+    src: '/venue/wouri-bridge.webp',
     alt: 'The Wouri Bridge crossing the river in Douala',
     author: 'Happyraph',
     source: 'https://commons.wikimedia.org/wiki/File:PONT_SUR_LE_WOURI.jpg',
@@ -69,7 +69,7 @@ export default function VenuePage() {
             <Image
               className="v-hero__statue"
               src="/hero/statue.webp"
-              alt="Blue-toned image of La Nouvelle Liberté holding a globe above the city"
+              alt="Blue-toned artwork of La Nouvelle Liberté, the metal sculpture of a figure holding a globe overhead"
               width={632}
               height={1514}
               priority
@@ -209,7 +209,7 @@ export default function VenuePage() {
               return (
                 <article className="v-sight-card" key={sight.name}>
                   <figure className="v-sight-card__photo">
-                    <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1100px) 25vw, (min-width: 680px) 50vw, 100vw" unoptimized />
+                    <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1100px) 25vw, (min-width: 680px) 50vw, 100vw" />
                     <figcaption className="wv-stk wv-stk--paper">{sight.area}</figcaption>
                   </figure>
                   <div className="v-sight-card__copy">

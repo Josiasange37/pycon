@@ -88,7 +88,7 @@ export default function SpeakersPage() {
         </div>
       </section>
 
-      <section className="section sp-keynotes sp-all-speakers" aria-labelledby="all-title">
+      <section className="section sp-all-speakers" aria-labelledby="all-title">
         <div className="wrap">
           <Head
             label="Everyone else"
@@ -101,6 +101,31 @@ export default function SpeakersPage() {
             }
           />
           <SpeakerWall />
+          <aside className="sp-cfp-cta" aria-labelledby="sp-cfp-cta-title" data-reveal>
+            <div className="sp-cfp-cta__copy">
+              <p className="sp-cfp-cta__eyebrow mono">PyCon Cameroon 2027 · Douala</p>
+              <h3 className="sp-cfp-cta__title" id="sp-cfp-cta-title">
+                Have a story to share?
+              </h3>
+              <p className="sp-cfp-cta__body">
+                {STATUS.cfp === 'open'
+                  ? 'We’d love to hear what you’re building, learning, or figuring out. Get in touch about sharing it at PyCon Cameroon.'
+                  : STATUS.cfp === 'closed'
+                    ? 'The 2027 call for proposals has closed. Get in touch and we’ll let you know when the next opportunity opens.'
+                    : 'The call for proposals opens soon. Get in touch about your idea and we’ll let you know when submissions begin.'}
+              </p>
+            </div>
+            <a
+              className="btn"
+              href={LINKS.mail(
+                STATUS.cfp === 'closed'
+                  ? 'Future PyCon Cameroon call for proposals'
+                  : 'PyCon Cameroon 2027 speaker proposal',
+              )}
+            >
+              {STATUS.cfp === 'closed' ? 'Hear about future calls' : 'Ask about proposing a talk'} <Arrow />
+            </a>
+          </aside>
         </div>
       </section>
     </>

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { SPEAKERS, SPEAKER_PHOTOS_2026, TOPICS, type Topic } from '../content/speakers2026';
 import { Weave } from './Weave';
 
@@ -20,53 +20,27 @@ const initials = (name: string) =>
     .join('')
     .toUpperCase();
 
-const normalise = (value: string) => value.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
 export default function SpeakerWall() {
   const [topic, setTopic] = useState<Topic | 'All'>('All');
-  const [query, setQuery] = useState('');
-  const normalizedQuery = normalise(query.trim());
-
-  const shown = useMemo(
-    () =>
-      SORTED.filter((speaker) => {
-        const matchesTopic = topic === 'All' || speaker.topics.includes(topic);
-        const searchable = normalise([speaker.name, speaker.role, speaker.talk, ...speaker.topics].join(' '));
-        return matchesTopic && (!normalizedQuery || searchable.includes(normalizedQuery));
-      }),
-    [normalizedQuery, topic],
-  );
-
-  const hasFilters = topic !== 'All' || query.length > 0;
+  const shown = topic === 'All' ? SORTED : SORTED.filter((speaker) => speaker.topics.includes(topic));
+  const hasFilters = topic !== 'All';
 
   return (
     <div className="wall">
-      <div className="wall__toolbar">
-        <label className="wall__search">
-          <span className="wall__search-label">Find a speaker or talk</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Try ‘Django’ or a name"
-            autoComplete="off"
-          />
-        </label>
-        <p className="wall__status" aria-live="polite">
-          <span className="wall__status-count">{shown.length}</span>
-          <span>of {SPEAKERS.length} speakers</span>
-        </p>
-      </div>
-
       <div className="wall__topic-head">
-        <p className="wall__topic-label">Browse by topic</p>
+        <div className="wall__topic-head-copy">
+          <p className="wall__topic-label">Browse by topic</p>
+          <p className="wall__status" aria-live="polite">
+            <span className="wall__status-count">{shown.length}</span>
+            <span>{shown.length === 1 ? 'speaker' : 'speakers'}</span>
+          </p>
+        </div>
         {hasFilters && (
           <button
             className="wall__reset"
             type="button"
             onClick={() => {
               setTopic('All');
-              setQuery('');
             }}
           >
             Clear filters
@@ -127,7 +101,6 @@ export default function SpeakerWall() {
             type="button"
             onClick={() => {
               setTopic('All');
-              setQuery('');
             }}
           >
             Show all speakers
