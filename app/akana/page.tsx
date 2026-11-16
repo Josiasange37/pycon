@@ -47,7 +47,7 @@ export default function AkanaPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PROFILE_LD) }} />
       <PageIntro
-        variant="night"
+        variant="river"
         label="Almight · pseudonym & personal brand"
         title={'Akana Signing\nJosias Aaron'}
         lede={<p>{DESCRIPTION}</p>}

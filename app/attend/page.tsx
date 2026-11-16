@@ -61,6 +61,9 @@ export default function AttendPage() {
               Everything you need to plan the trip. What is not decided yet says so, and is updated here first.
             </p>
             <p className="attend-cover__edition mono">PyCon Cameroon · {SITE.year}</p>
+            <a className="btn btn--taxi attend-cover__action" href="#tickets">
+              Explore the guide <Arrow />
+            </a>
           </div>
 
           <figure className="attend-cover__photo">
@@ -175,10 +178,6 @@ export default function AttendPage() {
               Visa requirements vary by nationality and passport type. Check your current requirements on the official
               Cameroon eVisa portal before booking. Apply early and follow the processing guidance shown there; avoid
               look-alike sites by checking the address ends in <strong>.cm</strong>.
-            </p>
-            <p>
-              Citizens of CEMAC countries (Central African Republic, Chad, Congo, Equatorial Guinea and Gabon), Mali and
-              Nigeria do not need a visa for short visits. Check the current rule for your passport before you travel.
             </p>
             <p>We send invitation letters to registered attendees and speakers. Ask early: embassies can be slow.</p>
             <a className="attend-text-link" href={LINKS.evisa} target="_blank" rel="noreferrer">
