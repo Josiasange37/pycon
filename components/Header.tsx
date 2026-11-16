@@ -3,15 +3,36 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { LangSwitch, useLang } from '../lib/i18n';
 import { LINKS, NAV, SITE, SOCIAL } from '../lib/site';
-import Mark from './Mark';
+import Image from 'next/image';
+import { Arrow } from './Mark';
 import './header.css';
+
+const NAV_KEY = {
+  '/about': 'about',
+  '/agenda': 'programme',
+  '/speakers': 'speakers',
+  '/sponsors': 'sponsors',
+  '/attend': 'attend',
+} as const;
 
 export default function Header() {
   const pathname = usePathname();
+  const { t } = useLang();
+  const label = (href: string, fallback: string) => t.nav[NAV_KEY[href as keyof typeof NAV_KEY]] ?? fallback;
   const [open, setOpen] = useState(false);
+  const [stuck, setStuck] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
+
+  // the bar tightens once the page scrolls under it
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // close the phone menu on navigation
   useEffect(() => setOpen(false), [pathname]);
@@ -51,26 +72,13 @@ export default function Header() {
 
   return (
     <>
-      <div className="status">
-        <div className="wrap status__in">
-          <span className="status__dot" aria-hidden="true" />
-          <span>
-            <span className="status__long">PyCon Cameroon </span>2026 in Yaoundé is a wrap.{' '}
-            <a href={LINKS.report2026} target="_blank" rel="noreferrer">
-              Read the report
-            </a>
-          </span>
-        </div>
-      </div>
-      <header className="bar" data-open={open || undefined}>
+      <header className="bar" data-open={open || undefined} data-stuck={stuck || undefined}>
         <div className="wrap bar__in">
           <Link href="/" className="brand" aria-label={`${SITE.name} ${SITE.year}, home`}>
-            <Mark size={34} className="brand__mark" />
-            <span className="brand__name">
-              PyCon Cameroon
-              <span className="brand__edition">
-                {SITE.city} {SITE.year}
-              </span>
+            <Image src="/hero/badge.webp" alt="" width={60} height={60} className="brand__mark" priority />
+            <span className="brand__name" aria-hidden="true">
+              <span>PyCon</span>
+              <span>Cameroon</span>
             </span>
           </Link>
 
@@ -79,7 +87,7 @@ export default function Header() {
               {NAV.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>
-                    {n.label}
+                    {label(n.href, n.label)}
                   </Link>
                 </li>
               ))}
@@ -87,9 +95,10 @@ export default function Header() {
           </nav>
 
           <div className="bar__end">
-            <ThemeToggle />
-            <Link className="btn btn--taxi btn--small bar__cta" href="/#updates">
-              Get updates
+            <LangSwitch className="bar__lang" />
+            <ThemeToggle className="bar__theme" />
+            <Link className="btn btn--blue bar__cta" href="/#updates">
+              {t.getUpdates} <Arrow dir="out" />
             </Link>
             <button
               ref={button}
@@ -99,7 +108,7 @@ export default function Header() {
               aria-controls="menu"
               onClick={() => setOpen((o) => !o)}
             >
-              <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+              <span className="sr-only">{open ? t.closeMenu : t.openMenu}</span>
               <span className="menu-btn__lines" aria-hidden="true" />
             </button>
           </div>
@@ -110,25 +119,32 @@ export default function Header() {
             <ul className="menu__list">
               <li>
                 <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-                  Home
+                  {t.home}
                 </Link>
               </li>
               {NAV.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>
-                    {n.label}
+                    {label(n.href, n.label)}
                   </Link>
                 </li>
               ))}
             </ul>
             <div className="menu__foot">
-              <Link className="btn btn--taxi" href="/#updates">
-                Get updates
+              <Link className="btn btn--blue" href="/#updates">
+                {t.getUpdates} <Arrow dir="out" />
               </Link>
-              <p className="eyebrow">Past edition</p>
+              <div className="menu__prefs">
+                <LangSwitch />
+                <ThemeToggle />
+              </div>
+              <p className="eyebrow">{t.pastEdition}</p>
               <a className="link" href={LINKS.past2026} target="_blank" rel="noreferrer">
                 PyCon Cameroon 2026 · Yaoundé
               </a>
+              <Link className="link" href="/report/2026">
+                Read the 2026 event report <Arrow dir="out" />
+              </Link>
               <ul className="menu__social">
                 {SOCIAL.slice(0, 4).map((s) => (
                   <li key={s.href}>
@@ -146,7 +162,8 @@ export default function Header() {
   );
 }
 
-function ThemeToggle() {
+function ThemeToggle({ className = '' }: { className?: string }) {
+  const { t } = useLang();
   const [theme, setTheme] = useState<'light' | 'dark' | null>(null);
 
   useEffect(() => {
@@ -167,15 +184,21 @@ function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme"
+      className={`theme ${className}`}
       onClick={toggle}
-      aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-      title={theme === 'dark' ? 'Light theme' : 'Dark theme'}
+      aria-label={theme === 'dark' ? t.themeLight : t.themeDark}
+      title={theme === 'dark' ? t.themeLight : t.themeDark}
     >
-      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-        <circle cx="9" cy="9" r="7.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M9 1.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor" />
-      </svg>
+      {theme === 'dark' ? (
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <circle cx="10" cy="10" r="3.6" />
+          <path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" />
+        </svg>
+      ) : (
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+          <path d="M16.6 12.4A7 7 0 0 1 7.6 3.4a7 7 0 1 0 9 9Z" />
+        </svg>
+      )}
     </button>
   );
 }

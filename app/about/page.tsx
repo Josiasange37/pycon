@@ -7,11 +7,11 @@ import '../pages.css';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'PyCon Cameroon is the yearly conference of Python Cameroon, a volunteer user group. Who we are, how we work and our code of conduct.',
+  description: 'PyCon Cameroon is the yearly conference of Python Cameroon, the national Python community. Who we are, how we work and our code of conduct.',
 };
 
 const PRINCIPLES = [
-  { title: 'Volunteer-run', body: 'Everyone on the team has a day job or classes. We say what we can do, and we do it.' },
+  { title: 'Community-organised', body: 'The team comes from Cameroon’s Python community: engineers, researchers, students and educators. We commit to what we can deliver, and we deliver it.' },
   { title: 'Priced for students', body: 'Tickets are cheap on purpose, and financial aid covers people who still cannot pay.' },
   { title: 'Bilingual by default', body: 'Talks, signs and help are in English and French. Nobody has to choose a side to take part.' },
   { title: 'Open selection', body: 'Talks come from a public call for proposals and are chosen on their content, not on who paid.' },
@@ -80,7 +80,7 @@ export default function AboutPage() {
           label="The team"
           id="team-title"
           title="Who organised 2026"
-          aside={<p className="muted" style={{ maxWidth: '34ch' }}>The 2027 team is forming now, with volunteers in Douala.</p>}
+          aside={<p className="muted" style={{ maxWidth: '34ch' }}>The 2027 organising team is forming now, with members in Douala.</p>}
         />
         <ul className="team" data-stagger>
           {TEAM.map((m) => (

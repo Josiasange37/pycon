@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Arrow } from '../../components/Mark';
-import { Head, PageIntro } from '../../components/ui';
+import { Head, KeyDates, PageIntro } from '../../components/ui';
 import { FORMATS_2026, LANGUAGES_2026 } from '../../content/edition2026';
 import { DAYS, duration } from '../../content/schedule2026';
 import { LINKS, SITE } from '../../lib/site';
@@ -65,6 +65,11 @@ export default function ProgrammePage() {
           </div>
         </dl>
       </PageIntro>
+
+      <section className="section wrap agenda-dates" aria-labelledby="agenda-dates-title">
+        <Head label="2027 · Key dates" id="agenda-dates-title" title="What happens when" />
+        <KeyDates />
+      </section>
 
       <section className="section wrap" aria-labelledby="shape-title">
         <Head label="The shape of a day" id="shape-title" title="08:30 to 17:15, in 2026" />

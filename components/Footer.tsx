@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { LINKS, SITE, SOCIAL, datesLabel } from '../lib/site';
-import Mark, { Arrow } from './Mark';
+import Image from 'next/image';
+import { Arrow } from './Mark';
 import './footer.css';
 
 const COLUMNS = [
@@ -38,13 +39,13 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot__top">
           <div className="foot__brand">
-            <Mark size={96} />
+            <Image src="/hero/badge.webp" alt="" width={88} height={88} className="foot__badge" />
             <p className="foot__name">
               PyCon Cameroon
               <br />
               {SITE.city} {SITE.year}
             </p>
-            <p className="foot__when mono">{datesLabel()}</p>
+            <p className="foot__when">{datesLabel()}</p>
           </div>
           <nav className="foot__cols" aria-label="Footer">
             {COLUMNS.map((c) => (
@@ -77,15 +78,15 @@ export default function Footer() {
         <div className="foot__past">
           <p className="eyebrow">Past editions</p>
           <a href={LINKS.past2026} target="_blank" rel="noreferrer" className="foot__edition">
-            <span className="mono">2026</span>
+            <span className="foot__yr">2026</span>
             <span>Yaoundé</span>
             <Arrow dir="out" />
           </a>
-          <a href={LINKS.report2026} target="_blank" rel="noreferrer" className="foot__edition">
-            <span className="mono">2026</span>
+          <Link href="/report/2026" className="foot__edition">
+            <span className="foot__yr">2026</span>
             <span>Event report</span>
             <Arrow dir="out" />
-          </a>
+          </Link>
         </div>
 
         <div className="foot__base">

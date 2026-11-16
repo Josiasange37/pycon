@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Mark, { Arrow } from '../../components/Mark';
 import { Head } from '../../components/ui';
-import { DAY_TRIPS, GETTING_THERE, HOTELS, RAINFALL, SIGHTS } from '../../content/douala';
+import { CITY_FACTS, DAY_TRIPS, GETTING_THERE, HOTELS, RAINFALL, SIGHTS } from '../../content/douala';
 import { LINKS, SITE } from '../../lib/site';
 import '../pages.css';
 
@@ -34,6 +34,37 @@ export default function VenuePage() {
           <div className="city-intro__mark" data-hero>
             <Mark size={420} title="La Nouvelle Liberté, Deïdo roundabout" />
             <p className="mono">La Nouvelle Liberté · Deïdo · 1996</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section city-story" aria-labelledby="city-story-title">
+        <div className="wrap city-story__in">
+          <div className="city-story__mark" data-reveal>
+            <Mark size={300} title="La Nouvelle Liberté, the landmark at Deïdo" />
+            <p className="mono">Deïdo · Douala</p>
+          </div>
+          <div className="city-story__copy" data-reveal>
+            <p className="eyebrow">The city behind the name</p>
+            <h2 className="h2" id="city-story-title">Why Douala?</h2>
+            <div className="prose">
+              <p>
+                In the 1470s, Portuguese sailors reached the Wouri estuary and called it Rio dos Camarões—the river of
+                shrimp. The name travelled from this port to the whole country. Today Douala is Cameroon’s largest city,
+                its economic capital and home to a fast-growing technology community.
+              </p>
+              <p>
+                Even Python’s time-zone database carries the city in its name: <code>ZoneInfo(&quot;Africa/Douala&quot;)</code>.
+              </p>
+            </div>
+            <dl className="city-story__facts">
+              {CITY_FACTS.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.value}</dt>
+                  <dd>{fact.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>

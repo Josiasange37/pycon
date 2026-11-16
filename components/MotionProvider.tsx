@@ -38,7 +38,17 @@ export default function MotionProvider() {
 
   useEffect(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    lenis.current?.scrollTo(0, { immediate: true });
+    const hash = window.location.hash.slice(1);
+    let target: HTMLElement | null = null;
+    if (hash) {
+      try {
+        target = document.getElementById(decodeURIComponent(hash));
+      } catch {
+        target = null;
+      }
+    }
+    if (target) lenis.current?.scrollTo(target, { offset: -80, immediate: true });
+    else lenis.current?.scrollTo(0, { immediate: true });
     document.documentElement.classList.add('motion-ready');
 
     const ctx = gsap.context(() => {

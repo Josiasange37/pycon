@@ -1,17 +1,23 @@
 import type { Metadata, Viewport } from 'next';
-import { IBM_Plex_Mono, Newsreader, Schibsted_Grotesk } from 'next/font/google';
+import { Bangers, Caveat, IBM_Plex_Mono, Inter, Newsreader, Saira, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MotionProvider from '../components/MotionProvider';
+import { LangProvider } from '../lib/i18n';
 import { SITE } from '../lib/site';
 
-const sans = Schibsted_Grotesk({ subsets: ['latin'], variable: '--f-sans', display: 'swap' });
+const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--f-sans', display: 'swap' });
+const display = Bangers({ subsets: ['latin'], weight: '400', variable: '--f-display', display: 'swap' });
+const hand = Caveat({ subsets: ['latin'], weight: ['500', '700'], variable: '--f-hand', display: 'swap' });
 const serif = Newsreader({ subsets: ['latin'], style: ['normal', 'italic'], variable: '--f-serif', display: 'swap' });
+// the 2027 "Woven in Douala" hero and bar: Inter for text and the heavy title, condensed Saira for the edition tag
+const inter = Inter({ subsets: ['latin'], axes: ['opsz'], variable: '--f-inter', display: 'swap' });
+const tag = Saira({ subsets: ['latin'], axes: ['wdth'], variable: '--f-tag', display: 'swap' });
 const mono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--f-mono', display: 'swap' });
 
 const description =
-  'PyCon Cameroon 2027 comes to Douala: a community conference about Python, run by volunteers from Python Cameroon. Talks, workshops and people, in English and French.';
+  'PyCon Cameroon 2027, Douala: Cameroon’s annual Python conference. Talks, hands-on workshops and keynotes in English and French for developers, researchers, educators and industry.';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cm.pycon.org'),
@@ -31,8 +37,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#0b1915' },
-    { media: '(prefers-color-scheme: light)', color: '#f2f4ef' },
+    { media: '(prefers-color-scheme: dark)', color: '#0d1d27' },
+    { media: '(prefers-color-scheme: light)', color: '#e9f0f4' },
   ],
 };
 
@@ -50,7 +56,7 @@ const ORG_LD = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${hand.variable} ${serif.variable} ${mono.variable} ${inter.variable} ${tag.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_LD) }} />
@@ -59,10 +65,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <MotionProvider />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <LangProvider>
+          <MotionProvider />
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+        </LangProvider>
       </body>
     </html>
   );

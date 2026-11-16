@@ -1,109 +1,149 @@
-.status {
-  background: var(--deep);
-  color: var(--on-deep);
-  font-size: 13.5px;
-}
-
-.status__in {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 36px;
-}
-
-.status a {
-  color: inherit;
-  text-underline-offset: 3px;
-}
-
-.status__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--taxi);
-  flex: none;
-}
+/* ——— the bar ——— */
 
 .bar {
   position: sticky;
   top: 0;
   z-index: 50;
   background: var(--bg);
-  border-bottom: 1px solid var(--rule);
+  transition:
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
 }
 
+/* once the page scrolls under it, the bar becomes a solid surface with a soft edge */
+.bar[data-stuck] {
+  background: var(--surface);
+  box-shadow: 0 1px 0 var(--rule), 0 10px 30px -22px rgb(20 46 59 / 0.35);
+}
+
+:root[data-theme='dark'] .bar[data-stuck] {
+  box-shadow: 0 1px 0 var(--rule), 0 12px 32px -20px rgb(0 0 0 / 0.7);
+}
+
+/* the hairline sits inside the frame, as in the design */
 .bar__in {
   display: flex;
   align-items: center;
   gap: 24px;
-  height: 72px;
+  height: 104px;
+  border-bottom: 1px solid var(--rule);
+  transition: height 0.4s var(--ease);
 }
+
+.bar[data-stuck] .bar__in {
+  height: 76px;
+  border-bottom-color: transparent;
+}
+
+@media (min-width: 960px) {
+  .bar:not([data-stuck]) .bar__in {
+    height: max(84px, calc(104 * var(--u, 1px)));
+  }
+}
+
+/* ——— brand ——— */
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  text-decoration: none;
+  gap: 14px;
   margin-right: auto;
+  text-decoration: none;
+  border-radius: 10px;
 }
 
+.brand__mark {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  transition:
+    transform 0.5s var(--ease),
+    width 0.4s var(--ease),
+    height 0.4s var(--ease);
+}
+
+.bar[data-stuck] .brand__mark {
+  width: 50px;
+  height: 50px;
+}
+
+.brand:hover .brand__mark {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+/* the design's lockup: Space Grotesk "PyCon" over a small tracked caps line */
 .brand__name {
   display: flex;
   flex-direction: column;
-  font-weight: 750;
-  font-size: 17px;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--ink);
 }
 
-.brand__edition {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 11.5px;
-  letter-spacing: 0.05em;
+.brand__name > span + span {
+  margin-top: 6px;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-3);
-  margin-top: 4px;
 }
+
+/* ——— links ——— */
 
 .nav ul {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 2px;
 }
 
 .nav a {
   position: relative;
   display: block;
-  padding: 10px 12px;
-  font-size: 15px;
-  font-weight: 550;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
   text-decoration: none;
   color: var(--ink-2);
-  transition: color 0.2s;
+  transition:
+    color 0.2s,
+    background 0.25s var(--ease);
+}
+
+.nav a:hover {
+  color: var(--river);
+  background: color-mix(in srgb, var(--river) 9%, transparent);
+}
+
+/* the current page: Python blue with a short yellow stroke under it */
+.nav a[aria-current='page'] {
+  color: var(--river);
+  font-weight: 600;
 }
 
 .nav a::after {
   content: '';
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 4px;
-  height: 2px;
+  left: 50%;
+  bottom: 3px;
+  width: 18px;
+  height: 3px;
+  margin-left: -9px;
+  border-radius: 3px;
   background: var(--taxi);
   transform: scaleX(0);
-  transform-origin: left;
   transition: transform 0.4s var(--ease);
 }
 
-.nav a:hover,
-.nav a[aria-current='page'] {
-  color: var(--ink);
-}
-
-.nav a:hover::after,
 .nav a[aria-current='page']::after {
   transform: scaleX(1);
 }
+
+/* ——— right side ——— */
 
 .bar__end {
   display: flex;
@@ -111,30 +151,53 @@
   gap: 10px;
 }
 
-.theme {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  background: none;
-  cursor: pointer;
-  transition: border-color 0.2s;
+.bar__cta {
+  min-height: 48px;
+  padding: 0 22px;
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.theme:hover {
-  border-color: var(--rule-strong);
+.bar .lang__btn {
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.theme,
+.menu-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background 0.2s;
+}
+
+.theme:hover,
+.menu-btn:hover {
+  border-color: var(--river);
+  color: var(--river);
+}
+
+.theme svg {
+  transition: transform 0.6s var(--ease);
+}
+
+.theme:hover svg {
+  transform: rotate(40deg);
 }
 
 .menu-btn {
   display: none;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  background: none;
-  cursor: pointer;
   position: relative;
 }
 
@@ -142,9 +205,10 @@
 .menu-btn__lines::before,
 .menu-btn__lines::after {
   position: absolute;
-  left: 12px;
-  right: 12px;
-  height: 1.5px;
+  left: 13px;
+  right: 13px;
+  height: 2px;
+  border-radius: 2px;
   background: currentColor;
   transition:
     transform 0.35s var(--ease),
@@ -152,7 +216,7 @@
 }
 
 .menu-btn__lines {
-  top: 21px;
+  top: 22px;
 }
 
 .menu-btn__lines::before,
@@ -182,9 +246,11 @@
   transform: rotate(-45deg);
 }
 
+/* ——— phone menu ——— */
+
 .menu {
   position: fixed;
-  top: 108px;
+  top: 104px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -203,14 +269,16 @@
   justify-content: space-between;
   padding: 14px 0;
   border-bottom: 1px solid var(--rule);
-  font-size: 30px;
-  font-weight: 750;
-  letter-spacing: -0.03em;
+  font-family: var(--font-inter);
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  color: var(--river);
   text-decoration: none;
 }
 
 .menu__list a[aria-current='page'] {
-  color: var(--river);
+  color: var(--ink);
 }
 
 .menu__foot {
@@ -241,30 +309,59 @@
   overflow: hidden;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .nav {
     display: none;
   }
   .menu-btn {
-    display: block;
+    display: grid;
   }
 }
 
-@media (min-width: 1081px) {
+@media (min-width: 1181px) {
   .menu {
     display: none !important;
   }
 }
 
+.menu__prefs {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* phones: just the logo and the menu; language and theme live inside the menu */
 @media (max-width: 520px) {
   .bar .bar__cta,
-  .status__long {
+  .bar .bar__lang,
+  .bar .bar__theme {
     display: none;
   }
-  .brand__name {
-    font-size: 16px;
+  .bar__in,
+  .bar[data-stuck] .bar__in {
+    height: 76px;
   }
-  .status {
-    font-size: 12.5px;
+  .brand {
+    gap: 10px;
+  }
+  .brand__mark,
+  .bar[data-stuck] .brand__mark {
+    width: 46px;
+    height: 46px;
+  }
+  .brand__name {
+    font-size: 20px;
+  }
+  .brand__name > span + span {
+    margin-top: 4px;
+    font-size: 9.5px;
+  }
+  .theme,
+  .menu-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .menu-btn__lines {
+    top: 20px;
   }
 }
