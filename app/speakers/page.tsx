@@ -16,7 +16,7 @@ export default function SpeakersPage() {
   return (
     <>
       <PageIntro
-        variant="deep"
+        variant="paper"
         label="Speakers"
         title={'Your talk\nhere, in Douala'}
         lede={

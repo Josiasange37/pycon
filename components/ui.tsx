@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { Photo } from '../content/edition2026';
-import { STATUS } from '../lib/site';
+import { SITE, STATUS } from '../lib/site';
+import { Weave } from './Weave';
 
 /** A 2026 photo with its caption and credit. `ratio` crops it; `top` keeps the top of the frame. */
 export function Figure({
@@ -49,7 +50,10 @@ export function Figure({
 export function Head({ label, title, aside, id }: { label: string; title: ReactNode; aside?: ReactNode; id?: string }) {
   return (
     <div className="head" data-reveal>
-      <p className="head__label eyebrow">{label}</p>
+      <div className="head__eyebrow">
+        <p className="head__label eyebrow">{label}</p>
+        <Weave accent className="head__weave" />
+      </div>
       <div className="head__row">
         <h2 className="h2" id={id}>
           {title}
@@ -66,25 +70,28 @@ export function PageIntro({
   title,
   lede,
   children,
-  variant = 'plain',
+  variant = 'river',
 }: {
   label: string;
   title: string;
   lede: ReactNode;
   children?: ReactNode;
-  variant?: 'plain' | 'deep';
+  variant?: 'river' | 'paper' | 'night' | 'sun';
 }) {
   return (
-    <section className={`intro ${variant === 'deep' ? 'deep' : ''}`}>
+    <section className={`intro intro--${variant}${children ? '' : ' intro--single'}`}>
+      <Weave accent className="intro__weave" />
       <div className="wrap intro__in">
         <div className="intro__text">
           <p className="eyebrow" data-hero>
             {label}
           </p>
-          <h1 className="h1">
-            {title.split('\n').map((line) => (
-              <span className="line-mask" key={line}>
-                <span data-hero-line>{line}</span>
+          <h1 className="h1 intro__title" id="page-title">
+            {title.split('\n').map((line, i) => (
+              <span className="line-mask" key={`${i}-${line}`}>
+                <span className={`intro__line intro__line--${i + 1}`} data-hero-line>
+                  {line}
+                </span>
               </span>
             ))}
           </h1>
@@ -98,6 +105,7 @@ export function PageIntro({
           </div>
         )}
       </div>
+      <p className="intro__edition mono" aria-hidden="true">PYTHON CAMEROON · {SITE.year}</p>
     </section>
   );
 }

@@ -36,6 +36,7 @@ export default function AttendPage() {
   return (
     <>
       <PageIntro
+        variant="night"
         label="Attend"
         title={'Coming to\nDouala'}
         lede={<p>Everything you need to plan the trip. What is not decided yet says so, and is updated here first.</p>}
@@ -75,7 +76,7 @@ export default function AttendPage() {
         </nav>
 
         <div className="guide__body">
-          <section id="tickets" aria-labelledby="t-title" className="guide__sec">
+          <section id="tickets" aria-labelledby="t-title" className="guide__sec guide__sec--tickets">
             <h2 className="h2" id="t-title">
               Tickets
             </h2>

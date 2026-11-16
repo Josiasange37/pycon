@@ -44,20 +44,6 @@ const EXPECT = [
 
 const THEMES = ['Machine learning & AI', 'Web & Django', 'Data & science', 'DevOps & cloud', 'Python core', 'Open source', 'IoT & hardware', 'Education', 'Security', 'Python in African industry'];
 
-const SPONSOR_LOGOS: Record<string, string> = {
-  Canonical: '/sponsors/canonical.svg',
-  AWS: '/sponsors/aws.png',
-  Apify: '/sponsors/apify.svg',
-  Valkey: '/sponsors/valkey.svg',
-  CHAOSS: '/sponsors/chaoss.png',
-  'Django Software Foundation': '/sponsors/django.svg',
-  JetBrains: '/sponsors/jetbrains.svg',
-  DEFNA: '/sponsors/defna.png',
-  SupraPay: '/sponsors/suprapay.svg',
-  PythonAnywhere: '/sponsors/pythonanywhere.svg',
-};
-const SPONSOR_LOCKUPS = new Set(['Apify', 'AWS', 'CHAOSS', 'DEFNA']);
-
 /** A drifting row, doubled so the scroll never shows its end; the copy is hidden from assistive tech. */
 function Drift({ items, dir, className = '' }: { items: readonly string[]; dir: 'left' | 'right'; className?: string }) {
   return (
@@ -87,8 +73,8 @@ function SponsorTier({ tierIndex, tier }: { tierIndex: number; tier: (typeof SPO
       <ul className="sponsors__logos">
         {tier.sponsors.map((sponsor) => {
           const slug = sponsor.name.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-          const logo = SPONSOR_LOGOS[sponsor.name];
-          const lockup = SPONSOR_LOCKUPS.has(sponsor.name);
+          const logo = sponsor.logo;
+          const lockup = Boolean(sponsor.lockup);
           return (
             <li className="sponsors__logo-item" key={sponsor.name}>
               <a

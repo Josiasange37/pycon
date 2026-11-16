@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
 import { Figure, Head, PageIntro } from '../../components/ui';
 import { PARTNERS_2026, PHOTOS, TEAM } from '../../content/edition2026';
@@ -22,6 +23,7 @@ export default function AboutPage() {
   return (
     <>
       <PageIntro
+        variant="river"
         label="About"
         title={'Python people\nfrom Cameroon'}
         lede={
@@ -68,7 +70,15 @@ export default function AboutPage() {
               <li key={p.title}>
                 <span className="mono">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="h3">{p.title}</h3>
-                <p className="prose">{p.body}</p>
+                <p className="prose">
+                  {p.body}
+                  {p.title === 'Built to be repeated' && (
+                    <>
+                      {' '}
+                      <Link href="/report/2026">Read the 2026 edition report.</Link>
+                    </>
+                  )}
+                </p>
               </li>
             ))}
           </ol>

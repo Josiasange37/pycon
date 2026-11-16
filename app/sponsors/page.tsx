@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Arrow } from '../../components/Mark';
 import { Figure, Head } from '../../components/ui';
+import { Weave } from '../../components/Weave';
 import { PACKAGES_2026, PHOTOS, SPONSORS_2026, STATS_2026 } from '../../content/edition2026';
 import { LINKS, SITE } from '../../lib/site';
 import '../pages.css';
@@ -20,6 +22,7 @@ export default function SponsorsPage() {
   return (
     <>
       <section className="sponsor-cover" aria-labelledby="sp-title">
+        <Weave className="sponsor-cover__weave" accent />
         <div className="wrap sponsor-cover__in">
           <p className="eyebrow" data-hero>
             Sponsorship · {SITE.name} {SITE.year}
@@ -108,23 +111,38 @@ export default function SponsorsPage() {
         </div>
       </section>
 
-      <section id="thank-you" className="section wrap" aria-labelledby="ty-title">
-        <Head label="Thank you" id="ty-title" title="Who made 2026 happen" />
-        <div className="tiers">
-          {SPONSORS_2026.map((t) => (
-            <div className={`tiers__row ${t.tier === 'Diamond' ? 'tiers__row--top' : ''}`} key={t.tier} data-reveal>
-              <p className="eyebrow">{t.tier}</p>
-              <ul>
-                {t.sponsors.map((s) => (
-                  <li key={s.name}>
-                    <a href={s.url} target="_blank" rel="noreferrer">
-                      {s.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+      <section id="thank-you" className="section sponsor-directory-sec" aria-labelledby="ty-title">
+        <div className="wrap">
+          <Head
+            label="The people behind 2026"
+            id="ty-title"
+            title="Made possible together"
+            aside={<p className="muted" style={{ maxWidth: '34ch' }}>The companies and communities below helped put 500+ people in the room in Yaoundé.</p>}
+          />
+          <div className="sponsor-directory" role="group" aria-label="2026 sponsors by tier">
+            {SPONSORS_2026.map((tier, tierIndex) => (
+              <section className={`sponsor-directory__tier${tierIndex < 2 ? ' sponsor-directory__tier--featured' : ''}`} key={tier.tier} aria-labelledby={`sponsor-tier-${tierIndex}`}>
+                <div className="sponsor-directory__meta">
+                  <p className="eyebrow">2026 supporters</p>
+                  <h3 className="h3" id={`sponsor-tier-${tierIndex}`}>{tier.tier}</h3>
+                </div>
+                <ul className="sponsor-directory__logos" data-stagger>
+                  {tier.sponsors.map((sponsor) => {
+                    const logo = sponsor.logo;
+                    const lockup = Boolean(sponsor.lockup);
+                    return (
+                      <li key={sponsor.name}>
+                        <a className={`sponsor-directory__logo${lockup ? ' sponsor-directory__logo--lockup' : ''}${tierIndex < 2 ? ' sponsor-directory__logo--featured' : ''}`} href={sponsor.url} target="_blank" rel="noreferrer" aria-label={`Visit ${sponsor.name} website`}>
+                          {logo && <Image src={logo} alt="" aria-hidden="true" width={lockup ? 300 : 88} height={lockup ? 90 : 88} unoptimized />}
+                          {!lockup && <span>{sponsor.name}</span>}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ))}
+          </div>
         </div>
       </section>
     </>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Mark, { Arrow } from '../../components/Mark';
 import { Head } from '../../components/ui';
+import { Weave } from '../../components/Weave';
 import { CITY_FACTS, DAY_TRIPS, GETTING_THERE, HOTELS, RAINFALL, SIGHTS } from '../../content/douala';
 import { LINKS, SITE } from '../../lib/site';
 import '../pages.css';
@@ -17,6 +18,7 @@ export default function VenuePage() {
   return (
     <>
       <section className="deep city-intro" aria-labelledby="city-title">
+        <Weave className="city-intro__weave" accent />
         <div className="wrap city-intro__in">
           <div className="city-intro__text">
             <p className="eyebrow" data-hero>

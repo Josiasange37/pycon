@@ -87,18 +87,18 @@ export const KEYNOTES_2026: Keynote[] = [
   },
 ];
 
-export type Sponsor = { name: string; url: string };
+export type Sponsor = { name: string; url: string; logo?: string; lockup?: boolean };
 export type Tier = { tier: string; sponsors: Sponsor[] };
 
 export const SPONSORS_2026: Tier[] = [
-  { tier: 'Diamond', sponsors: [{ name: 'Canonical', url: 'https://canonical.com/' }] },
-  { tier: 'Speaker dinner', sponsors: [{ name: 'AWS', url: 'https://aws.amazon.com/' }] },
+  { tier: 'Diamond', sponsors: [{ name: 'Canonical', url: 'https://canonical.com/', logo: '/sponsors/canonical.svg' }] },
+  { tier: 'Speaker dinner', sponsors: [{ name: 'AWS', url: 'https://aws.amazon.com/', logo: '/sponsors/aws.png', lockup: true }] },
   {
     tier: 'Bronze',
     sponsors: [
-      { name: 'Apify', url: 'https://apify.com/' },
-      { name: 'Valkey', url: 'https://valkey.io/' },
-      { name: 'SupraPay', url: 'https://www.suprapay.io/' },
+      { name: 'Apify', url: 'https://apify.com/', logo: '/sponsors/apify.svg', lockup: true },
+      { name: 'Valkey', url: 'https://valkey.io/', logo: '/sponsors/valkey.svg' },
+      { name: 'SupraPay', url: 'https://www.suprapay.io/', logo: '/sponsors/suprapay.svg' },
       { name: 'Trust Consulting', url: 'https://www.linkedin.com/company/trust-consulting-sarl' },
     ],
   },
@@ -106,13 +106,13 @@ export const SPONSORS_2026: Tier[] = [
     tier: 'Community',
     sponsors: [
       { name: 'Black Python Devs', url: 'https://blackpythondevs.com/' },
-      { name: 'CHAOSS', url: 'https://chaoss.community/' },
-      { name: 'Django Software Foundation', url: 'https://www.djangoproject.com/foundation/' },
-      { name: 'JetBrains', url: 'https://www.jetbrains.com/' },
-      { name: 'DEFNA', url: 'https://www.defna.org/' },
+      { name: 'CHAOSS', url: 'https://chaoss.community/', logo: '/sponsors/chaoss.png', lockup: true },
+      { name: 'Django Software Foundation', url: 'https://www.djangoproject.com/foundation/', logo: '/sponsors/django.svg' },
+      { name: 'JetBrains', url: 'https://www.jetbrains.com/', logo: '/sponsors/jetbrains.svg' },
+      { name: 'DEFNA', url: 'https://www.defna.org/', logo: '/sponsors/defna.png', lockup: true },
     ],
   },
-  { tier: 'Hosting', sponsors: [{ name: 'PythonAnywhere', url: 'https://www.pythonanywhere.com/' }] },
+  { tier: 'Hosting', sponsors: [{ name: 'PythonAnywhere', url: 'https://www.pythonanywhere.com/', logo: '/sponsors/pythonanywhere.svg' }] },
 ];
 
 export const SPONSOR_NAMES_2026 = SPONSORS_2026.flatMap((t) => t.sponsors.map((s) => s.name));

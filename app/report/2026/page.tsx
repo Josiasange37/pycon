@@ -18,6 +18,7 @@ export default function Report2026Page() {
   return (
     <>
       <PageIntro
+        variant="night"
         label="Past edition · Report 2026"
         title={'Three days in\nYaoundé'}
         lede={

@@ -40,6 +40,7 @@ export default function ProgrammePage() {
   return (
     <>
       <PageIntro
+        variant="night"
         label="Programme"
         title={'Not published\nyet'}
         lede={<p>The 2027 timetable goes up here once the call for proposals has closed and talks are chosen. This is how the 2026 days ran.</p>}
@@ -66,9 +67,11 @@ export default function ProgrammePage() {
         </dl>
       </PageIntro>
 
-      <section className="section wrap agenda-dates" aria-labelledby="agenda-dates-title">
-        <Head label="2027 · Key dates" id="agenda-dates-title" title="What happens when" />
-        <KeyDates />
+      <section className="section agenda-dates" aria-labelledby="agenda-dates-title">
+        <div className="wrap">
+          <Head label="2027 · Key dates" id="agenda-dates-title" title="What happens when" />
+          <KeyDates />
+        </div>
       </section>
 
       <section className="section wrap" aria-labelledby="shape-title">

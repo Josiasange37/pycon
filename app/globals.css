@@ -1,33 +1,40 @@
 /*
  * PyCon Cameroon 2027 · Douala.
- * Palette and type from the 2027 hero design: rain-light blue-grey ground, Python blue,
- * Cameroon yellow and forest green. DM Sans for text, Chewy for the sticker display lines.
+ * Woven in Douala palette: Wouri river blue, warm paper, sun yellow and night navy.
+ * The homepage and every inner page share these brand tokens.
  */
 :root {
   color-scheme: light;
-  --bg: #e9f0f4;
-  --bg-2: #dde7ed;
-  --surface: #f5f8fa;
-  --ink: #142e3b;
-  --ink-2: #234f69;
-  --ink-3: #4a687b;
-  --rule: #d2e0e8;
-  --rule-strong: #8aa3b3;
-  --river: #2c709a;
-  --river-hover: #215a7d;
-  --deep: #12303f;
-  --deep-2: #183b4d;
-  --on-deep: #e9f0f4;
-  --on-deep-2: #a9c0cf;
-  --river-on-deep: #8cc0e0;
-  --rule-on-deep: #2a4a5c;
-  --taxi: #ffd614;
-  --taxi-hover: #ffe04d;
-  --on-taxi: #142e3b;
+  --brand-river: #3a5d85;
+  --brand-paper: #fff0ce;
+  --brand-cream: #f4edda;
+  --brand-sun: #f3c857;
+  --brand-night: #19264c;
+  --brand-ink: #122e39;
+
+  --bg: var(--brand-cream);
+  --bg-2: var(--brand-paper);
+  --surface: #fff9e9;
+  --ink: var(--brand-night);
+  --ink-2: var(--brand-river);
+  --ink-3: #65748a;
+  --rule: rgb(25 38 76 / 0.15);
+  --rule-strong: rgb(25 38 76 / 0.38);
+  --river: var(--brand-river);
+  --river-hover: #29486d;
+  --deep: var(--brand-night);
+  --deep-2: #243765;
+  --on-deep: var(--brand-cream);
+  --on-deep-2: #bec7d1;
+  --river-on-deep: var(--brand-sun);
+  --rule-on-deep: rgb(244 237 218 / 0.18);
+  --taxi: var(--brand-sun);
+  --taxi-hover: #f7d578;
+  --on-taxi: var(--brand-night);
   --forest: #075337;
   --forest-hover: #0a6644;
   --sticker: #fcfcfc;
-  --mark-globe: #2c709a;
+  --mark-globe: var(--brand-river);
   --shadow: 0 1px 0 rgb(20 46 59 / 0.04), 0 18px 40px -24px rgb(20 46 59 / 0.25);
 
   --font-sans: var(--f-sans), ui-sans-serif, system-ui, sans-serif;
@@ -47,30 +54,29 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  /* Douala at night: ink-black ground, layered surfaces, ivory text, luminous Python blue, deep gold */
-  --bg: #070c11;
-  --bg-2: #0c141b;
-  --surface: #111b24;
-  --ink: #f4efe6;
+  --bg: #0d142b;
+  --bg-2: #151f3d;
+  --surface: #1b2949;
+  --ink: var(--brand-cream);
   --ink-2: #c4cbd1;
-  --ink-3: #8e99a3;
-  --rule: rgb(255 255 255 / 0.09);
-  --rule-strong: rgb(255 255 255 / 0.22);
-  --river: #7fc4f2;
-  --river-hover: #addbf8;
-  --deep: #04080b;
-  --deep-2: #0a1117;
-  --on-deep: #f4efe6;
-  --on-deep-2: #a2adb6;
-  --river-on-deep: #7fc4f2;
-  --rule-on-deep: rgb(255 255 255 / 0.08);
-  --taxi: #f5cc3a;
-  --taxi-hover: #ffda5c;
-  --on-taxi: #0f2430;
+  --ink-3: #9ba9bb;
+  --rule: rgb(244 237 218 / 0.1);
+  --rule-strong: rgb(244 237 218 / 0.26);
+  --river: #8bb4d8;
+  --river-hover: #b6d4ed;
+  --deep: #080e20;
+  --deep-2: #111b35;
+  --on-deep: var(--brand-cream);
+  --on-deep-2: #aab6c8;
+  --river-on-deep: var(--brand-sun);
+  --rule-on-deep: rgb(244 237 218 / 0.1);
+  --taxi: var(--brand-sun);
+  --taxi-hover: #ffdc73;
+  --on-taxi: var(--brand-night);
   --forest: #149467;
   --forest-hover: #19ad79;
   --sticker: #f4efe6;
-  --mark-globe: #f5cc3a;
+  --mark-globe: var(--brand-sun);
   --shadow: 0 1px 0 rgb(255 255 255 / 0.04), 0 24px 48px -28px rgb(0 0 0 / 0.8);
 }
 
@@ -244,16 +250,20 @@ button {
 }
 
 .h2 {
+  font-family: var(--font-inter);
   font-size: clamp(36px, 5.4vw, 76px);
-  font-weight: 750;
-  letter-spacing: -0.04em;
+  font-weight: 900;
+  font-variation-settings: 'opsz' 32;
+  letter-spacing: -0.065em;
   line-height: 0.96;
+  text-shadow: 0 0.055em 0.035em rgb(25 38 76 / 0.13);
 }
 
 .h3 {
+  font-family: var(--font-inter);
   font-size: clamp(22px, 2.2vw, 30px);
-  font-weight: 650;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.045em;
   line-height: 1.12;
 }
 
@@ -677,29 +687,95 @@ html.lenis body {
 /* ——— page intro (inner pages) ——— */
 
 .intro {
-  padding-block: clamp(56px, 9vw, 128px) clamp(56px, 7vw, 96px);
-  border-bottom: 1px solid var(--rule);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(70px, 9vw, 128px) clamp(78px, 8vw, 112px);
 }
 
-.intro.deep {
-  border-bottom: 0;
+.intro::before {
+  position: absolute;
+  z-index: -1;
+  top: 6%;
+  right: -9vw;
+  width: clamp(320px, 43vw, 680px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--intro-ink) 18%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 24px color-mix(in srgb, var(--intro-ink) 5%, transparent), 0 0 0 72px color-mix(in srgb, var(--intro-ink) 4%, transparent);
+  content: '';
+  pointer-events: none;
 }
 
 .intro__in {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: 48px;
+  gap: clamp(36px, 6vw, 88px);
   align-items: end;
 }
 
 @media (min-width: 960px) {
-  .intro__in {
+  .intro:not(.intro--single) .intro__in {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   }
 }
 
 .intro__text {
   display: grid;
-  gap: 24px;
+  justify-items: start;
+  gap: clamp(17px, 2vw, 26px);
+}
+
+.intro__aside {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.intro__weave {
+  position: absolute;
+  z-index: 1;
+  top: 22px;
+  right: var(--gutter);
+  width: clamp(120px, 16vw, 220px);
+  color: var(--intro-ink);
+  opacity: 0.8;
+}
+
+.intro__edition {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 18px;
+  color: var(--intro-ink);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+
+.wv-weave {
+  display: block;
+  overflow: visible;
+}
+
+.wv-weave__dot {
+  fill: var(--brand-sun);
+}
+
+.intro__aside .facts {
+  border-color: color-mix(in srgb, var(--intro-ink) 45%, transparent);
+}
+
+.intro__aside .facts > div {
+  border-color: color-mix(in srgb, var(--intro-ink) 20%, transparent);
+}
+
+.intro__aside .facts dt {
+  color: var(--intro-copy);
+}
+
+.intro__aside .facts dd {
+  color: var(--intro-ink);
 }
 
 /* ——— key dates ——— */

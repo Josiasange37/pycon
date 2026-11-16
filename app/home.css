@@ -7,12 +7,12 @@
  *     the statue and the year stay centred, the title and its icons stay pinned right. ——— */
 
 .hx {
-  --hx-ground: #3a5d85;
-  --hx-cream: #f4edda;
-  --hx-paper: #fff0ce;
-  --hx-sun: #f3c857;
-  --hx-ink: #122e39;
-  --hx-navy: #19264c;
+  --hx-ground: var(--brand-river);
+  --hx-cream: var(--brand-cream);
+  --hx-paper: var(--brand-paper);
+  --hx-sun: var(--brand-sun);
+  --hx-ink: var(--brand-ink);
+  --hx-navy: var(--brand-night);
   --hx-mist: #bec7c3;
   --hx-line: #788d91;
   /* the bar's height before it tightens on scroll (mirrors header.css) */
@@ -1862,57 +1862,57 @@
   --field-rule: rgb(25 38 76 / 0.2);
   --field-rule-strong: rgb(25 38 76 / 0.42);
   --field-copy: #405b6b;
-  --field-ink: #19264c;
-  --field-accent: #3a5d85;
-  --field-highlight: #f3c857;
-  --field-paper: #fff0ce;
+  --field-ink: var(--brand-night);
+  --field-accent: var(--brand-river);
+  --field-highlight: var(--brand-sun);
+  --field-paper: var(--brand-paper);
 }
 
 .f-paper {
-  background: #fff0ce;
-  color: #19264c;
+  background: var(--brand-paper);
+  color: var(--brand-night);
 }
 
 .f-river {
   --field-rule: rgb(244 237 218 / 0.23);
   --field-rule-strong: rgb(244 237 218 / 0.56);
   --field-copy: #d2dde2;
-  --field-ink: #f4edda;
-  --field-accent: #f3c857;
-  background: #3a5d85;
-  color: #f4edda;
+  --field-ink: var(--brand-cream);
+  --field-accent: var(--brand-sun);
+  background: var(--brand-river);
+  color: var(--brand-cream);
 }
 
 .f-night {
   --field-rule: rgb(244 237 218 / 0.16);
   --field-rule-strong: rgb(244 237 218 / 0.45);
   --field-copy: #bec7d1;
-  --field-ink: #f4edda;
-  --field-accent: #f3c857;
-  background: #19264c;
-  color: #f4edda;
+  --field-ink: var(--brand-cream);
+  --field-accent: var(--brand-sun);
+  background: var(--brand-night);
+  color: var(--brand-cream);
 }
 
 .f-sun {
   --field-rule: rgb(18 46 57 / 0.24);
   --field-rule-strong: rgb(18 46 57 / 0.55);
   --field-copy: #203d4b;
-  --field-ink: #122e39;
-  --field-accent: #3a5d85;
-  background: #f3c857;
-  color: #122e39;
+  --field-ink: var(--brand-ink);
+  --field-accent: var(--brand-river);
+  background: var(--brand-sun);
+  color: var(--brand-ink);
 }
 
 .f-paper ::selection,
 .f-sun ::selection {
-  background: #19264c;
-  color: #fff0ce;
+  background: var(--brand-night);
+  color: var(--brand-paper);
 }
 
 .f-river ::selection,
 .f-night ::selection {
-  background: #f3c857;
-  color: #122e39;
+  background: var(--brand-sun);
+  color: var(--brand-ink);
 }
 
 .f-paper :focus-visible,
