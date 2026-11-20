@@ -2,8 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
 import { DAYS, duration, type Session } from '../../content/schedule2026';
+import { speakerPhoto } from '../../content/speakers2026';
 import { pageMetadata } from '../../lib/seo';
 import UbuConHero from './UbuConHero';
+import { PageScope } from '../../components/ui';
 import './ubucon.css';
 
 export const metadata = pageMetadata({
@@ -53,21 +55,10 @@ const stats = [
   { value: '100%', label: 'Open source' },
 ];
 
-const portraits: Record<string, string> = {
-  'Adonis Simo': '/2026/day2-04.webp',
-  'Muluh Azinwi Success Ndahili': '/speakers/Muluh_Azinwi_Success_Ndahili.webp',
-  'Edmond Makolle': '/speakers/Edmond_Makole.webp',
-  'Steve Yonkeu': '/speakers/Steve_Yonkeu.webp',
-  'Daniele Procida': '/speakers/Daniele_Procida.webp',
-  'Pedro Leão da Cruz': '/speakers/Pedro_Leao_da_Cruz.webp',
-  'Jean Marc Wogue': '/speakers/Jean_Marc_Wogue.webp',
-  'Ariane Djeupang J.': '/speakers/Ariane_Djeupang_J.webp',
-};
-
 const ubuntuDay = DAYS.find((day) => day.id === 'day-2');
 
 function Speaker({ name }: { name: string }) {
-  const portrait = portraits[name];
+  const portrait = speakerPhoto(name);
   return (
     <span className="ubu-speaker">
       {portrait ? (
@@ -141,122 +132,124 @@ function BreakIcon({ label }: { label: string }) {
 
 export default function UbuConPage() {
   return (
-    <div className="ubu-page">
-      <UbuConHero />
+    <PageScope name="ubucon">
+      <div className="ubu-page">
+        <UbuConHero />
 
-      <section className="ubu-about f-paper" aria-labelledby="ubu-about-title">
-        <div className="wrap ubu-about__grid">
-          <div className="ubu-about__copy" data-reveal>
-            <p className="ubu-eyebrow">Ubuntu, together</p>
-            <h2 id="ubu-about-title">What is <span>UbuCon?</span></h2>
-            <p>
-              UbuCon (Ubuntu Conference) is a community-driven event that brings together Ubuntu enthusiasts,
-              developers, and open source advocates. For the first time in Cameroon, UbuCon Cameroon and PyCon Cameroon
-              came together as co-organizers for a dedicated day of Ubuntu and open source.
-            </p>
-            <p>
-              This partnership between PyCon Cameroon and UbuCon Cameroon celebrates the deep relationship between
-              Python and the Ubuntu ecosystem: from system tools and automation to cloud infrastructure and beyond.
-            </p>
+        <section className="ubu-about f-paper" aria-labelledby="ubu-about-title">
+          <div className="wrap ubu-about__grid">
+            <div className="ubu-about__copy" data-reveal>
+              <p className="ubu-eyebrow">Ubuntu, together</p>
+              <h2 id="ubu-about-title">What is <span>UbuCon?</span></h2>
+              <p>
+                UbuCon (Ubuntu Conference) is a community-driven event that brings together Ubuntu enthusiasts,
+                developers, and open source advocates. For the first time in Cameroon, UbuCon Cameroon and PyCon Cameroon
+                came together as co-organizers for a dedicated day of Ubuntu and open source.
+              </p>
+              <p>
+                This partnership between PyCon Cameroon and UbuCon Cameroon celebrates the deep relationship between
+                Python and the Ubuntu ecosystem: from system tools and automation to cloud infrastructure and beyond.
+              </p>
+            </div>
+            <figure className="ubu-about__photo" data-reveal>
+              <Image
+                src="/2026/day2-01.webp"
+                alt="UbuCon Cameroon and PyCon Cameroon attendees gathered beneath their shared event banner"
+                width={1600}
+                height={1066}
+                sizes="(min-width: 900px) 48vw, 100vw"
+              />
+              <figcaption><span>Ubuntu community, Cameroon</span><span className="ubu-mono">YAOUNDÉ · 2026</span></figcaption>
+            </figure>
           </div>
-          <figure className="ubu-about__photo" data-reveal>
-            <Image
-              src="/2026/day2-01.webp"
-              alt="UbuCon Cameroon and PyCon Cameroon attendees gathered beneath their shared event banner"
-              width={1600}
-              height={1066}
-              sizes="(min-width: 900px) 48vw, 100vw"
-            />
-            <figcaption><span>Ubuntu community, Cameroon</span><span className="ubu-mono">YAOUNDÉ · 2026</span></figcaption>
-          </figure>
-        </div>
-        <div className="wrap ubu-glance" aria-label="UbuCon Cameroon at a glance" data-reveal>
-          <dl className="ubu-glance__stats">
-            {stats.map((stat, index) => (
-              <div className="ubu-stat" key={stat.label}>
-                <dt><span className={index % 2 === 1 ? 'ubu-stat__number ubu-stat__number--ubuntu' : 'ubu-stat__number'}>{stat.value}</span></dt>
-                <dd>{stat.label}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+          <div className="wrap ubu-glance" aria-label="UbuCon Cameroon at a glance" data-reveal>
+            <dl className="ubu-glance__stats">
+              {stats.map((stat, index) => (
+                <div className="ubu-stat" key={stat.label}>
+                  <dt><span className={index % 2 === 1 ? 'ubu-stat__number ubu-stat__number--ubuntu' : 'ubu-stat__number'}>{stat.value}</span></dt>
+                  <dd>{stat.label}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
 
-      <section className="ubu-topics f-paper" aria-labelledby="ubu-topics-title">
-        <div className="wrap">
-          <header className="ubu-section-head" data-reveal>
-            <div><p className="ubu-eyebrow">Ideas built in the open</p><h2 id="ubu-topics-title">UbuCon <span>topics</span></h2></div>
-            <p>What you can expect at the UbuCon community gathering.</p>
-          </header>
-          <div className="ubu-topics__grid" data-stagger>
-            {topics.map((topic, index) => (
-              <article className={`ubu-topic ubu-topic--${index % 3}`} key={topic.number}>
-                <span className="ubu-topic__number ubu-mono">{topic.number}</span>
-                <h3>{topic.title}</h3>
-                <p>{topic.description}</p>
-              </article>
-            ))}
+        <section className="ubu-topics f-paper" aria-labelledby="ubu-topics-title">
+          <div className="wrap">
+            <header className="ubu-section-head" data-reveal>
+              <div><p className="ubu-eyebrow">Ideas built in the open</p><h2 id="ubu-topics-title">UbuCon <span>topics</span></h2></div>
+              <p>What you can expect at the UbuCon community gathering.</p>
+            </header>
+            <div className="ubu-topics__grid" data-stagger>
+              {topics.map((topic, index) => (
+                <article className={`ubu-topic ubu-topic--${index % 3}`} key={topic.number}>
+                  <span className="ubu-topic__number ubu-mono">{topic.number}</span>
+                  <h3>{topic.title}</h3>
+                  <p>{topic.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="ubu-world f-night" aria-labelledby="ubu-world-title">
-        <div className="wrap ubu-world__inner">
-          <div className="ubu-world__copy" data-reveal>
-            <p className="ubu-eyebrow">A global open source community</p>
-            <h2 id="ubu-world-title">Ubuntu is <span>everywhere.</span></h2>
-            <p>Discover UbuCon events happening globally and connect with Ubuntu communities wherever they meet.</p>
-            <a className="ubu-world__link" href="https://ubuntu.com/community" target="_blank" rel="noreferrer">
-              Explore the Ubuntu community <Arrow />
-            </a>
+        <section className="ubu-world f-night" aria-labelledby="ubu-world-title">
+          <div className="wrap ubu-world__inner">
+            <div className="ubu-world__copy" data-reveal>
+              <p className="ubu-eyebrow">A global open source community</p>
+              <h2 id="ubu-world-title">Ubuntu is <span>everywhere.</span></h2>
+              <p>Discover UbuCon events happening globally and connect with Ubuntu communities wherever they meet.</p>
+              <a className="ubu-world__link" href="https://ubuntu.com/community" target="_blank" rel="noreferrer">
+                Explore the Ubuntu community <Arrow />
+              </a>
+            </div>
+            <div className="ubu-world__word" aria-hidden="true" data-reveal>
+              <span>UBUNTU</span>
+              <span>FOR ALL</span>
+              <i />
+              <small className="ubu-mono">CAMEROON IS PART OF THE STORY</small>
+            </div>
           </div>
-          <div className="ubu-world__word" aria-hidden="true" data-reveal>
-            <span>UBUNTU</span>
-            <span>FOR ALL</span>
-            <i />
-            <small className="ubu-mono">CAMEROON IS PART OF THE STORY</small>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="ubu-schedule f-paper" id="ubu-schedule" aria-labelledby="ubu-schedule-title">
-        <div className="wrap">
-          <header className="ubu-section-head ubu-section-head--schedule" data-reveal>
-            <div><p className="ubu-eyebrow">Friday · September 18, 2026</p><h2 id="ubu-schedule-title">UbuCon <span>schedule</span></h2></div>
-            <p>One day to build, share, and learn together.</p>
-          </header>
-          <div className="ubu-day-banner" data-reveal>
-            <span className="ubu-day-banner__icon"><Image src="/partners/ubucon-cameroon.webp" alt="" width={34} height={34} /></span>
-            <div><strong>UbuCon Cameroon Day</strong><span>Friday, September 18 · Co-organized with PyCon Cameroon</span></div>
-            <span className="ubu-day-banner__tag ubu-mono">DAY 02</span>
+        <section className="ubu-schedule f-paper" id="ubu-schedule" aria-labelledby="ubu-schedule-title">
+          <div className="wrap">
+            <header className="ubu-section-head ubu-section-head--schedule" data-reveal>
+              <div><p className="ubu-eyebrow">Friday · September 18, 2026</p><h2 id="ubu-schedule-title">UbuCon <span>schedule</span></h2></div>
+              <p>One day to build, share, and learn together.</p>
+            </header>
+            <div className="ubu-day-banner" data-reveal>
+              <span className="ubu-day-banner__icon"><Image src="/partners/ubucon-cameroon.webp" alt="" width={34} height={34} /></span>
+              <div><strong>UbuCon Cameroon Day</strong><span>Friday, September 18 · Co-organized with PyCon Cameroon</span></div>
+              <span className="ubu-day-banner__tag ubu-mono">DAY 02</span>
+            </div>
+            <p className="ubu-schedule__note">Each session shows its start time, end time and duration. A 5-minute transition is scheduled between two presentations.</p>
+            <ol className="ubu-schedule__list">
+              {ubuntuDay?.slots.map((slot, index) => slot.type === 'break' ? (
+                <li className="ubu-break" key={`break-${index}`}>
+                  <time>{slot.start}{slot.end ? ` – ${slot.end}` : ''}</time>
+                  <span className="ubu-break__icon"><BreakIcon label={slot.label} /></span>
+                  <span className="ubu-break__label">{slot.label}</span>
+                  <span className="ubu-break__line" />
+                </li>
+              ) : slot.sessions.map((session) => (
+                <li className="ubu-schedule__row" key={`${session.start}-${session.title}`}>
+                  <time className="ubu-schedule__rail">{session.start}</time>
+                  <SessionCard session={session} />
+                </li>
+              )))}
+            </ol>
           </div>
-          <p className="ubu-schedule__note">Each session shows its start time, end time and duration. A 5-minute transition is scheduled between two presentations.</p>
-          <ol className="ubu-schedule__list">
-            {ubuntuDay?.slots.map((slot, index) => slot.type === 'break' ? (
-              <li className="ubu-break" key={`break-${index}`}>
-                <time>{slot.start}{slot.end ? ` – ${slot.end}` : ''}</time>
-                <span className="ubu-break__icon"><BreakIcon label={slot.label} /></span>
-                <span className="ubu-break__label">{slot.label}</span>
-                <span className="ubu-break__line" />
-              </li>
-            ) : slot.sessions.map((session) => (
-              <li className="ubu-schedule__row" key={`${session.start}-${session.title}`}>
-                <time className="ubu-schedule__rail">{session.start}</time>
-                <SessionCard session={session} />
-              </li>
-            )))}
-          </ol>
-        </div>
-      </section>
+        </section>
 
-      <section className="ubu-join f-river" aria-labelledby="ubu-join-title">
-        <div className="wrap ubu-join__inner" data-reveal>
-          <p className="ubu-eyebrow">UbuCon Cameroon × PyCon Cameroon</p>
-          <h2 id="ubu-join-title">Open source is <span>for everyone.</span></h2>
-          <p>Whether you&apos;re an Ubuntu power user or just getting started with Linux, there&apos;s a place for you in the community.</p>
-          <Link className="ubu-join__button" href="/report/2026">See the 2026 gathering <Arrow /></Link>
-        </div>
-      </section>
-    </div>
+        <section className="ubu-join f-river" aria-labelledby="ubu-join-title">
+          <div className="wrap ubu-join__inner" data-reveal>
+            <p className="ubu-eyebrow">UbuCon Cameroon × PyCon Cameroon</p>
+            <h2 id="ubu-join-title">Open source is <span>for everyone.</span></h2>
+            <p>Whether you&apos;re an Ubuntu power user or just getting started with Linux, there&apos;s a place for you in the community.</p>
+            <Link className="ubu-join__button" href="/report/2026">See the 2026 gathering <Arrow /></Link>
+          </div>
+        </section>
+      </div>
+    </PageScope>
   );
 }

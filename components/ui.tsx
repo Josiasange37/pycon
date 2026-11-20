@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { Photo } from '../content/edition2026';
-import { SITE, STATUS } from '../lib/site';
+import { SITE } from '../lib/site';
 import { Weave } from './Weave';
 
 /** A 2026 photo with its caption and credit. `ratio` crops it; `top` keeps the top of the frame. */
@@ -110,27 +110,12 @@ export function PageIntro({
   );
 }
 
-const state = (s: string) => (s === 'soon' ? 'Not announced' : s === 'open' || s === 'on-sale' ? 'Open now' : 'Closed');
-
-export const KEY_DATES = [
-  { when: '17–19 Sep 2026', what: 'PyCon Cameroon 2026, Yaoundé', state: 'Done', done: true },
-  { when: 'To be announced', what: 'Call for proposals opens', state: state(STATUS.cfp), done: false },
-  { when: 'To be announced', what: 'Financial aid applications', state: state(STATUS.financialAid), done: false },
-  { when: 'To be announced', what: 'Tickets on sale', state: state(STATUS.tickets), done: false },
-  { when: 'To be announced', what: 'Programme published', state: state(STATUS.schedule), done: false },
-  { when: '2027', what: 'PyCon Cameroon 2027, Douala', state: 'Dates to come', done: false, strong: true },
-];
-
-export function KeyDates() {
-  return (
-    <ol className="dates" data-stagger>
-      {KEY_DATES.map((d) => (
-        <li key={d.what} className={d.strong ? 'dates__row dates__row--strong' : 'dates__row'}>
-          <span className="mono dates__when">{d.when}</span>
-          <span className="dates__what">{d.what}</span>
-          <span className={`tag ${d.done ? 'tag--done' : 'tag--soon'}`}>{d.state}</span>
-        </li>
-      ))}
-    </ol>
-  );
+/**
+ * Wraps a page so that its stylesheet styles that page only. Next keeps a page's global CSS in the
+ * document after a client-side navigation, so every page stylesheet (home.css, pages.css, agenda.css…)
+ * prefixes its rules with `:where([data-page~='name'])`: no added specificity, no effect on other pages.
+ * The wrapper itself is `display: contents` (globals.css), so it never changes the layout.
+ */
+export function PageScope({ name, children }: { name: string; children: ReactNode }) {
+  return <div data-page={name}>{children}</div>;
 }

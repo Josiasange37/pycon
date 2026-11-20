@@ -1,8 +1,12 @@
+import type { Metadata } from 'next';
 import Hero from '../components/Hero';
 import HomeSections from '../components/HomeSections';
 import Welcome from '../components/Welcome';
 import { SITE } from '../lib/site';
+import { PageScope } from '../components/ui';
 import './home.css';
+
+export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 const EVENT_LD = SITE.dates?.start && SITE.dates.end && SITE.venue?.name && SITE.venue.address
   ? {
@@ -35,11 +39,11 @@ const EVENT_LD = SITE.dates?.start && SITE.dates.end && SITE.venue?.name && SITE
 
 export default function Home() {
   return (
-    <>
+    <PageScope name="home">
       {EVENT_LD && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(EVENT_LD) }} />}
       <Hero />
       <Welcome />
       <HomeSections />
-    </>
+    </PageScope>
   );
 }

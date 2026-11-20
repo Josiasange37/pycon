@@ -31,7 +31,6 @@ export const metadata: Metadata = {
   description,
   applicationName: `${SITE.name} ${SITE.year}`,
   creator: 'Almight · Akana Signing Josias Aaron',
-  alternates: { canonical: '/' },
   keywords: ['PyCon', 'PyCon Cameroon', 'Python', 'Douala', 'Cameroon', 'conference', 'Django', 'Python Cameroon'],
   openGraph: {
     type: 'website',

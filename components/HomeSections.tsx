@@ -42,6 +42,8 @@ const EXPECT = [
   },
 ];
 
+const SPONSOR_COUNT = SPONSORS_2026.reduce((count, tier) => count + tier.sponsors.length, 0);
+
 const THEMES = ['Machine learning & AI', 'Web & Django', 'Data & science', 'DevOps & cloud', 'Python core', 'Open source', 'IoT & hardware', 'Education', 'Security', 'Python in African industry'];
 
 /** A drifting row, doubled so the scroll never shows its end; the copy is hidden from assistive tech. */
@@ -238,7 +240,7 @@ export default function HomeSections() {
       <section className="sec sponsors f-paper" aria-labelledby="sp-title">
         <div className="wrap sponsors__head">
           <div className="sponsors__heading">
-            <p className="sponsors__eyebrow" data-rise>Made possible by 12 partners · PyCon Cameroon 2026</p>
+            <p className="sponsors__eyebrow" data-rise>Made possible by {SPONSOR_COUNT} partners · PyCon Cameroon 2026</p>
             <Title id="sp-title" lead="Thank you to our" main="2026 sponsors." />
           </div>
           <div className="sponsors__intro">

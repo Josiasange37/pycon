@@ -1,8 +1,13 @@
+/* Scoped to its page: every rule starts with :where([data-page~='agenda']) (PageScope in components/ui.tsx).
+ * Next keeps a page's CSS in the document after client-side navigation, so an unscoped rule here would
+ * restyle other pages. :where() adds no specificity. Start new rules with the same prefix.
+ * The dialog's .program* rules stay global: it is portaled to <body>, outside the page. */
+
 /* Programme page fields and schedule styles. */
 
 /* ——— fields, ported from the homepage ——— */
 
-.f-paper {
+:where([data-page~='agenda']) .f-paper {
   position: relative;
   isolation: isolate;
   --field-rule: rgb(25 38 76 / 0.2);
@@ -16,7 +21,7 @@
   color: var(--brand-night);
 }
 
-.f-river {
+:where([data-page~='agenda']) .f-river {
   --field-rule: rgb(244 237 218 / 0.23);
   --field-rule-strong: rgb(244 237 218 / 0.56);
   --field-copy: #d2dde2;
@@ -27,7 +32,7 @@
   color: var(--brand-cream);
 }
 
-.f-night {
+:where([data-page~='agenda']) .f-night {
   --field-rule: rgb(244 237 218 / 0.16);
   --field-rule-strong: rgb(244 237 218 / 0.45);
   --field-copy: #bec7d1;
@@ -38,7 +43,7 @@
   color: var(--brand-cream);
 }
 
-.f-sun {
+:where([data-page~='agenda']) .f-sun {
   --field-rule: rgb(18 46 57 / 0.24);
   --field-rule-strong: rgb(18 46 57 / 0.55);
   --field-copy: #203d4b;
@@ -50,31 +55,31 @@
   color: var(--brand-ink);
 }
 
-.f-river ::selection,
-.f-night ::selection {
+:where([data-page~='agenda']) .f-river ::selection,
+:where([data-page~='agenda']) .f-night ::selection {
   background: var(--brand-sun);
   color: var(--brand-ink);
 }
 
-.f-paper ::selection,
-.f-sun ::selection {
+:where([data-page~='agenda']) .f-paper ::selection,
+:where([data-page~='agenda']) .f-sun ::selection {
   background: var(--brand-night);
   color: var(--brand-paper);
 }
 
-.f-river :focus-visible,
-.f-night :focus-visible {
+:where([data-page~='agenda']) .f-river :focus-visible,
+:where([data-page~='agenda']) .f-night :focus-visible {
   outline-color: #f3c857;
 }
 
-.f-paper :focus-visible,
-.f-sun :focus-visible {
+:where([data-page~='agenda']) .f-paper :focus-visible,
+:where([data-page~='agenda']) .f-sun :focus-visible {
   outline-color: #19264c;
 }
 
 /* ——— the hero's primitives ——— */
 
-.wv-title {
+:where([data-page~='agenda']) .wv-title {
   max-width: 11ch;
   color: var(--field-ink);
   font-family: var(--font-inter);
@@ -87,22 +92,22 @@
   text-wrap: balance;
 }
 
-.wv-title__line {
+:where([data-page~='agenda']) .wv-title__line {
   display: block;
 }
 
-.wv-title__lead {
+:where([data-page~='agenda']) .wv-title__lead {
   margin-bottom: 0.06em;
   color: var(--field-ink);
   font-size: 0.64em;
   line-height: 0.98;
 }
 
-.wv-title__main {
+:where([data-page~='agenda']) .wv-title__main {
   color: var(--field-accent);
 }
 
-.wv-weave {
+:where([data-page~='agenda']) .wv-weave {
   display: block;
   width: 210px;
   height: auto;
@@ -110,33 +115,33 @@
   opacity: 0.82;
 }
 
-.wv-weave__dot {
+:where([data-page~='agenda']) .wv-weave__dot {
   fill: var(--field-highlight);
 }
 
-.wv-corner {
+:where([data-page~='agenda']) .wv-corner {
   position: absolute;
   z-index: -1;
   width: clamp(132px, 17vw, 230px);
   pointer-events: none;
 }
 
-.wv-corner--tr {
+:where([data-page~='agenda']) .wv-corner--tr {
   top: clamp(28px, 4vw, 64px);
   right: max(var(--gutter), calc((100vw - var(--max)) / 2));
 }
 
-.wv-corner--tl {
+:where([data-page~='agenda']) .wv-corner--tl {
   top: clamp(28px, 4vw, 64px);
   left: max(var(--gutter), calc((100vw - var(--max)) / 2));
 }
 
-.wv-corner--bl {
+:where([data-page~='agenda']) .wv-corner--bl {
   bottom: clamp(28px, 4vw, 64px);
   left: max(var(--gutter), calc((100vw - var(--max)) / 2));
 }
 
-.wv-stk {
+:where([data-page~='agenda']) .wv-stk {
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -157,17 +162,17 @@
   text-transform: uppercase;
 }
 
-.wv-stk--paper {
+:where([data-page~='agenda']) .wv-stk--paper {
   background: #fff0ce;
   color: #19264c;
 }
 
-.wv-stk--sun {
+:where([data-page~='agenda']) .wv-stk--sun {
   background: #f3c857;
   color: #122e39;
 }
 
-.wv-btn {
+:where([data-page~='agenda']) .wv-btn {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -190,59 +195,59 @@
     transform 180ms var(--ease);
 }
 
-.wv-btn:hover {
+:where([data-page~='agenda']) .wv-btn:hover {
   transform: translateY(-2px);
 }
 
-.wv-btn:active {
+:where([data-page~='agenda']) .wv-btn:active {
   transform: translateY(1px);
 }
 
-.wv-btn .wv-arrow {
+:where([data-page~='agenda']) .wv-btn .wv-arrow {
   flex: none;
   transition: transform 180ms var(--ease);
 }
 
-.wv-btn:hover .wv-arrow {
+:where([data-page~='agenda']) .wv-btn:hover .wv-arrow {
   transform: translate(2px, -2px);
 }
 
-.wv-btn--sun {
+:where([data-page~='agenda']) .wv-btn--sun {
   background: #f3c857;
   box-shadow: 0 8px 5px rgb(0 0 0 / 0.19);
   color: #122e39;
 }
 
-.wv-btn--sun:hover {
+:where([data-page~='agenda']) .wv-btn--sun:hover {
   background: #ffda76;
   box-shadow: 0 11px 8px rgb(0 0 0 / 0.22);
 }
 
-.wv-btn--line {
+:where([data-page~='agenda']) .wv-btn--line {
   border-color: var(--field-rule-strong);
   color: var(--field-ink);
 }
 
-.wv-btn--line:hover {
+:where([data-page~='agenda']) .wv-btn--line:hover {
   border-color: var(--field-ink);
   background: rgb(244 237 218 / 0.08);
 }
 
-.f-paper .wv-btn--line:hover,
-.f-sun .wv-btn--line:hover {
+:where([data-page~='agenda']) .f-paper .wv-btn--line:hover,
+:where([data-page~='agenda']) .f-sun .wv-btn--line:hover {
   background: rgb(25 38 76 / 0.06);
 }
 
-.wv-btn--ink {
+:where([data-page~='agenda']) .wv-btn--ink {
   background: #19264c;
   color: #f4edda;
 }
 
-.wv-btn--ink:hover {
+:where([data-page~='agenda']) .wv-btn--ink:hover {
   background: #253a69;
 }
 
-.split-head {
+:where([data-page~='agenda']) .split-head {
   display: grid;
   grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
   align-items: end;
@@ -250,11 +255,11 @@
   margin-bottom: clamp(52px, 7vw, 96px);
 }
 
-.split-head__side {
+:where([data-page~='agenda']) .split-head__side {
   min-width: 0;
 }
 
-.split-head__text {
+:where([data-page~='agenda']) .split-head__text {
   max-width: 42ch;
   padding-bottom: 0.2em;
   color: var(--field-copy);
@@ -262,7 +267,7 @@
   line-height: 1.55;
 }
 
-.split-head__title {
+:where([data-page~='agenda']) .split-head__title {
   justify-self: end;
   max-width: 10ch;
   text-align: right;

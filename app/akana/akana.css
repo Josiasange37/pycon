@@ -1,11 +1,15 @@
-.akana-profile {
+/* Scoped to its page: every rule starts with :where([data-page~='akana']) (PageScope in components/ui.tsx).
+ * Next keeps a page's CSS in the document after client-side navigation, so an unscoped rule here would
+ * restyle other pages. :where() adds no specificity. Start new rules with the same prefix. */
+
+:where([data-page~='akana']) .akana-profile {
   display: grid;
   justify-items: center;
   gap: clamp(18px, 2.5vw, 28px);
   max-width: 480px;
 }
 
-.akana-profile__portrait {
+:where([data-page~='akana']) .akana-profile__portrait {
   display: block;
   width: clamp(210px, 22vw, 270px);
   height: auto;
@@ -17,7 +21,7 @@
   box-shadow: 0 16px 48px rgb(0 0 0 / 24%);
 }
 
-.akana-profile__links {
+:where([data-page~='akana']) .akana-profile__links {
   display: grid;
   min-width: 0;
   width: 100%;
@@ -28,7 +32,7 @@
   backdrop-filter: blur(8px);
 }
 
-.akana-profile__link {
+:where([data-page~='akana']) .akana-profile__link {
   display: flex;
   min-height: 46px;
   align-items: center;
@@ -41,16 +45,16 @@
   transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.akana-profile__link:first-child {
+:where([data-page~='akana']) .akana-profile__link:first-child {
   border-top: 1px solid color-mix(in srgb, var(--intro-ink) 20%, transparent);
 }
 
-.akana-profile__link:hover,
-.akana-profile__link:focus-visible {
+:where([data-page~='akana']) .akana-profile__link:hover,
+:where([data-page~='akana']) .akana-profile__link:focus-visible {
   color: var(--taxi);
 }
 
-.akana-profile__link--primary {
+:where([data-page~='akana']) .akana-profile__link--primary {
   margin-bottom: 5px;
   padding: 0 13px;
   border: 0;
@@ -59,37 +63,37 @@
   color: var(--on-taxi);
 }
 
-.akana-profile__link--primary:hover,
-.akana-profile__link--primary:focus-visible {
+:where([data-page~='akana']) .akana-profile__link--primary:hover,
+:where([data-page~='akana']) .akana-profile__link--primary:focus-visible {
   background: var(--taxi-hover);
   color: var(--on-taxi);
 }
 
-.akana-profile__link:focus-visible {
+:where([data-page~='akana']) .akana-profile__link:focus-visible {
   outline: 2px solid var(--taxi);
   outline-offset: 3px;
 }
 
-.akana-profile__link svg {
+:where([data-page~='akana']) .akana-profile__link svg {
   flex: 0 0 auto;
   width: 16px;
   height: 16px;
 }
 
 @media (max-width: 480px) {
-  .akana-profile {
+  :where([data-page~='akana']) .akana-profile {
     gap: 16px;
   }
 
-  .akana-profile__portrait {
+  :where([data-page~='akana']) .akana-profile__portrait {
     width: min(64vw, 240px);
   }
 
-  .akana-profile__links {
+  :where([data-page~='akana']) .akana-profile__links {
     padding: 6px 14px;
   }
 
-  .akana-profile__link {
+  :where([data-page~='akana']) .akana-profile__link {
     min-height: 42px;
     font-size: 0.88rem;
   }

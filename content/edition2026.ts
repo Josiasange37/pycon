@@ -115,8 +115,6 @@ export const SPONSORS_2026: Tier[] = [
   { tier: 'Hosting', sponsors: [{ name: 'PythonAnywhere', url: 'https://www.pythonanywhere.com/', logo: '/sponsors/pythonanywhere.svg' }] },
 ];
 
-export const SPONSOR_NAMES_2026 = SPONSORS_2026.flatMap((t) => t.sponsors.map((s) => s.name));
-
 export const PARTNERS_2026 = [
   { name: 'Django Cameroon', url: 'https://djangocameroon.org/' },
   { name: 'AWS User Group Douala', url: 'https://dla.awscmr.com/' },

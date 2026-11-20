@@ -1,5 +1,9 @@
+/* Scoped to its page: every rule starts with :where([data-page~='attend']) (PageScope in components/ui.tsx).
+ * Next keeps a page's CSS in the document after client-side navigation, so an unscoped rule here would
+ * restyle other pages. :where() adds no specificity. Start new rules with the same prefix. */
+
 /* Mobile defaults: make this travel guide easy to scan and tap before widening it. */
-.attend-cover {
+:where([data-page~='attend']) .attend-cover {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -8,7 +12,7 @@
   color: var(--on-deep);
 }
 
-.attend-cover__weave {
+:where([data-page~='attend']) .attend-cover__weave {
   position: absolute;
   z-index: -1;
   top: 3%;
@@ -18,16 +22,16 @@
   pointer-events: none;
 }
 
-.attend-cover__in {
+:where([data-page~='attend']) .attend-cover__in {
   display: grid;
   gap: 34px;
 }
 
-.attend-cover__intro {
+:where([data-page~='attend']) .attend-cover__intro {
   max-width: 42rem;
 }
 
-.attend-cover__title {
+:where([data-page~='attend']) .attend-cover__title {
   max-width: 10ch;
   font-family: var(--font-inter);
   font-size: clamp(48px, 13.2vw, 74px);
@@ -38,11 +42,11 @@
   text-wrap: balance;
 }
 
-.attend-cover__title span {
+:where([data-page~='attend']) .attend-cover__title span {
   color: var(--taxi);
 }
 
-.attend-cover__lede {
+:where([data-page~='attend']) .attend-cover__lede {
   max-width: 40ch;
   margin-top: 22px;
   color: var(--on-deep-2);
@@ -50,7 +54,7 @@
   line-height: 1.55;
 }
 
-.attend-cover__edition {
+:where([data-page~='attend']) .attend-cover__edition {
   margin-top: 24px;
   color: var(--taxi);
   font-size: 11px;
@@ -58,11 +62,11 @@
   text-transform: uppercase;
 }
 
-.attend-cover__photo {
+:where([data-page~='attend']) .attend-cover__photo {
   min-width: 0;
 }
 
-.attend-cover__frame {
+:where([data-page~='attend']) .attend-cover__frame {
   position: relative;
   aspect-ratio: 1.16;
   overflow: hidden;
@@ -71,12 +75,12 @@
   box-shadow: var(--shadow);
 }
 
-.attend-cover__frame img {
+:where([data-page~='attend']) .attend-cover__frame img {
   object-fit: cover;
   object-position: center 48%;
 }
 
-.attend-cover__photo figcaption {
+:where([data-page~='attend']) .attend-cover__photo figcaption {
   display: grid;
   gap: 6px;
   margin-top: 11px;
@@ -85,29 +89,29 @@
   line-height: 1.45;
 }
 
-.attend-cover__photo figcaption a {
+:where([data-page~='attend']) .attend-cover__photo figcaption a {
   color: var(--on-deep);
   text-underline-offset: 3px;
 }
 
-.attend-cover__facts {
+:where([data-page~='attend']) .attend-cover__facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 1px solid var(--rule-on-deep);
 }
 
-.attend-cover__facts > div {
+:where([data-page~='attend']) .attend-cover__facts > div {
   min-width: 0;
   padding: 15px 10px 15px 0;
   border-bottom: 1px solid var(--rule-on-deep);
 }
 
-.attend-cover__facts > div:nth-child(even) {
+:where([data-page~='attend']) .attend-cover__facts > div:nth-child(even) {
   padding-left: 14px;
   border-left: 1px solid var(--rule-on-deep);
 }
 
-.attend-cover__facts dt {
+:where([data-page~='attend']) .attend-cover__facts dt {
   color: var(--on-deep-2);
   font-family: var(--font-tag);
   font-size: 10px;
@@ -117,7 +121,7 @@
   text-transform: uppercase;
 }
 
-.attend-cover__facts dd {
+:where([data-page~='attend']) .attend-cover__facts dd {
   margin-top: 6px;
   color: var(--on-deep);
   font-size: 14px;
@@ -126,12 +130,12 @@
   overflow-wrap: anywhere;
 }
 
-.attend-index {
+:where([data-page~='attend']) .attend-index {
   padding-block: 30px 38px;
   background: var(--bg-2);
 }
 
-.attend-index__title {
+:where([data-page~='attend']) .attend-index__title {
   margin-bottom: 12px;
   color: var(--ink-3);
   font-family: var(--font-tag);
@@ -141,27 +145,27 @@
   text-transform: uppercase;
 }
 
-.attend-index ol {
+:where([data-page~='attend']) .attend-index ol {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 1px solid var(--rule);
 }
 
-.attend-index li {
+:where([data-page~='attend']) .attend-index li {
   min-width: 0;
   border-bottom: 1px solid var(--rule);
 }
 
-.attend-index li:nth-child(odd) {
+:where([data-page~='attend']) .attend-index li:nth-child(odd) {
   padding-right: 12px;
 }
 
-.attend-index li:nth-child(even) {
+:where([data-page~='attend']) .attend-index li:nth-child(even) {
   padding-left: 12px;
   border-left: 1px solid var(--rule);
 }
 
-.attend-index a {
+:where([data-page~='attend']) .attend-index a {
   display: flex;
   min-height: 52px;
   align-items: center;
@@ -174,24 +178,24 @@
   text-decoration: none;
 }
 
-.attend-index a svg {
+:where([data-page~='attend']) .attend-index a svg {
   width: 14px;
   height: 14px;
   flex: 0 0 auto;
   color: var(--river);
 }
 
-.attend-index a:focus-visible,
-.attend-text-link:focus-visible {
+:where([data-page~='attend']) .attend-index a:focus-visible,
+:where([data-page~='attend']) .attend-text-link:focus-visible {
   outline-color: var(--river);
   outline-offset: 4px;
 }
 
-.attend-guide {
+:where([data-page~='attend']) .attend-guide {
   padding-block: 18px 72px;
 }
 
-.attend-chapter {
+:where([data-page~='attend']) .attend-chapter {
   display: grid;
   gap: 24px;
   padding-block: 42px;
@@ -199,13 +203,13 @@
   scroll-margin-top: 88px;
 }
 
-.attend-chapter__heading {
+:where([data-page~='attend']) .attend-chapter__heading {
   display: grid;
   align-content: start;
   gap: 8px;
 }
 
-.attend-chapter__title {
+:where([data-page~='attend']) .attend-chapter__title {
   max-width: 16ch;
   color: var(--ink);
   font-family: var(--font-inter);
@@ -217,7 +221,7 @@
   text-wrap: balance;
 }
 
-.attend-chapter__note {
+:where([data-page~='attend']) .attend-chapter__note {
   color: var(--ink-3);
   font-family: var(--font-tag);
   font-size: 11px;
@@ -227,7 +231,7 @@
   text-transform: uppercase;
 }
 
-.attend-chapter__body {
+:where([data-page~='attend']) .attend-chapter__body {
   display: grid;
   justify-items: start;
   gap: 18px;
@@ -238,11 +242,11 @@
   line-height: 1.65;
 }
 
-.attend-chapter__body strong {
+:where([data-page~='attend']) .attend-chapter__body strong {
   color: var(--ink);
 }
 
-.attend-chapter__lead {
+:where([data-page~='attend']) .attend-chapter__lead {
   color: var(--ink);
   font-family: var(--font-serif);
   font-size: clamp(21px, 5.8vw, 27px);
@@ -250,7 +254,7 @@
   line-height: 1.35;
 }
 
-.attend-rates {
+:where([data-page~='attend']) .attend-rates {
   width: 100%;
   border-collapse: collapse;
   color: var(--ink);
@@ -259,7 +263,7 @@
   text-align: left;
 }
 
-.attend-rates caption {
+:where([data-page~='attend']) .attend-rates caption {
   padding-block: 10px;
   border-bottom: 1px solid var(--rule-strong);
   color: var(--ink-3);
@@ -270,13 +274,13 @@
   text-transform: uppercase;
 }
 
-.attend-rates th,
-.attend-rates td {
+:where([data-page~='attend']) .attend-rates th,
+:where([data-page~='attend']) .attend-rates td {
   padding: 12px 6px 12px 0;
   border-bottom: 1px solid var(--rule);
 }
 
-.attend-rates thead th {
+:where([data-page~='attend']) .attend-rates thead th {
   color: var(--ink-3);
   font-family: var(--font-tag);
   font-size: 10px;
@@ -285,53 +289,53 @@
   text-transform: uppercase;
 }
 
-.attend-rates td {
+:where([data-page~='attend']) .attend-rates td {
   font-weight: 700;
   text-align: right;
 }
 
-.attend-rates td span {
+:where([data-page~='attend']) .attend-rates td span {
   color: var(--ink-3);
   font-size: 11px;
   font-weight: 500;
 }
 
-.attend-chapter__action,
-.attend-text-link {
+:where([data-page~='attend']) .attend-chapter__action,
+:where([data-page~='attend']) .attend-text-link {
   display: inline-flex;
   min-height: 48px;
   align-items: center;
   gap: 10px;
 }
 
-.attend-chapter__action {
+:where([data-page~='attend']) .attend-chapter__action {
   max-width: 100%;
   padding: 12px 18px;
   line-height: 1.3;
   text-decoration: none;
 }
 
-.attend-text-link {
+:where([data-page~='attend']) .attend-text-link {
   color: var(--river);
   font-size: 14px;
   font-weight: 700;
   text-underline-offset: 4px;
 }
 
-.attend-text-link svg {
+:where([data-page~='attend']) .attend-text-link svg {
   width: 14px;
   height: 14px;
   flex: 0 0 auto;
 }
 
-.attend-local-facts {
+:where([data-page~='attend']) .attend-local-facts {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   width: 100%;
   border-top: 1px solid var(--rule-strong);
 }
 
-.attend-local-facts > div {
+:where([data-page~='attend']) .attend-local-facts > div {
   display: grid;
   grid-template-columns: minmax(100px, 0.65fr) minmax(0, 1fr);
   gap: 14px;
@@ -339,7 +343,7 @@
   border-bottom: 1px solid var(--rule);
 }
 
-.attend-local-facts dt {
+:where([data-page~='attend']) .attend-local-facts dt {
   color: var(--ink-3);
   font-family: var(--font-tag);
   font-size: 10px;
@@ -348,23 +352,23 @@
   text-transform: uppercase;
 }
 
-.attend-local-facts dd {
+:where([data-page~='attend']) .attend-local-facts dd {
   color: var(--ink);
   font-size: 13px;
   font-weight: 650;
   line-height: 1.4;
 }
 
-.attend-faq {
+:where([data-page~='attend']) .attend-faq {
   width: 100%;
   border-top: 1px solid var(--rule-strong);
 }
 
-.attend-faq details {
+:where([data-page~='attend']) .attend-faq details {
   border-bottom: 1px solid var(--rule);
 }
 
-.attend-faq summary {
+:where([data-page~='attend']) .attend-faq summary {
   position: relative;
   display: flex;
   min-height: 60px;
@@ -380,11 +384,11 @@
   cursor: pointer;
 }
 
-.attend-faq summary::-webkit-details-marker {
+:where([data-page~='attend']) .attend-faq summary::-webkit-details-marker {
   display: none;
 }
 
-.attend-faq__icon {
+:where([data-page~='attend']) .attend-faq__icon {
   position: relative;
   width: 18px;
   height: 18px;
@@ -392,8 +396,8 @@
   color: var(--river);
 }
 
-.attend-faq__icon::before,
-.attend-faq__icon::after {
+:where([data-page~='attend']) .attend-faq__icon::before,
+:where([data-page~='attend']) .attend-faq__icon::after {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -404,16 +408,16 @@
   transform: translate(-50%, -50%);
 }
 
-.attend-faq__icon::after {
+:where([data-page~='attend']) .attend-faq__icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
   transition: transform 180ms var(--ease);
 }
 
-.attend-faq details[open] .attend-faq__icon::after {
+:where([data-page~='attend']) .attend-faq details[open] .attend-faq__icon::after {
   transform: translate(-50%, -50%) rotate(0);
 }
 
-.attend-faq details > p {
+:where([data-page~='attend']) .attend-faq details > p {
   max-width: 66ch;
   padding: 0 28px 18px 0;
   color: var(--ink-2);
@@ -421,12 +425,12 @@
   line-height: 1.6;
 }
 
-.attend-contact {
+:where([data-page~='attend']) .attend-contact {
   color: var(--ink-3);
   font-size: 13px;
 }
 
-.attend-contact a {
+:where([data-page~='attend']) .attend-contact a {
   color: var(--river);
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -434,96 +438,96 @@
 }
 
 @media (min-width: 640px) {
-  .attend-cover__in {
+  :where([data-page~='attend']) .attend-cover__in {
     gap: 42px;
   }
 
-  .attend-cover__title {
+  :where([data-page~='attend']) .attend-cover__title {
     font-size: clamp(72px, 10vw, 112px);
   }
 
-  .attend-cover__frame {
+  :where([data-page~='attend']) .attend-cover__frame {
     aspect-ratio: 1.45;
   }
 
-  .attend-cover__facts {
+  :where([data-page~='attend']) .attend-cover__facts {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .attend-cover__facts > div {
+  :where([data-page~='attend']) .attend-cover__facts > div {
     padding: 16px 14px 16px 0;
     border-bottom: 0;
   }
 
-  .attend-cover__facts > div + div {
+  :where([data-page~='attend']) .attend-cover__facts > div + div {
     padding-left: 14px;
     border-left: 1px solid var(--rule-on-deep);
   }
 
-  .attend-index ol {
+  :where([data-page~='attend']) .attend-index ol {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .attend-index li:nth-child(3n + 1) {
+  :where([data-page~='attend']) .attend-index li:nth-child(3n + 1) {
     padding-left: 0;
     border-left: 0;
   }
 
-  .attend-index li:nth-child(3n + 2),
-  .attend-index li:nth-child(3n + 3) {
+  :where([data-page~='attend']) .attend-index li:nth-child(3n + 2),
+  :where([data-page~='attend']) .attend-index li:nth-child(3n + 3) {
     padding-left: 14px;
     border-left: 1px solid var(--rule);
   }
 
-  .attend-chapter__title {
+  :where([data-page~='attend']) .attend-chapter__title {
     font-size: clamp(44px, 6vw, 64px);
   }
 }
 
 @media (min-width: 900px) {
-  .attend-cover {
+  :where([data-page~='attend']) .attend-cover {
     padding-block: clamp(82px, 9vw, 132px) 58px;
   }
 
-  .attend-cover__in {
+  :where([data-page~='attend']) .attend-cover__in {
     grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
     align-items: center;
     column-gap: clamp(48px, 7vw, 104px);
     row-gap: 52px;
   }
 
-  .attend-cover__intro {
+  :where([data-page~='attend']) .attend-cover__intro {
     align-self: end;
   }
 
-  .attend-cover__title {
+  :where([data-page~='attend']) .attend-cover__title {
     max-width: 9ch;
     font-size: clamp(82px, 8vw, 118px);
   }
 
-  .attend-cover__lede {
+  :where([data-page~='attend']) .attend-cover__lede {
     font-size: 19px;
   }
 
-  .attend-cover__photo {
+  :where([data-page~='attend']) .attend-cover__photo {
     grid-column: 2;
     grid-row: 1 / 3;
   }
 
-  .attend-cover__frame {
+  :where([data-page~='attend']) .attend-cover__frame {
     aspect-ratio: 0.96;
   }
 
-  .attend-cover__facts {
+  :where([data-page~='attend']) .attend-cover__facts {
     grid-column: 1 / -1;
   }
 
-  .attend-cover__facts > div {
+  :where([data-page~='attend']) .attend-cover__facts > div {
     min-height: 92px;
     align-content: center;
   }
 
-  .attend-index {
+  :where([data-page~='attend']) .attend-index {
     display: grid;
     grid-template-columns: minmax(140px, 0.25fr) minmax(0, 1fr);
     align-items: start;
@@ -531,67 +535,67 @@
     padding-block: 28px;
   }
 
-  .attend-index__title {
+  :where([data-page~='attend']) .attend-index__title {
     padding-top: 18px;
   }
 
-  .attend-index ol {
+  :where([data-page~='attend']) .attend-index ol {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
-  .attend-index li:nth-child(n) {
+  :where([data-page~='attend']) .attend-index li:nth-child(n) {
     padding-inline: 12px;
     border-left: 1px solid var(--rule);
   }
 
-  .attend-index li:first-child {
+  :where([data-page~='attend']) .attend-index li:first-child {
     padding-left: 0;
     border-left: 0;
   }
 
-  .attend-index a {
+  :where([data-page~='attend']) .attend-index a {
     min-height: 58px;
     font-size: 12px;
   }
 
-  .attend-chapter {
+  :where([data-page~='attend']) .attend-chapter {
     grid-template-columns: minmax(210px, 0.75fr) minmax(0, 1.25fr);
     gap: clamp(32px, 7vw, 104px);
     padding-block: clamp(52px, 6.5vw, 88px);
   }
 
-  .attend-chapter__heading {
+  :where([data-page~='attend']) .attend-chapter__heading {
     position: sticky;
     top: 112px;
     align-self: start;
   }
 
-  .attend-chapter__body {
+  :where([data-page~='attend']) .attend-chapter__body {
     font-size: 17px;
   }
 
-  .attend-chapter__lead {
+  :where([data-page~='attend']) .attend-chapter__lead {
     font-size: clamp(24px, 2.5vw, 32px);
   }
 
-  .attend-local-facts {
+  :where([data-page~='attend']) .attend-local-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .attend-local-facts > div {
+  :where([data-page~='attend']) .attend-local-facts > div {
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
     padding: 16px 14px 16px 0;
   }
 
-  .attend-local-facts > div + div {
+  :where([data-page~='attend']) .attend-local-facts > div + div {
     padding-left: 16px;
     border-left: 1px solid var(--rule);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .attend-faq__icon::after {
+  :where([data-page~='attend']) .attend-faq__icon::after {
     transition: none;
   }
 }

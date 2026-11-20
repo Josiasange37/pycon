@@ -1,4 +1,8 @@
-.not-found {
+/* Scoped to its page: every rule starts with :where([data-page~='not-found']) (PageScope in components/ui.tsx).
+ * Next keeps a page's CSS in the document after client-side navigation, so an unscoped rule here would
+ * restyle other pages. :where() adds no specificity. Start new rules with the same prefix. */
+
+:where([data-page~='not-found']) .not-found {
   --not-found-copy: var(--ink-2);
   min-height: min(780px, 100svh);
   display: grid;
@@ -9,21 +13,21 @@
   color: var(--ink);
 }
 
-.not-found__in {
+:where([data-page~='not-found']) .not-found__in {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   align-items: center;
   gap: clamp(24px, 4.5vw, 68px);
 }
 
-.not-found__map {
+:where([data-page~='not-found']) .not-found__map {
   position: relative;
   min-width: 0;
   min-height: clamp(370px, 42vw, 540px);
   isolation: isolate;
 }
 
-.not-found__diagram {
+:where([data-page~='not-found']) .not-found__diagram {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -31,48 +35,48 @@
   overflow: visible;
 }
 
-.not-found__streets {
+:where([data-page~='not-found']) .not-found__streets {
   stroke: var(--rule);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.not-found__roundabout {
+:where([data-page~='not-found']) .not-found__roundabout {
   stroke: var(--rule-strong);
   stroke-width: 2;
   stroke-dasharray: 4 10;
 }
 
-.not-found__roundabout-inner {
+:where([data-page~='not-found']) .not-found__roundabout-inner {
   stroke: var(--rule);
   stroke-width: 1.5;
 }
 
-.not-found__route-under,
-.not-found__route,
-.not-found__route-dashes {
+:where([data-page~='not-found']) .not-found__route-under,
+:where([data-page~='not-found']) .not-found__route,
+:where([data-page~='not-found']) .not-found__route-dashes {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.not-found__route-under {
+:where([data-page~='not-found']) .not-found__route-under {
   stroke: var(--bg);
   stroke-width: 28;
 }
 
-.not-found__route {
+:where([data-page~='not-found']) .not-found__route {
   stroke: var(--river);
   stroke-width: 14;
 }
 
-.not-found__route-dashes {
+:where([data-page~='not-found']) .not-found__route-dashes {
   stroke: var(--taxi);
   stroke-width: 3;
   stroke-dasharray: 1 17;
 }
 
-.not-found__number {
+:where([data-page~='not-found']) .not-found__number {
   fill: var(--ink);
   font-family: var(--font-inter);
   font-size: 112px;
@@ -80,24 +84,24 @@
   letter-spacing: -9px;
 }
 
-.not-found__destination-halo {
+:where([data-page~='not-found']) .not-found__destination-halo {
   fill: var(--taxi);
   opacity: 0.3;
 }
 
-.not-found__destination {
+:where([data-page~='not-found']) .not-found__destination {
   fill: var(--taxi);
   stroke: var(--bg);
   stroke-width: 4;
 }
 
-.not-found__start {
+:where([data-page~='not-found']) .not-found__start {
   fill: var(--ink);
   stroke: var(--bg);
   stroke-width: 4;
 }
 
-.not-found__weave {
+:where([data-page~='not-found']) .not-found__weave {
   position: absolute;
   z-index: 1;
   top: 2%;
@@ -106,7 +110,7 @@
   color: var(--ink);
 }
 
-.not-found__mark {
+:where([data-page~='not-found']) .not-found__mark {
   position: absolute;
   z-index: 1;
   top: 16%;
@@ -116,7 +120,7 @@
   --mark-globe: var(--river);
 }
 
-.not-found__map-label {
+:where([data-page~='not-found']) .not-found__map-label {
   position: absolute;
   z-index: 1;
   color: var(--ink-2);
@@ -126,18 +130,18 @@
   letter-spacing: 0.14em;
 }
 
-.not-found__map-label--start {
+:where([data-page~='not-found']) .not-found__map-label--start {
   left: 2%;
   bottom: 8%;
 }
 
-.not-found__map-label--end {
+:where([data-page~='not-found']) .not-found__map-label--end {
   right: 0;
   top: 51%;
   color: var(--ink);
 }
 
-.not-found__stamp {
+:where([data-page~='not-found']) .not-found__stamp {
   position: absolute;
   right: 7%;
   bottom: 6%;
@@ -152,13 +156,13 @@
   transform: rotate(5deg);
 }
 
-.not-found__copy {
+:where([data-page~='not-found']) .not-found__copy {
   position: relative;
   z-index: 2;
   padding-block: 28px;
 }
 
-.not-found__title {
+:where([data-page~='not-found']) .not-found__title {
   max-width: 10ch;
   font-family: var(--font-inter);
   font-size: clamp(58px, 6.2vw, 88px);
@@ -168,12 +172,12 @@
   text-wrap: balance;
 }
 
-.not-found__title span {
+:where([data-page~='not-found']) .not-found__title span {
   display: block;
   color: var(--river);
 }
 
-.not-found__lede {
+:where([data-page~='not-found']) .not-found__lede {
   max-width: 34ch;
   margin-top: 25px;
   color: var(--not-found-copy);
@@ -181,11 +185,11 @@
   line-height: 1.48;
 }
 
-.not-found__home {
+:where([data-page~='not-found']) .not-found__home {
   margin-top: 24px;
 }
 
-.not-found__aside {
+:where([data-page~='not-found']) .not-found__aside {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -195,7 +199,7 @@
   font-size: 21px;
 }
 
-.not-found__aside-dot {
+:where([data-page~='not-found']) .not-found__aside-dot {
   width: 7px;
   height: 7px;
   flex: 0 0 auto;
@@ -204,92 +208,92 @@
 }
 
 @media (max-width: 900px) {
-  .not-found__in {
+  :where([data-page~='not-found']) .not-found__in {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
     gap: 24px;
   }
 
-  .not-found__map {
+  :where([data-page~='not-found']) .not-found__map {
     min-height: 390px;
   }
 
-  .not-found__title {
+  :where([data-page~='not-found']) .not-found__title {
     font-size: clamp(54px, 7vw, 72px);
   }
 }
 
 @media (max-width: 680px) {
-  .not-found {
+  :where([data-page~='not-found']) .not-found {
     min-height: 0;
     padding-block: 50px 44px;
   }
 
-  .not-found__in {
+  :where([data-page~='not-found']) .not-found__in {
     grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
 
-  .not-found__copy {
+  :where([data-page~='not-found']) .not-found__copy {
     grid-row: 1;
     padding-block: 0;
   }
 
-  .not-found__title {
+  :where([data-page~='not-found']) .not-found__title {
     max-width: 11ch;
     font-size: clamp(54px, 13vw, 76px);
   }
 
-  .not-found__lede {
+  :where([data-page~='not-found']) .not-found__lede {
     max-width: 32ch;
     margin-top: 18px;
     font-size: 19px;
   }
 
-  .not-found__home {
+  :where([data-page~='not-found']) .not-found__home {
     margin-top: 19px;
   }
 
-  .not-found__aside {
+  :where([data-page~='not-found']) .not-found__aside {
     margin-top: 18px;
   }
 
-  .not-found__map {
+  :where([data-page~='not-found']) .not-found__map {
     grid-row: 2;
     min-height: clamp(260px, 75vw, 360px);
     margin-inline: -6px;
   }
 
-  .not-found__weave {
+  :where([data-page~='not-found']) .not-found__weave {
     top: 1%;
     width: 128px;
   }
 
-  .not-found__mark {
+  :where([data-page~='not-found']) .not-found__mark {
     top: 14%;
     right: 3%;
     height: 86px;
   }
 
-  .not-found__map-label--start {
+  :where([data-page~='not-found']) .not-found__map-label--start {
     bottom: 4%;
   }
 
-  .not-found__stamp {
+  :where([data-page~='not-found']) .not-found__stamp {
     right: 6%;
     bottom: 2%;
   }
 }
 
 @media (max-width: 390px) {
-  .not-found__map {
+  :where([data-page~='not-found']) .not-found__map {
     min-height: 238px;
   }
 
-  .not-found__title {
+  :where([data-page~='not-found']) .not-found__title {
     font-size: 52px;
   }
 
-  .not-found__aside {
+  :where([data-page~='not-found']) .not-found__aside {
     font-size: 19px;
   }
 }

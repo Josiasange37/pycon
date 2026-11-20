@@ -91,6 +91,11 @@ html {
   text-size-adjust: 100%;
 }
 
+/* a page's style scope (components/ui.tsx PageScope): matched by selectors, invisible to layout */
+[data-page] {
+  display: contents;
+}
+
 body {
   margin: 0;
   background: var(--bg);

@@ -121,7 +121,8 @@ export default function Header() {
           </div>
         </div>
 
-        <div id="menu" ref={panel} className="menu" hidden={!open}>
+        {/* data-lenis-prevent: wheel events over the open menu are not turned into page scrolling */}
+        <div id="menu" ref={panel} className="menu" hidden={!open} data-lenis-prevent>
           <nav aria-label="Main (mobile)" className="wrap">
             <ul className="menu__list">
               <li>
@@ -178,14 +179,19 @@ function ThemeToggle({ className = '' }: { className?: string }) {
   const { t } = useLang();
   const [theme, setTheme] = useState<'light' | 'dark' | null>(null);
 
+  // The bar and the phone menu each render a toggle: both follow <html data-theme>, whichever was pressed.
   useEffect(() => {
-    setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+    const root = document.documentElement;
+    const sync = () => setTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
   }, []);
 
   const toggle = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
-    setTheme(next);
     try {
       localStorage.setItem('pycon:theme', next);
     } catch {

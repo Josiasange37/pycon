@@ -35,7 +35,14 @@
   border-bottom-color: transparent;
 }
 
+/* --u: one design pixel of the 1440-wide frame, shrunk on shorter or narrower desktop windows.
+ * It sizes the bar, and the home hero reads it to know the bar's height. It is defined here, with the bar,
+ * so the bar is the same height on every page (it used to live in home.css and change once home had loaded). */
 @media (min-width: 960px) {
+  :root {
+    --u: max(0.6px, min(1px, 0.1042svh, 0.0694vw));
+  }
+
   .bar:not([data-stuck]) .bar__in {
     height: max(84px, calc(104 * var(--u, 1px)));
   }
