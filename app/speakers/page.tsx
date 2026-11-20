@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Arrow } from '../../components/Mark';
 import SpeakerWall from '../../components/SpeakerWall';
-import { Figure, Head, PageIntro } from '../../components/ui';
+import { Figure, Head, PageIntro, PageScope } from '../../components/ui';
 import { KEYNOTES_2026 } from '../../content/edition2026';
 import { LINKS, STATUS } from '../../lib/site';
 import { pageMetadata } from '../../lib/seo';
@@ -15,7 +15,7 @@ export const metadata = pageMetadata({
 
 export default function SpeakersPage() {
   return (
-    <>
+    <PageScope name="inner">
       <PageIntro
         variant="paper"
         label="Speakers"
@@ -129,6 +129,6 @@ export default function SpeakersPage() {
           </aside>
         </div>
       </section>
-    </>
+    </PageScope>
   );
 }

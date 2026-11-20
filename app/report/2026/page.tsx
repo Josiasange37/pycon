@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Arrow } from '../../../components/Mark';
-import { Figure, Head, PageIntro } from '../../../components/ui';
+import { Figure, Head, PageIntro, PageScope } from '../../../components/ui';
 import { EDITION_2026, FORMATS_2026, KEYNOTES_2026, LANGUAGES_2026, PHOTOS, SPONSORS_2026, STATS_2026 } from '../../../content/edition2026';
 import { LINKS } from '../../../lib/site';
 import { pageMetadata } from '../../../lib/seo';
@@ -18,7 +18,7 @@ export default function Report2026Page() {
   const maxLanguage = Math.max(...LANGUAGES_2026.map((item) => item.value));
 
   return (
-    <>
+    <PageScope name="inner">
       <PageIntro
         variant="night"
         label="Past edition · Report 2026"
@@ -131,7 +131,7 @@ export default function Report2026Page() {
           </div>
         </div>
       </section>
-    </>
+    </PageScope>
   );
 }
 

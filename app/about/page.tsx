@@ -1,6 +1,7 @@
 import AboutHero from '../../components/AboutHero';
 import AboutSections from '../../components/AboutSections';
 import { pageMetadata } from '../../lib/seo';
+import { PageScope } from '../../components/ui';
 import '../pages.css';
 
 export const metadata = pageMetadata({
@@ -11,9 +12,9 @@ export const metadata = pageMetadata({
 
 export default function AboutPage() {
   return (
-    <>
+    <PageScope name="inner">
       <AboutHero />
       <AboutSections />
-    </>
+    </PageScope>
   );
 }

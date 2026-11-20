@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Arrow } from '../../components/Mark';
-import { Figure, Head } from '../../components/ui';
+import { Figure, Head, PageScope } from '../../components/ui';
 import { Title as WeaveTitle, Weave } from '../../components/Weave';
 import { PHOTOS, SPONSORS_2026, STATS_2026 } from '../../content/edition2026';
 import { LINKS, SITE } from '../../lib/site';
@@ -21,7 +21,7 @@ const WHY = [
 
 export default function SponsorsPage() {
   return (
-    <>
+    <PageScope name="inner">
       <section className="sponsor-cover" aria-labelledby="sp-title">
         <Weave className="sponsor-cover__weave" accent />
         <div className="wrap sponsor-cover__in">
@@ -133,6 +133,6 @@ export default function SponsorsPage() {
           </div>
         </div>
       </section>
-    </>
+    </PageScope>
   );
 }

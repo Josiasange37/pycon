@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { useLang } from '../lib/i18n';
-import { SITE } from '../lib/site';
+import { SITE, STATUS } from '../lib/site';
 import { HxOut, Icons } from './HxIcons';
 
 gsap.registerPlugin(useGSAP);
@@ -66,7 +66,7 @@ export default function Hero() {
 
         <div className="hx__actions">
           <Link className="hx__btn hx__btn--sun" href="/attend#tickets">
-            {t.hero.buyTickets} <HxOut />
+            {STATUS.tickets === 'on-sale' ? t.hero.buyTickets : t.hero.ticketInfo} <HxOut />
           </Link>
           <Link className="hx__btn hx__btn--line" href="/agenda">
             {t.hero.agenda} <HxOut />

@@ -13,6 +13,7 @@ import { Arrow } from '../../components/Mark';
 import { Weave } from '../../components/Weave';
 import { LINKS, SITE, STATUS } from '../../lib/site';
 import { pageMetadata } from '../../lib/seo';
+import { PageScope } from '../../components/ui';
 import '../pages.css';
 import './attend.css';
 
@@ -49,7 +50,7 @@ const aidStatus = STATUS.financialAid === 'open' ? 'Applications open' : STATUS.
 
 export default function AttendPage() {
   return (
-    <>
+    <PageScope name="inner attend">
       <section className="attend-cover deep" aria-labelledby="attend-title">
         <Weave className="attend-cover__weave" accent />
         <div className="wrap attend-cover__in">
@@ -246,6 +247,6 @@ export default function AttendPage() {
           </div>
         </section>
       </div>
-    </>
+    </PageScope>
   );
 }

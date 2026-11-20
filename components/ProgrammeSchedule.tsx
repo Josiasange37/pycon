@@ -5,46 +5,9 @@ import { createPortal } from 'react-dom';
 import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { KEYNOTES_2026 } from '../content/edition2026';
-import { SPEAKERS } from '../content/speakers2026';
+import { SPEAKERS, nameKey, speakerPhoto } from '../content/speakers2026';
 import { DAYS, duration } from '../content/schedule2026';
 import type { Day, Session } from '../content/schedule2026';
-
-const SPEAKER_PHOTOS: Record<string, string> = {
-  'Sarah Abderemane': '/2026/day1-02.webp',
-  'Adonis Simo': '/2026/day2-04.webp',
-  'Veliswa Boya': '/2026/day3-02.webp',
-  'Yunwen Eric': '/speakers/Yunwen_Eric.webp',
-  'Johnpaul Hampo': '/speakers/Johnpaul_Hampo.webp',
-  'Adrien Sani': '/speakers/Adrien_Sani.webp',
-  'Linuce Demanou': '/speakers/Linuce_Demanou.webp',
-  'Lobga Julius': '/speakers/Lobga_Julius.webp',
-  'Ndongmo Christian': '/speakers/Ndongmo_Christian.webp',
-  'Parkson Tano Daniel': '/speakers/Parkson_Tano_Daniel.webp',
-  'Tayo Tate Desmond': '/speakers/Tayo_Tate_Desmond_Corentin.webp',
-  'Claude Ndanda': '/speakers/Claude_Ndanda.webp',
-  'Marcela Djoukouo Talotsing': '/speakers/Marcela_Djoukouo_Talotsing.webp',
-  'Patrick Nounga': '/speakers/Patrick_Nounga.webp',
-  'Sema Kumbela Fombutu': '/speakers/Sema_Kumbela_Fombutu.webp',
-  'Muluh Azinwi Success Ndahili': '/speakers/Muluh_Azinwi_Success_Ndahili.webp',
-  'Edmond Makolle': '/speakers/Edmond_Makole.webp',
-  'Steve Yonkeu': '/speakers/Steve_Yonkeu.webp',
-  'Daniele Procida': '/speakers/Daniele_Procida.webp',
-  'Pedro Leão da Cruz': '/speakers/Pedro_Leao_da_Cruz.webp',
-  'Jean Marc Wogue': '/speakers/Jean_Marc_Wogue.webp',
-  'Ariane Djeupang J.': '/speakers/Ariane_Djeupang_J.webp',
-  'Hypolit Zeuchieu': '/speakers/Hypolit_Zeuchieu.webp',
-  'Brandon Kamga': '/speakers/Brandon_Kamga.webp',
-  'Yannik Kadjie': '/speakers/Yannik_Kadjie.webp',
-  'Jerry Davis Ndjana Mengue': '/speakers/Jerry_Davis_Ndjana_Mengue.webp',
-  'Marielle Daha': '/speakers/Marielle_Daha.webp',
-  'Emambou Ulrich': '/speakers/Emambou_Ulrich.webp',
-  'Leslye Nkwa': '/speakers/Leslye_Nkwa.webp',
-  'Marc Daha': '/speakers/Marc_Daha.webp',
-  'Mvenyi Donald': '/speakers/Mvenyi_Donald.webp',
-  'Ayuk Princelen Tanyi': '/speakers/Ayuk_Princelen_Tanyi.webp',
-  'Chifen Sama': '/speakers/Chifen_Sama.webp',
-  'Samuel Tiokeng': '/speakers/Samuel_Tiokeng.webp',
-};
 
 const initials = (name: string) =>
   name
@@ -56,20 +19,17 @@ const initials = (name: string) =>
     .join('')
     .toUpperCase();
 
-const normaliseName = (name: string) =>
-  name.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
-
 type SpeakerProfile = { role?: string; topics?: readonly string[] };
 
 const speakerProfiles = new Map<string, SpeakerProfile>(
   [
     ...SPEAKERS.map((speaker) => [speaker.name, { role: speaker.role, topics: speaker.topics }] as const),
     ...KEYNOTES_2026.map((speaker) => [speaker.name, { role: speaker.role }] as const),
-  ].map(([name, role]) => [normaliseName(name), role] as const),
+  ].map(([name, role]) => [nameKey(name), role] as const),
 );
 
 function speakerProfile(name: string) {
-  const normalized = normaliseName(name);
+  const normalized = nameKey(name);
   const exact = speakerProfiles.get(normalized);
   const prefixMatch = exact ?? [...speakerProfiles].find(([profileName]) => profileName.startsWith(normalized))?.[1];
   if (!prefixMatch) return undefined;
@@ -124,7 +84,7 @@ function ActivityIcon({ label }: { label: string }) {
 }
 
 function SpeakerAvatar({ name, large = false }: { name: string; large?: boolean }) {
-  const photo = SPEAKER_PHOTOS[name];
+  const photo = speakerPhoto(name);
   const sizeClass = large ? ' program__speaker-avatar--large' : '';
 
   if (photo) {
@@ -135,7 +95,7 @@ function SpeakerAvatar({ name, large = false }: { name: string; large?: boolean 
 }
 
 function SpeakerPortrait({ name }: { name: string }) {
-  const photo = SPEAKER_PHOTOS[name];
+  const photo = speakerPhoto(name);
 
   if (photo) {
     return <Image className="program-detail__portrait-image" src={photo} alt="" width={640} height={800} sizes="(min-width: 900px) 38vw, 100vw" />;
@@ -354,7 +314,8 @@ export default function ProgrammeSchedule() {
       </section>
 
       {selectedProgram && typeof document !== 'undefined' && createPortal(
-        <div className="program-detail-overlay" role="presentation">
+        // data-lenis-prevent: the wheel scrolls the dialog natively instead of the page behind it
+        <div className="program-detail-overlay" role="presentation" data-lenis-prevent>
           <aside
             aria-labelledby="program-detail-title"
             aria-modal="true"

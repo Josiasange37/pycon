@@ -3,6 +3,8 @@
  * were cut short in the source; the page only shows text that is complete.
  */
 
+import { KEYNOTES_2026 } from './edition2026';
+
 export const TOPICS = [
   'Machine learning & AI',
   'Web development',
@@ -55,6 +57,31 @@ export const SPEAKER_PHOTOS_2026: Record<string, string> = {
   'Yannik Kadjie': '/speakers/Yannik_Kadjie.webp',
   'Yunwen Eric': '/speakers/Yunwen_Eric.webp',
 };
+
+/**
+ * Folds case, accents and punctuation, so the programme's spelling of a name
+ * ("Ariane Djeupang J.", "Muluh Azinwi Success Ndahili") finds the speaker list's.
+ */
+export const nameKey = (name: string) =>
+  name.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
+
+const PHOTO_BY_NAME = new Map<string, string>([
+  ...KEYNOTES_2026.map((keynote) => [nameKey(keynote.name), keynote.photo.src] as const),
+  ...Object.entries(SPEAKER_PHOTOS_2026).map(([name, src]) => [nameKey(name), src] as const),
+]);
+
+/**
+ * The single place a 2026 speaker's photo is looked up, by the name as any page writes it:
+ * an exact match first, else the listed name it shortens ("Tayo Tate Desmond" → "… Corentin").
+ */
+export function speakerPhoto(name: string): string | undefined {
+  const key = nameKey(name);
+  if (!key) return undefined;
+  const exact = PHOTO_BY_NAME.get(key);
+  if (exact) return exact;
+  for (const [listed, src] of PHOTO_BY_NAME) if (listed.startsWith(key)) return src;
+  return undefined;
+}
 
 export const SPEAKERS: Speaker[] = [
   {

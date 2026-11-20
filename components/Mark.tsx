@@ -42,16 +42,6 @@ export default function Mark({ size = 40, title, className }: { size?: number; t
   );
 }
 
-/** The tide line: two braided channels of the Wouri, used once per page at most. */
-export function Tide({ className = 'tide' }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 9 C 150 3, 300 15, 450 9 S 750 3, 900 9 S 1100 14, 1200 8" fill="none" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-      <path d="M0 16 C 180 21, 330 11, 520 16 S 820 22, 1000 15 S 1140 12, 1200 17" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.55" vectorEffect="non-scaling-stroke" />
-    </svg>
-  );
-}
-
 export function Arrow({ dir = 'right' }: { dir?: 'right' | 'out' | 'down' }) {
   const d = dir === 'out' ? 'M5 11L11 5M6 5h5v5' : dir === 'down' ? 'M8 3v10M4 9l4 4 4-4' : 'M3 8h10M9 4l4 4-4 4';
   return (

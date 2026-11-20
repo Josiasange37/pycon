@@ -58,4 +58,3 @@ export const NAV = [
 ];
 
 export const datesLabel = () => SITE.dates?.label ?? `${SITE.year} · dates to be announced`;
-export const venueLabel = () => SITE.venue?.name ?? 'To be announced';

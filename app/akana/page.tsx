@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Arrow } from '../../components/Mark';
-import { PageIntro } from '../../components/ui';
+import { PageIntro, PageScope } from '../../components/ui';
 import './akana.css';
 
 const PROFILE_URL = 'https://cm.pycon.org/akana';
@@ -44,7 +44,7 @@ const PROFILE_LD = {
 
 export default function AkanaPage() {
   return (
-    <>
+    <PageScope name="akana">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PROFILE_LD) }} />
       <PageIntro
         variant="river"
@@ -74,6 +74,6 @@ export default function AkanaPage() {
           </nav>
         </div>
       </PageIntro>
-    </>
+    </PageScope>
   );
 }

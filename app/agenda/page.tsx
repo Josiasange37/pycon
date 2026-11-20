@@ -1,6 +1,7 @@
 import ProgrammeSchedule from '../../components/ProgrammeSchedule';
 import { EDITION_2026 } from '../../content/edition2026';
 import { pageMetadata } from '../../lib/seo';
+import { PageScope } from '../../components/ui';
 import './agenda.css';
 
 export const metadata = pageMetadata({
@@ -12,7 +13,7 @@ export const metadata = pageMetadata({
 
 export default function ProgrammePage() {
   return (
-    <>
+    <PageScope name="agenda">
       <section className="program-hero f-river" aria-labelledby="programme-title">
         <svg className="program-hero__weave" viewBox="0 0 1000 640" fill="none" aria-hidden="true">
           <path className="program-hero__thread program-hero__thread--sun" d="M-18 158C115 36 230 35 340 143s159 128 262 76 184-173 327-98" />
@@ -39,6 +40,6 @@ export default function ProgrammePage() {
           <ProgrammeSchedule />
         </div>
       </section>
-    </>
+    </PageScope>
   );
 }
